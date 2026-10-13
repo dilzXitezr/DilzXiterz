@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DilzNoelz — Cianjur</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0b;--card:#141416;--line:#222225;--text:#f5f5f7;--muted:#8a8a90}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");opacity:0.03;pointer-events:none;z-index:10}
+.glow{position:fixed;width:700px;height:700px;background:radial-gradient(circle at center, #ff3b82 0%, #7c3aed 35%, transparent 70%);filter:blur(90px);opacity:0.25;top:50%;left:50%;transform:translate(-50%,-70%);pointer-events:none;animation:pulse 8s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:translate(-50%,-70%) scale(1)}50%{transform:translate(-50%,-70%) scale(1.1)}}
+.wrap{position:relative;z-index:2;width:100%;max-width:380px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
+.dot{display:flex;align-items:center;gap:8px}
+.dot i{width:6px;height:6px;background:#00ff88;border-radius:50%;box-shadow:0 0 10px #00ff88;display:block;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:28px;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#ffffff22,transparent)}
+.avatar{width:100%;aspect-ratio:4/3;border-radius:20px;background:linear-gradient(135deg,#1a1a1e 0%,#2a2a30 100%);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:22px}
+.avatar span{font-family:'Instrument Serif',serif;font-size:92px;line-height:1;letter-spacing:-4px;background:linear-gradient(180deg,#fff,#999);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.avatar::after{content:"DILZ • CIANJUR";position:absolute;bottom:12px;left:12px;font-size:9px;letter-spacing:0.2em;color:#666;background:#0a0a0b;border:1px solid var(--line);padding:4px 8px;border-radius:100px}
+h1{font-family:'Instrument Serif',serif;font-size:42px;font-weight:400;letter-spacing:-1.5px;line-height:0.9;margin-bottom:8px}
+h1 i{font-style:italic;color:var(--muted);font-weight:400}
+.sub{font-size:14px;color:var(--muted);line-height:1.6;margin:14px 0 22px}
+.sub b{color:var(--text);font-weight:500}
+.links{display:flex;flex-direction:column;gap:10px}
+.btn{display:flex;align-items:center;justify-content:space-between;background:#f5f5f7;color:#0a0a0b;padding:16px 18px;border-radius:14px;text-decoration:none;font-size:14px;font-weight:600;transition:all .2s ease}
+.btn:hover{transform:translateY(-1px);background:#fff}
+.btn.dark{background:#1c1c1f;color:var(--text);border:1px solid var(--line)}
+.btn.dark:hover{background:#232327;border-color:#333}
+.btn .arrow{width:24px;height:24px;border-radius:50%;background:#0a0a0b;color:#fff;display:grid;place-items:center;font-size:12px}
+.btn.dark .arrow{background:#fff;color:#000}
+.meta{margin-top:18px;display:flex;gap:8px}
+.chip{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:6px 10px;border-radius:100px}
+.footer{text-align:center;margin-top:28px;font-size:11px;color:#444;letter-spacing:0.1em}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="wrap">
+<div class="top"><div class="dot"><i></i> Available for work</div><div>©2026</div></div>
+<div class="card">
+<div class="avatar"><span>Dilz</span></div>
+<h1>DilzNoelz <i>—</i></h1>
+<p class="sub">Builder from <b>Cianjur, West Java</b>. Membuat website pertama dengan rasa. Fokus di estetika, detail, dan kecepatan. <br><br>17 y/o • Dreaming big.</p>
+<div class="links">
+<a class="btn" href="#">Explore Work <div class="arrow">↗</div></a>
+<a class="btn dark" href="https://github.com/dilzXitezr">GitHub — @dilzXitezr <div class="arrow">↗</div></a>
+<a class="btn dark" href="#">Instagram <div class="arrow">↗</div></a>
+</div>
+<div class="meta"><div class="chip">Minimal</div><div class="chip">Fast</div><div class="chip">Aesthetic</div></div>
+</div>
+<div class="footer">Built in Cianjur with ♥︎ — 07:07</div>
+</div>
+</body>
+</html>
