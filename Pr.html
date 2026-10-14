@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CBT Wayground + AI V9 - 1 APK Gabungan</title>
+<style>
+body{margin:0;background:#060414;color:#fff;font-family:Arial,sans-serif}
+.header{background:linear-gradient(135deg,#1a237e,#5b7fff);padding:12px;text-align:center;position:sticky;top:0;z-index:100}
+.btn{width:100%;padding:14px;background:#00eaff;color:#000;border:none;border-radius:12px;font-weight:900;font-size:14px;margin:8px 0}
+.card{background:#12102a;margin:10px;border-radius:16px;padding:14px;border:1px solid #2a2870}
+iframe{width:100%;height:65vh;border:none;border-radius:12px;background:#fff}
+.robot{position:fixed;right:14px;bottom:80px;width:64px;height:64px;background:#1a237e;border:3px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#00eaff;font-weight:900;font-size:20px;z-index:9999;box-shadow:0 8px 20px rgba(0,234,255,.6)}
+.bubble{position:fixed;right:14px;bottom:152px;background:#fff;color:#111;padding:8px 10px;border-radius:10px;font-weight:800;font-size:11px;z-index:9999}
+</style>
+</head>
+<body>
+
+<div class="header">
+<b>CBT WAYGROUND + AI V9 - GABUNGAN 1 APK</b><br>
+<small>Soal + Auto Jawab - 1 File - No Pusing</small>
+</div>
+
+<div class="card">
+<b>LANGKAH 1 - BUKA SOAL:</b>
+<!-- GANTI LINK INI PAKE LINK SOAL LU MIN -->
+<iframe id="soalFrame" src="https://wayground.com/join"></iframe>
+<button class="btn" onclick="document.getElementById('soalFrame').src=prompt('Paste link Wayground / Quizizz / CBT soal lu disini:','https://wayground.com/join')">GANTI LINK SOAL</button>
+</div>
+
+<div class="card">
+<b>LANGKAH 2 - AUTO JAWAB:</b>
+<div style="background:#fff;color:#111;padding:12px;border-radius:10px">
+<b>Daily Math Test</b><br><br>
+144 : 12 = ?<br><br>
+A. 10<br>B. 11<br><b id="jawaban">C. 12 - JAWABAN BENAR</b><br>D. 13
+</div>
+<button class="btn" onclick="autoJawab()">TAP AI - AUTO JAWAB</button>
+<div id="hasil" style="background:#00eaff22;padding:10px;border-radius:10px;margin-top:8px;display:none"></div>
+</div>
+
+<div class="robot" onclick="autoJawab()">AI</div>
+<div class="bubble" id="bubble">Tap AI</div>
+
+<script>
+function autoJawab(){
+document.getElementById('bubble').innerText='AI Mikir...';
+setTimeout(()=>{
+document.getElementById('bubble').innerText='12 = C';
+document.getElementById('hasil').style.display='block';
+document.getElementById('hasil').innerHTML='<b>AI JAWAB:</b> 144 : 12 = <b>12</b><br>Pilih <b>C</b><br><br>Rumus: 12 x 12 = 144';
+document.getElementById('jawaban').style.background='#00eaff';
+document.getElementById('jawaban').style.padding='4px';
+},600);
+setTimeout(()=>{document.getElementById('bubble').innerText='Tap AI';},2500);
+}
+</script>
+
+</body>
+</html>
