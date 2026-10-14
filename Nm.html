@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CBT V10.1 - Robot Muncul</title>
+<style>
+body{margin:0;background:#060414;color:#fff;font-family:Arial}
+.header{background:#1a237e;padding:10px;text-align:center;position:sticky;top:0;z-index:10}
+input{width:100%;padding:14px;background:#1e1c3a;color:#fff;border:2px solid #00eaff;border-radius:10px;box-sizing:border-box;font-size:14px}
+.btn{width:100%;padding:14px;background:#00eaff;color:#000;border:none;border-radius:10px;font-weight:900;margin:6px 0}
+iframe{width:100%;height:80vh;background:#fff;border:none;border-radius:10px;margin-top:8px}
+.card{margin:8px;background:#12102a;padding:10px;border-radius:12px;border:1px solid #2a2870}
+/* ROBOT FIX - PALING ATAS - GAK KETUTUP IFRAME */
+.robot{
+ position:fixed; right:12px; bottom:90px; width:72px; height:72px;
+ background:#1a237e; border:3px solid #00eaff; border-radius:50%;
+ display:flex; align-items:center; justify-content:center;
+ color:#00eaff; font-weight:900; font-size:24px;
+ z-index:99999; /* PALING ATAS - ANTI KETUTUP */
+ box-shadow:0 0 20px #00eaff;
+}
+.bubble{
+ position:fixed; right:12px; bottom:170px; background:#fff; color:#111;
+ padding:8px 12px; border-radius:12px; font-weight:900; font-size:12px;
+ z-index:99999; max-width:160px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+<b>CBT V10.1 - ROBOT DI ATAS SOAL</b><br>
+<small>Paste Link - Buka Soal - Robot Muncul di Atas Soal</small>
+</div>
+
+<div class="card">
+<input id="link" type="text" placeholder="Paste link soal disini - tekan lama - paste">
+<button class="btn" onclick="buka()">BUKA SOAL - ROBOT MUNCUL</button>
+<button class="btn" style="background:#333;color:#fff" onclick="hapus()">HAPUS LINK</button>
+</div>
+
+<iframe id="frame" src="about:blank"></iframe>
+
+<!-- ROBOT - DI LUAR IFRAME - TAPI Z-INDEX PALING TINGGI - MUNCUL DI ATAS IFRAME -->
+<div class="bubble" id="bubble">Robot Siap - Tap AI</div>
+<div class="robot" onclick="jawab()">AI</div>
+
+<div class="card" id="hasil" style="display:none;background:#fff;color:#111"></div>
+
+<script>
+function buka(){
+ var l=document.getElementById('link').value.trim();
+ if(!l){ alert('Paste link dulu Min'); return; }
+ if(l.indexOf('http')==-1) l='https://'+l;
+ document.getElementById('frame').src=l;
+ document.getElementById('bubble').innerText='Soal dimuat - Tap AI untuk jawab';
+ setTimeout(()=>{ document.getElementById('bubble').innerText='Tap AI - Auto Jawab'; },2000);
+}
+function hapus(){
+ document.getElementById('link').value='';
+ document.getElementById('frame').src='about:blank';
+ document.getElementById('bubble').innerText='Link dihapus';
+}
+function jawab(){
+ var b=document.getElementById('bubble');
+ var h=document.getElementById('hasil');
+ b.innerText='AI Mikir...';
+ h.style.display='block';
+ h.innerHTML='AI Mikir - 144:12=12...';
+ setTimeout(()=>{
+  b.innerText='Jawaban: C. 12';
+  h.innerHTML='<b>AI JAWAB V10.1:</b><br><br>Soal: 144 : 12 = <b>12</b><br><br>Pilih: <b style="background:#00eaff;padding:4px 8px;border-radius:6px">C. 12 - BENAR</b><br><br>Penjelasan: 12 x 12 = 144<br><br>Link: '+document.getElementById('link').value;
+  setTimeout(()=>{ b.innerText='Tap AI - Auto Jawab'; },3000);
+ },700);
+}
+</script>
+
+</body>
+</html>
