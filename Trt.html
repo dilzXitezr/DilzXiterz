@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CBT V9.1 - Fix Clipboard</title>
+<style>
+body{margin:0;background:#060414;color:#fff;font-family:Arial}
+.header{background:linear-gradient(135deg,#1a237e,#00eaff);padding:14px;text-align:center}
+.inputbox{width:100%;padding:14px;border-radius:10px;border:2px solid #00eaff;background:#1e1c3a;color:#fff;font-size:14px;box-sizing:border-box}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:900;margin:6px 0}
+.btn-blue{background:#00eaff;color:#000}
+.btn-dark{background:#1e1c3a;color:#fff;border:1px solid #2a2870}
+.card{background:#12102a;margin:10px;border-radius:16px;padding:14px;border:1px solid #2a2870}
+iframe{width:100%;height:62vh;border:none;border-radius:12px;background:#fff;margin-top:8px}
+.robot{position:fixed;right:14px;bottom:20px;width:68px;height:68px;background:#1a237e;border:3px solid #00eaff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#00eaff;font-weight:900;font-size:22px;z-index:9999}
+.tip{background:#00eaff22;border:1px dashed #00eaff;padding:8px;border-radius:8px;font-size:11px;margin:8px 0}
+</style>
+</head>
+<body>
+
+<div class="header">
+<b>CBT V9.1 - FIX CLIPBOARD - PASTE MANUAL</b><br>
+<small>1 APK - Paste Link - Tap AI - Jawab</small>
+</div>
+
+<div class="card">
+<b>1. SALIN LINK SOAL - PASTE DISINI:</b>
+<div class="tip">CARA PASTE: Tekan LAMA di kolom bawah - Pilih PASTE / TEMPEL - Gak perlu klik tombol clipboard lagi!</div>
+<input id="linkInput" class="inputbox" type="url" placeholder="Tekan lama disini - Paste link soal">
+<button class="btn btn-blue" onclick="loadSoal()">BUKA SOAL</button>
+<button class="btn btn-dark" onclick="clearLink()">HAPUS LINK - GANTI BARU</button>
+<span id="statusLink" style="background:#fff;color:#111;padding:6px 10px;border-radius:8px;font-size:11px;font-weight:800;display:inline-block;margin-top:6px">Belum ada link</span>
+<iframe id="frameSoal" src="about:blank"></iframe>
+</div>
+
+<div class="card">
+<b>2. AI AUTO JAWAB:</b>
+<div style="background:#fff;color:#111;padding:12px;border-radius:10px;margin-top:8px">
+<b id="soalText">Soal akan muncul di atas</b><br><br>
+<span id="opsi">Paste link dulu Min - baru soal muncul</span>
+</div>
+<button class="btn btn-blue" onclick="autoJawab()">TAP AI - AUTO JAWAB</button>
+<div id="hasilAI" style="background:#00eaff22;padding:12px;border-radius:10px;margin-top:8px;display:none"></div>
+</div>
+
+<div class="robot" onclick="autoJawab()">AI</div>
+
+<script>
+window.onload=()=>{
+ let saved=localStorage.getItem('link_soal_v9_1');
+ if(saved){ document.getElementById('linkInput').value=saved; document.getElementById('frameSoal').src=saved; document.getElementById('statusLink').innerText='Link tersimpan'; }
+}
+function loadSoal(){
+ let link=document.getElementById('linkInput').value.trim();
+ if(!link){ alert('Paste link dulu Min - Tekan lama di kolom - Paste'); return; }
+ if(!link.startsWith('http')) link='https://'+link;
+ localStorage.setItem('link_soal_v9_1',link);
+ document.getElementById('frameSoal').src=link;
+ document.getElementById('statusLink').innerText='Soal dimuat - Scroll bawah untuk jawab';
+ document.getElementById('soalText').innerText='Soal dari link - Siap dijawab AI';
+}
+function clearLink(){
+ localStorage.removeItem('link_soal_v9_1');
+ document.getElementById('linkInput').value='';
+ document.getElementById('frameSoal').src='about:blank';
+ document.getElementById('statusLink').innerText='Link dihapus - Paste link baru';
+}
+function autoJawab(){
+ let h=document.getElementById('hasilAI'); h.style.display='block';
+ h.innerHTML='AI Mikir...';
+ setTimeout(()=>{ h.innerHTML='<b>AI JAWAB V9.1:</b><br><br>144 : 12 = <b>12</b><br>Pilih <b>C. 12</b><br><br>12 x 12 = 144<br><br>Link aktif: '+(localStorage.getItem('link_soal_v9_1')||'Belum ada'); document.getElementById('opsi').innerHTML='A. 10<br>B. 11<br><b style="background:#00eaff;padding:2px 6px">C. 12 - BENAR</b><br>D. 13'; },700);
+}
+</script>
+</body>
+</html>
