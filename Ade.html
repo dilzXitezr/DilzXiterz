@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>dilz gojo livchat — GOJO LIVCHAT</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f5f0e1;color:#111;font-family:'Space Grotesk',sans-serif;max-width:420px;margin:0 auto;position:relative;min-height:100vh;border-left:1px solid #ddd;border-right:1px solid #ddd}
+.top{background:#ffeb00;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:700;border-bottom:2px solid #111;position:sticky;top:0;z-index:20}
+.top b{letter-spacing:1px}
+.search-wrap{padding:10px 12px;background:#f5f0e1}
+.search{width:100%;background:#fff;border:2px solid #111;border-radius:99px;padding:10px 14px;font-size:12px;outline:none;box-shadow:3px 3px 0 #111}
+.chip-bar{display:flex;gap:6px;padding:0 12px 10px;overflow-x:auto;white-space:nowrap}
+.chip{background:#ff2d2d;color:#fff;border:2px solid #111;border-radius:99px;padding:6px 12px;font-size:10px;font-weight:700;box-shadow:2px 2px 0 #111}
+.chip.yellow{background:#ffeb00;color:#111}
+.story-bar{display:flex;gap:12px;padding:10px 12px;overflow-x:auto}
+.story{text-align:center;min-width:52px}
+.story.ava{width:52px;height:52px;border-radius:50%;border:3px solid #ff2d2d;background:#fff;display:grid;place-items:center;font-size:18px;overflow:hidden;box-shadow:2px 2px 0 #111}
+.story.red.ava{border-color:#111;background:#ffeb00}
+.story p{font-size:9px;margin-top:4px;font-weight:600}
+.tabs{display:flex;gap:6px;padding:10px 12px}
+.tab{border:2px solid #111;border-radius:99px;padding:6px 12px;font-size:10px;font-weight:700;box-shadow:2px 2px 0 #111;cursor:pointer}
+.tab.active{background:#ff2d2d;color:#fff}
+.tab:not(.active){background:#fff}
+.chat-list{padding:0 10px 90px}
+.chat-item{background:#fff;border:2px solid #111;border-radius:18px;padding:10px 12px;display:flex;gap:10px;align-items:center;margin-bottom:10px;box-shadow:3px 3px 0 #111;cursor:pointer}
+.chat-item.ava{width:42px;height:42px;border-radius:50%;border:2px solid #111;background:#ffeb00;display:grid;place-items:center;font-weight:700;flex-shrink:0;overflow:hidden}
+.chat-item.info{flex:1;min-width:0}
+.chat-item.name{font-size:12px;font-weight:800;display:flex;gap:4px;align-items:center}
+.chat-item.msg{font-size:10px;opacity:.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.chat-item.time{font-size:9px;opacity:.5}
+.splash{position:fixed;inset:0;background:#f5f0e1;z-index:100;display:grid;place-items:center;text-align:center;transition:.5s}
+.splash.hide{transform:translateY(-100%)}
+.splash.logo{width:120px;height:120px;border-radius:50%;border:4px solid #111;background:#fff;display:grid;place-items:center;font-size:60px;box-shadow:5px 5px 0 #111;margin:0 auto 12px}
+.splash h1{font-size:22px;letter-spacing:3px}
+.splash p{font-size:10px;opacity:.5;letter-spacing:2px;margin-top:4px}
+.loader{width:20px;height:20px;border:3px solid #111;border-top-color:#ff2d2d;border-radius:50%;animation:spin 1s linear infinite;margin:20px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.page{display:none;padding-bottom:90px}
+.page.active{display:block}
+.music-item{background:#111;color:#fff;border-radius:14px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;border:2px solid #111}
+.music-item.t{font-size:11px;font-weight:700}
+.music-item.s{font-size:9px;opacity:.6}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:#fff;border-top:3px solid #111;display:flex;justify-content:space-around;padding:8px 0 10px;z-index:20}
+.bottom div{text-align:center;font-size:9px;font-weight:700;cursor:pointer;opacity:.6}
+.bottom div.active{opacity:1;color:#ff2d2d}
+.bottom span{font-size:20px;display:block}
+.fab{position:fixed;bottom:80px;right:18px;width:52px;height:52px;background:#ff2d2d;border:3px solid #111;border-radius:16px;display:grid;place-items:center;font-size:28px;color:#fff;box-shadow:4px 4px 0 #111;cursor:pointer;z-index:19}
+.msg-wrap{padding:12px;background:#111 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.05"><text x="10" y="20" font-size="20">W</text></svg>');min-height:60vh}
+.bubble{max-width:78%;border:2px solid #111;border-radius:16px;padding:10px 12px;font-size:11px;line-height:1.4;margin-bottom:10px;box-shadow:3px 3px 0 #111}
+.bubble.me{background:#ffeb00;margin-left:auto;border-bottom-right-radius:4px}
+.bubble.bot{background:#fff;margin-right:auto;border-bottom-left-radius:4px}
+.input-bar{position:fixed;bottom:58px;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:#fff;border-top:2px solid #111;padding:8px 10px;display:flex;gap:8px;align-items:center}
+.input-bar input{flex:1;border:2px solid #111;border-radius:99px;padding:10px 14px;font-size:12px;outline:none}
+.btn-dl{width:100%;background:#111;color:#ffeb00;border:2px solid #111;border-radius:12px;padding:12px;font-weight:800;margin:12px 0;cursor:pointer;text-align:center;display:block}
+</style>
+</head>
+<body>
+
+<div id="splash" class="splash">
+<div>
+<div class="logo">😴</div>
+<h1>GOJO LIVCHAT</h1>
+<p>Miwa Chat Experience</p>
+<div class="loader"></div>
+<p style="margin-top:10px;font-size:11px;font-weight:700">dilz gojo livchat v7.0</p>
+</div>
+</div>
+
+<div class="top"><b>GOJO LIVCHAT</b><div style="display:flex;gap:8px"><span>🔍</span><span>⋮</span></div></div>
+
+<!-- PAGE CHAT -->
+<div id="page-chat" class="page active">
+<div class="search-wrap"><input class="search" placeholder="Cari chat, kontak, atau nomor..."></div>
+<div class="chip-bar"><div class="chip">❤️ itzz, eenzz, User, juwita ⭐ Selamat...</div><div class="chip yellow">Selamat datang</div></div>
+<div class="story-bar">
+<div class="story red"><div class="ava">➕</div><p>Story saya</p></div>
+<div class="story"><div class="ava">😎</div><p>ezzz</p></div>
+<div class="story"><div class="ava" style="background:#ffeb00">U</div><p>User</p></div>
+<div class="story"><div class="ava">🧢</div><p>RayzelX</p></div>
+<div class="story"><div class="ava">👧</div><p>Zhaa</p></div>
+</div>
+<div class="tabs">
+<div class="tab active">Semua</div><div class="tab">Pribadi</div><div class="tab">Grup</div><div class="tab">Channel</div>
+</div>
+<div class="chat-list">
+<div class="chat-item" onclick="openMeta()"><div class="ava">+62</div><div class="info"><div class="name">+628786693580</div><div class="msg">BOT MIWA CHAN: JIKA MAU MEMBELI CENTANG BIRU MOH...</div></div><div class="time">11:24</div></div>
+<div class="chat-item" onclick="openMeta()"><div class="ava" style="background:#111;color:#fff">G</div><div class="info"><div class="name">GOJO META AI ⚠️</div><div class="msg">AI sedang sibuk, coba lagi nanti</div></div><div class="time">11:23</div></div>
+<div class="chat-item"><div class="ava">L</div><div class="info"><div class="name">Lactoo</div><div class="msg">BOT MIWA CHAN: JIKA MAU MEMBELI CENTANG BIRU</div></div><div class="time">11:20</div></div>
+<div class="chat-item"><div class="ava" style="background:#ffeb00">d</div><div class="info"><div class="name">dani</div><div class="msg">BOT MIWA CHAN: JIKA MAU MEMBELI CENTANG BIRU</div></div><div class="time">10:58</div></div>
+<button class="btn-dl" onclick="downloadSelf()">⬇️ DOWNLOAD dilz gojo livchat.html — GITHUB FIX</button>
+</div>
+</div>
+
+<!-- PAGE STATUS -->
+<div id="page-status" class="page">
+<div style="padding:12px">
+<h3 style="font-size:14px;margin-bottom:10px">Status</h3>
+<div style="display:flex;gap:10px;overflow-x:auto">
+<div style="min-width:110px;height:140px;background:linear-gradient(#ff2d2d,#111);border:3px solid #111;border-radius:16px;padding:10px;color:#fff;box-shadow:3px 3px 0 #111"><p style="font-size:10px">SILAHKAN UPDATE APK</p><p style="font-size:8px;margin-top:60px">Status saya</p></div>
+<div style="min-width:110px;height:140px;background:linear-gradient(#111,#ffeb00);border:3px solid #111;border-radius:16px;padding:10px;color:#fff;box-shadow:3px 3px 0 #111"><p style="font-size:10px">ezzz</p></div>
+<div style="min-width:110px;height:140px;background:linear-gradient(#555,#111);border:3px solid #111;border-radius:16px;padding:10px;color:#fff;box-shadow:3px 3px 0 #111"><p style="font-size:10px">p toh otiii kan kah?</p><p style="font-size:8px;margin-top:60px">User</p></div>
+</div>
+<h3 style="font-size:14px;margin:16px 0 10px">Saluran <span style="font-size:10px;border:1px solid #111;border-radius:99px;padding:2px 8px;float:right">Jelajahi</span></h3>
+<div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border:2px solid #111;border-radius:14px;padding:10px;margin-bottom:8px;box-shadow:2px 2px 0 #111"><div style="display:flex;gap:8px;align-items:center"><div style="width:32px;height:32px;background:#111;color:#fff;border-radius:50%;display:grid;place-items:center">M</div><div><div style="font-size:11px;font-weight:700">test <span style="background:#ffeb00;border:1px solid #111;border-radius:4px;padding:0 4px;font-size:8px">link</span></div><div style="font-size:9px;opacity:.6">6 pengikut</div></div></div><div style="border:1px solid #111;border-radius:99px;padding:4px 10px;font-size:10px">Ikuti</div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border:2px solid #111;border-radius:14px;padding:10px;margin-bottom:8px;box-shadow:2px 2px 0 #111"><div style="display:flex;gap:8px;align-items:center"><div style="width:32px;height:32px;background:#ffeb00;border-radius:50%;display:grid;place-items:center">👧</div><div><div style="font-size:11px;font-weight:700">INFOMASI NOVAX PROJECT</div><div style="font-size:9px;opacity:.6">15 pengikut</div></div></div><div style="border:1px solid #111;border-radius:99px;padding:4px 10px;font-size:10px">Ikuti</div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border:2px solid #111;border-radius:14px;padding:10px;margin-bottom:8px;box-shadow:2px 2px 0 #111"><div style="display:flex;gap:8px;align-items:center"><div style="width:32px;height:32px;background:#ff2d2d;color:#fff;border-radius:50%;display:grid;place-items:center">✖</div><div><div style="font-size:11px;font-weight:700">don't go out at night</div><div style="font-size:9px;opacity:.6">4 pengikut</div></div></div><div style="border:1px solid #111;border-radius:99px;padding:4px 10px;font-size:10px">Ikuti</div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border:2px solid #111;border-radius:14px;padding:10px;margin-bottom:8px;box-shadow:2px 2px 0 #111"><div style="display:flex;gap:8px;align-items:center"><div style="width:32px;height:32px;background:#ffeb00;border-radius:50%;display:grid;place-items:center">📁</div><div><div style="font-size:11px;font-weight:700">DAN BAGI FILE FREE</div><div style="font-size:9px;opacity:.6">2 pengikut</div></div></div><div style="border:1px solid #111;border-radius:99px;padding:4px 10px;font-size:10px">Ikuti</div></div>
+</div>
+</div>
+
+<!-- PAGE MUSIC -->
+<div id="page-music" class="page">
+<div style="padding:10px">
+<div style="display:flex;gap:6px;overflow-x:auto;margin-bottom:10px">
+<div class="pill" style="background:#111;color:#fff;border:2px solid #111;border-radius:99px;padding:6px 12px;font-size:10px;white-space:nowrap">one the gateway</div>
+<div class="pill" style="background:#fff;border:2px solid #111;border-radius:99px;padding:6px 12px;font-size:10px">tayo viral</div>
+<div class="pill" style="background:#fff;border:2px solid #111;border-radius:99px;padding:6px 12px;font-size:10px">pop indonesia</div>
+</div>
+<div class="music-item"><div><div class="t">DJ ANAK KAMPUNG KERJAKU KERJA MOTO...</div><div class="s">Kendy TT - 8:19</div></div><div>▶️</div></div>
+<div class="music-item"><div><div class="t">DJ NEGRO ANGIN SLOW VIRAL TIKTOK FULL</div><div class="s">Maman Fendy RMX - 6:15</div></div><div>▶️</div></div>
+<div class="music-item"><div><div class="t">DJ APA ARTINYA CINTA - BELUM JUGA KAH</div><div class="s">Picante Funky - 7:27</div></div><div>▶️</div></div>
+<div class="music-item"><div><div class="t">DJ HELIKOPTER TURUN KE PADANG X DJ IDO...</div><div class="s">DJ Yotto Funky - 7:45</div></div><div>▶️</div></div>
+</div>
+</div>
+
+<!-- PAGE META AI -->
+<div id="page-meta" class="page">
+<div class="top" style="background:#ffeb00"><b onclick="backChat()">← GOJO META AI</b><div>📞 🎥</div></div>
+<div class="msg-wrap">
+<div class="bubble bot">GOJO META AI<br>ASK GOJO WHATSAPP<br>1 + 1 =<br><br>Ada yang lain yang bisa saya bantu?<br><br>**Fun Fact:** Meskipun terlihat sederhana, dalam sistem bilangan biner, 1 + 1 = 10 (yang mewakili angka 2 dalam desimal). Ini adalah dasar dari semua komputasi digital!</div>
+<div class="bubble me">budi punya 10 apel di bawa emak 5 sisa brph</div>
+<div class="bubble bot">BUDI PUNYA 10 APEL DI BAWA EMAK 5 SISA BRPH<br><br>## Jawaban<br>Budi memiliki **5 apel** yang tersisa.<br>10 - 5 = 5<br>Budi memiliki **5 apel** yang tersisa.</div>
+<div class="bubble me">3+5=?</div>
+<div class="bubble bot">GOJO META AI<br>1+1=2 wkwk<br>Budi punya 10 apel...</div>
+</div>
+<div class="input-bar"><span>➕</span><input placeholder="Ketik pesan | max 50..."><span>🎤</span></div>
+</div>
+
+<div class="fab" onclick="openMeta()">+</div>
+
+<div class="bottom">
+<div class="active" onclick="showPage('chat')"><span>💬</span>Chat</div>
+<div onclick="showPage('status')"><span>⭕</span>Pembaruan</div>
+<div onclick="showPage('chat')"><span>📞</span>Panggilan</div>
+<div onclick="showPage('music')"><span>🎵</span>Musik</div>
+<div onclick="showPage('status')"><span>👤</span>Profil</div>
+</div>
+
+<script>
+setTimeout(()=>document.getElementById('splash').classList.add('hide'),2200);
+function showPage(p){
+document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+if(p==='chat') document.getElementById('page-chat').classList.add('active');
+if(p==='status') document.getElementById('page-status').classList.add('active');
+if(p==='music') document.getElementById('page-music').classList.add('active');
+document.querySelectorAll('.bottom div').forEach(d=>d.classList.remove('active'));
+if(p==='chat') document.querySelectorAll('.bottom div')[0].classList.add('active');
+if(p==='status') document.querySelectorAll('.bottom div')[1].classList.add('active');
+if(p==='music') document.querySelectorAll('.bottom div')[3].classList.add('active');
+window.scrollTo(0,0);
+}
+function openMeta(){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById('page-meta').classList.add('active');}
+function backChat(){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById('page-chat').classList.add('active');}
+function downloadSelf(){let c=document.documentElement.outerHTML;let b=new Blob([c],{type:'text/html'});let u=URL.createObjectURL(b);let a=document.createElement('a');a.href=u;a.download='dilz-gojo-livchat.html';a.click();URL.revokeObjectURL(u);}
+</script>
+</body>
+</html>
