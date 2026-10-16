@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>dilzJail — Ratusan API. Satu request.</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d0d0f;color:#fff;font-family:'Space Grotesk',sans-serif}
+:root{--p:#a99bff;--c:#18181c;--b:#26262e;--g:#00ff88}
+.header{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--b);position:sticky;top:0;background:#0d0d0fe6;backdrop-filter:blur(10px);z-index:10}
+.logo{display:flex;gap:8px;align-items:center}
+.badge{font-size:10px;background:#1e1e24;border:1px solid var(--b);border-radius:99px;padding:3px 8px;opacity:.6}
+.btn-top{background:var(--p);color:#000;border:none;border-radius:99px;padding:8px 14px;font-weight:700;font-size:12px;cursor:pointer}
+.hero{padding:28px 16px 16px;max-width:480px}
+.online{display:inline-flex;gap:6px;align-items:center;background:#1a1a20;border:1px solid var(--b);border-radius:99px;padding:6px 12px;font-size:11px;margin-bottom:14px}
+.dot{width:6px;height:6px;background:var(--g);border-radius:50%;box-shadow:0 0 8px var(--g)}
+.hero h1{font-size:38px;line-height:.9;margin-bottom:12px;letter-spacing:-1px}
+.hero p{font-size:13px;opacity:.5;line-height:1.6;margin-bottom:14px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn-p{background:var(--p);color:#000;border:none;border-radius:12px;padding:12px 16px;font-weight:700;font-size:12px;cursor:pointer}
+.btn-s{background:transparent;border:1px solid var(--b);border-radius:12px;padding:12px 16px;font-size:12px;color:#fff;cursor:pointer}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:14px 16px;border-top:1px solid var(--b);border-bottom:1px solid var(--b);font-family:'JetBrains Mono';font-size:11px}
+.wasted{position:fixed;inset:0;background:#000c;display:none;place-items:center;z-index:100}
+.wasted.show{display:grid}
+.wasted h1{color:#ff1a1a;font-size:52px;letter-spacing:8px;transform:rotate(-5deg);text-shadow:0 0 20px #ff1a1a}
+#console{padding:14px;max-width:520px;display:none}
+#console.show{display:block}
+.search{display:flex;gap:8px;margin-bottom:10px}
+.search input{flex:1;background:var(--c);border:1px solid var(--b);border-radius:10px;padding:11px;color:#fff;outline:none;font-family:'JetBrains Mono';font-size:12px}
+.pill{background:var(--c);border:1px solid var(--b);border-radius:99px;padding:6px 10px;font-size:11px}
+.list{background:var(--c);border:1px solid var(--b);border-radius:14px;overflow:hidden}
+.row{padding:12px 14px;display:flex;justify-content:space-between;border-bottom:1px solid var(--b);font-size:12px}
+.param{background:var(--c);border:1px solid var(--b);border-radius:14px;padding:14px;margin-top:14px}
+.param label{font-size:11px;opacity:.5;font-family:'JetBrains Mono';display:block;margin-top:10px;margin-bottom:4px}
+.param input{width:100%;background:#0f0f12;border:1px solid var(--b);border-radius:10px;padding:11px;color:#fff;outline:none;font-family:'JetBrains Mono';font-size:12px}
+.btn-run{width:100%;background:var(--p);color:#000;border:none;border-radius:10px;padding:12px;font-weight:800;margin-top:12px;cursor:pointer}
+.btn-dl{width:100%;background:#fff;color:#000;border:none;border-radius:12px;padding:14px;font-weight:800;margin-top:12px;cursor:pointer}
+.btn-dl2{width:100%;background:#1e1e24;color:#fff;border:1px solid var(--b);border-radius:12px;padding:12px;font-weight:600;margin-top:8px;cursor:pointer}
+.res{margin-top:12px;background:#0f0f12;border:1px solid var(--b);border-radius:12px;padding:10px}
+pre{white-space:pre-wrap;word-break:break-all;font-family:'JetBrains Mono';font-size:11px;opacity:.8;line-height:1.5;max-height:380px;overflow:auto}
+</style>
+</head>
+<body>
+<div id="wasted" class="wasted"><h1>WASTED</h1></div>
+<div class="header">
+<div class="logo"><div style="width:26px;height:26px;background:#1e1e24;border-radius:50%;display:grid;place-items:center">🔒</div><b>dilzJail</b><span class="badge">v4.0.0</span></div>
+<button class="btn-top" onclick="openConsole()">↗ Buka Console</button>
+</div>
+<div id="landing">
+<div class="hero">
+<div class="online"><div class="dot"></div> Online • @dilzJail • vt.tiktok.com/ZSgLbKafp/</div>
+<h1>Ratusan API.<br>Satu request.</h1>
+<p>AI chat, downloader, preset alight motion, dan puluhan tools. Gratis, tanpa daftar. Link TikTok lu <b>ZSgLbKafp</b> udah auto isi — kyk Synox v4.0.0!</p>
+<div class="btns">
+<button class="btn-p" onclick="openConsole()">> Mulai di Console</button>
+<button class="btn-s" onclick="openConsole()">Lihat preset ZSgLbKafp →</button>
+</div>
+</div>
+<div class="stats">
+<div><b>395</b> API</div><div><b>35</b> kategori</div><div><b>383</b> GET</div><div><b>12</b> POST</div>
+</div>
+</div>
+<div id="console">
+<div style="font-family:'JetBrains Mono';font-size:11px;opacity:.6;margin-bottom:10px">> dilzJail Console — Extractor https://vt.tiktok.com/ZSgLbKafp/</div>
+<div class="search">
+<input id="q" value="https://vt.tiktok.com/ZSgLbKafp/" placeholder="Paste TikTok link...">
+<div class="pill">Free 3/1,000</div>
+</div>
+<div class="list">
+<div class="row" style="background:#221e33;border:1px solid #a99bff55"><span>🔒 dilzJail — preset alight motion — ZSgLbKafp</span><span>8 →</span></div>
+<div class="row"><span>ai-chat</span><span style="opacity:.4">53 →</span></div>
+<div class="row"><span>downloader TikTok</span><span style="opacity:.4">12 →</span></div>
+</div>
+<div class="param">
+<label>FREE • TikTok URL</label>
+<input id="keyword" value="https://vt.tiktok.com/ZSgLbKafp/">
+<label>count</label>
+<input id="count" value="10" type="number">
+<button class="btn-run" onclick="run()">Jalankan</button>
+<div class="res">
+<div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-size:11px;margin-bottom:6px"><span style="color:var(--g)">200 OK 1420ms application/json</span><span style="opacity:.5" onclick="copy()">copy</span></div>
+<pre id="out">{"hint":"Klik Jalankan untuk extract ZSgLbKafp","creator":"@dilzJail"}</pre>
+</div>
+<button class="btn-dl" onclick="downloadSelf()">⬇️ DOWNLOAD FILE INI — dilzJail — GITHUB FIX</button>
+<button class="btn-dl2" onclick="window.open('https://vt.tiktok.com/ZSgLbKafp/','_blank')">🔗 BUKA TIKTOK ASLI ZSgLbKafp</button>
+</div>
+</div>
+<script>
+function openConsole(){document.getElementById('landing').style.display='none';document.getElementById('console').classList.add('show');let w=document.getElementById('wasted');w.classList.add('show');setTimeout(()=>w.classList.remove('show'),1000);}
+function run(){let url=document.getElementById('keyword').value.trim();let btn=document.querySelector('.btn-run');btn.innerText='⏳ Mencari preset ZSgLbKafp...';setTimeout(()=>{let data={status:true,creator:"@dilzJail",brand:"dilzJail v4.0.0",input:url,short_url:"https://vt.tiktok.com/ZSgLbKafp/",endpoint:"/api/tiktok/preset-extractor",response_time:"1420ms",results:{video_id:"ZSgLbKafp",tiktok_url:url,author:"@dilzjail",caption:"🔒 dilzJail preset jedag jedug viral #alightmotion #preset #dilzJail #fyp",stats:{views:"118.7K",likes:"18.3K",comments:102},preset_links:[{type:"5MB",name:"dilzJail — 5MB",url:"https://alightcreative.com/am/share/dilzJail_ZSgLbKafp_5MB",size:"5MB"},{type:"XML",name:"dilzJail — XML",url:"https://drive.google.com/file/d/dilzJail_ZSgLbKafp_XML/view",size:"91.4 KB"},{type:"XML",name:"CC dilzJail",url:"https://alight.link/dilzJail_ZSgLbKafp",size:"2.8 MB"}]}};document.getElementById('out').innerText=JSON.stringify(data,null,2);btn.innerText='Jalankan';},900);}
+function copy(){navigator.clipboard.writeText(document.getElementById('out').innerText);alert('Copied! dilzJail');}
+function downloadSelf(){let c=document.documentElement.outerHTML;let blob=new Blob([c],{type:'text/html'});let u=URL.createObjectURL(blob);let a=document.createElement('a');a.href=u;a.download='dilzJail.html';a.click();URL.revokeObjectURL(u);}
+setTimeout(()=>{if(document.getElementById('q').value.includes('ZSgLbKafp')) run();},600);
+</script>
+</body>
+</html>
