@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>DilzNoelz — Web Teman Cipanengah</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:#060608;color:#fff;max-width:440px;margin:0 auto;min-height:100vh;position:relative;overflow-x:hidden}
+.top{position:sticky;top:0;z-index:30;background:rgba(6,6,8,0.85);backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,0.06);padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;gap:10px;align-items:center}
+.logo-v{width:38px;height:38px;border-radius:50%;overflow:hidden;border:2px solid #fff;box-shadow:0 0 20px rgba(255,255,255,0.3);background:#000}
+.logo-v video{width:100%;height:100%;object-fit:cover}
+.page{display:none;padding-bottom:100px;animation:fadeIn .3s}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+.bottom{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:380px;background:rgba(18,18,22,0.92);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.08);border-radius:22px;display:flex;justify-content:space-around;padding:6px;z-index:40;box-shadow:0 20px 50px rgba(0,0,0,0.5)}
+.b-item{flex:1;text-align:center;padding:8px 4px;border-radius:14px;cursor:pointer;opacity:.5;transition:.2s;font-size:9px;font-weight:700}
+.b-item.active{opacity:1;background:#fff;color:#000}
+.b-item span{font-size:18px;display:block;margin-bottom:2px}
+.card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:16px;margin:10px 14px;cursor:pointer;transition:.2s}
+.card:active{transform:scale(.98)}
+.card-white{background:#fff;color:#000;border-radius:24px;padding:20px;margin:12px;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
+.input{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 14px;color:#fff;outline:none;font-size:13px;margin-top:8px}
+.input:focus{border-color:#fff}
+.btn{width:100%;background:#fff;color:#000;border:none;border-radius:12px;padding:12px;font-weight:800;font-size:13px;cursor:pointer;margin-top:10px}
+.btn-dark{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.1)}
+.badge{font-size:9px;background:#fff;color:#000;border-radius:99px;padding:3px 8px;font-weight:800}
+.weather{display:flex;gap:10px;margin-top:10px}
+.w-item{flex:1;background:rgba(255,255,255,0.05);border-radius:14px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,0.06)}
+.w-item.active{border-color:#fff;background:rgba(255,255,255,0.1)}
+.chat-box{background:rgba(0,0,0,0.3);border-radius:16px;padding:12px;height:220px;overflow-y:auto;margin-top:10px;border:1px solid rgba(255,255,255,0.06)}
+.msg{margin-bottom:8px;font-size:12px;line-height:1.4}
+.msg b{font-size:11px;opacity:.6;display:block}
+.splash{position:fixed;inset:0;background:#000;z-index:100;display:flex;align-items:center;justify-content:center;transition:.7s}
+.splash.hide{transform:translateY(-100%)}
+.splash video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.5);opacity:.6}
+.splash-content{position:relative;z-index:2;text-align:center}
+</style>
+</head>
+<body>
+
+<div id="splash" class="splash">
+<video autoplay muted loop playsinline><source src="eye.mp4" type="video/mp4"></video>
+<div class="splash-content">
+<div style="width:80px;height:80px;border-radius:50%;overflow:hidden;border:3px solid #fff;margin:0 auto 14px;box-shadow:0 0 30px #fff"><video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"><source src="logo.mp4" type="video/mp4"></video></div>
+<h2 style="font-weight:900;letter-spacing:-1px">DilzNoelz</h2>
+<p style="font-size:11px;opacity:.6;letter-spacing:2px;margin-top:4px">CIPANENGAH • TEMAN</p>
+<p style="font-size:10px;background:#fff;color:#000;border-radius:99px;padding:4px 10px;margin-top:10px;display:inline-block;font-weight:800">Rakaz • Ainanz • Pembuat Web DilzNoelz</p>
+</div>
+</div>
+
+<div class="top">
+<div class="logo"><div class="logo-v"><video autoplay muted loop playsinline><source src="logo.mp4" type="video/mp4"></video></div><div><div style="font-weight:900;font-size:14px">DilzNoelz</div><div style="font-size:9px;opacity:.5">Cipanengah • Tools • Teman</div></div></div>
+<span class="badge" id="battBadge">🔋 100%</span>
+</div>
+
+<!-- HOME / TOOLS -->
+<div id="page-home" class="page active">
+<div class="card-white">
+<div style="display:flex;justify-content:space-between;align-items:center"><h3 style="font-weight:900;color:#000;font-size:16px">Halo, <span id="greetName">DilzNoelz</span> 👋</h3><span class="badge" style="background:#000;color:#fff">Cipanengah</span></div>
+<p style="font-size:11px;opacity:.5;color:#000;margin-top:4px">Pembuat web: DilzNoelz • Teman: Rakaz, Ainanz</p>
+
+<!-- CUACA -->
+<div style="margin-top:14px"><div style="font-size:12px;font-weight:800;color:#000">🌤️ Cuaca Cipanengah</div>
+<div class="weather">
+<div class="w-item active" onclick="setCuaca('panas')"><div style="font-size:18px">☀️</div><div style="font-size:11px;font-weight:700;color:#000;margin-top:4px">Panas</div><div style="font-size:10px;opacity:.5;color:#000">32°C</div></div>
+<div class="w-item" onclick="setCuaca('hangat')"><div style="font-size:18px">⛅</div><div style="font-size:11px;font-weight:700;color:#000;margin-top:4px">Hangat</div><div style="font-size:10px;opacity:.5;color:#000">26°C</div></div>
+<div class="w-item" onclick="setCuaca('dingin')"><div style="font-size:18px">❄️</div><div style="font-size:11px;font-weight:700;color:#000;margin-top:4px">Dingin</div><div style="font-size:10px;opacity:.5;color:#000">18°C</div></div>
+</div>
+<p style="font-size:10px;opacity:.4;color:#000;margin-top:8px" id="cuacaInfo">Hari ini di Cipanengah: Panas — cocok ngaji sore</p>
+</div>
+
+<!-- BATERAI -->
+<div style="margin-top:14px;background:#f5f5f5;border-radius:14px;padding:12px"><div style="display:flex;justify-content:space-between"><span style="font-size:12px;font-weight:700;color:#000">🔋 Baterai</span><span style="font-size:12px;font-weight:800;color:#000" id="battText">Penuh — 100%</span></div><div style="height:8px;background:#ddd;border-radius:99px;margin-top:8px;overflow:hidden"><div id="battBar" style="width:100%;height:100%;background:#000;border-radius:99px;transition:.5s"></div></div><div style="display:flex;gap:6px;margin-top:8px"><button class="btn btn-dark" style="background:#000;color:#fff;padding:8px;font-size:11px" onclick="setBatt(100)">Penuh</button><button class="btn btn-dark" style="background:#fff;color:#000;border:1px solid #ddd;padding:8px;font-size:11px" onclick="setBatt(50)">Setengah</button><button class="btn btn-dark" style="background:#fff;color:#000;border:1px solid #ddd;padding:8px;font-size:11px" onclick="setBatt(15)">Sedikit</button></div></div>
+
+<!-- WAKTU NGAJI -->
+<div style="margin-top:12px;background:#000;color:#fff;border-radius:14px;padding:12px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:12px;font-weight:800">📖 Waktu Mengaji</div><div style="font-size:10px;opacity:.6">06:00 - 08:30 WIB</div></div><div style="text-align:right"><div style="font-size:12px;font-weight:800" id="ngajiStatus">Akan dimulai</div><div style="font-size:10px;opacity:.6" id="ngajiTime">--:--</div></div></div>
+</div>
+
+<div style="padding:0 2px">
+<div class="card" onclick="showPage('profil')"><div style="display:flex;justify-content:space-between"><span style="font-weight:700">👤 Profil Teman</span><span style="opacity:.3">›</span></div><div style="font-size:11px;opacity:.5;margin-top:4px">DilzNoelz, Rakaz, Ainanz • Kampung Cipanengah • Sekolah isi sendiri</div></div>
+<div class="card" onclick="showPage('ustadz')"><div style="display:flex;justify-content:space-between"><span style="font-weight:700">🕌 Tanya Ustadz / Ustazah</span><span style="opacity:.3">›</span></div><div style="font-size:11px;opacity:.5">Tanya soal agama, ngaji, adab — auto jawab</div></div>
+<div class="card" onclick="showPage('chatteman')"><div style="display:flex;justify-content:space-between"><span style="font-weight:700">💬 Chat Khusus Teman</span><span style="opacity:.3">›</span></div><div style="font-size:11px;opacity:.5">Chat private untuk Rakaz & Ainanz doang</div></div>
+<div class="card" onclick="showPage('chatmeta')"><div style="display:flex;justify-content:space-between"><span style="font-weight:700">🤖 Chat Meta AI — kyk gue</span><span style="opacity:.3">›</span></div><div style="font-size:11px;opacity:.5">AI yang jawab kyk gue — DilzNoelz assistant</div></div>
+</div>
+</div>
+
+<!-- PROFIL -->
+<div id="page-profil" class="page">
+<div style="padding:14px">
+<h3 style="font-weight:900">👤 Profil — Cipanengah</h3>
+
+<div style="margin-top:12px;background:#fff;color:#000;border-radius:20px;padding:16px">
+<div style="display:flex;gap:12px;align-items:center"><div style="width:60px;height:60px;border-radius:50%;overflow:hidden;border:2px solid #000"><video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"><source src="logo.mp4" type="video/mp4"></video></div><div><div style="font-weight:900">DilzNoelz</div><div style="font-size:11px;opacity:.5">Pembuat Web • Cipanengah</div><div style="font-size:10px;background:#000;color:#fff;border-radius:99px;padding:2px 8px;display:inline-block;margin-top:4px">Owner</div></div></div>
+<label style="font-size:11px;opacity:.5;margin-top:12px;display:block;color:#000">Nama Sekolah — isi sendiri</label>
+<input class="input" id="sekolah1" style="color:#000;background:#f5f5f5;border-color:#ddd" placeholder="Contoh: SMPN 1 Cianjur" oninput="saveSekolah()">
+</div>
+
+<div style="margin-top:10px;background:rgba(255,255,255,0.05);border-radius:20px;padding:16px;border:1px solid rgba(255,255,255,0.07)">
+<div style="display:flex;gap:12px;align-items:center"><div style="width:48px;height:48px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-weight:800">R</div><div><div style="font-weight:800">Rakaz</div><div style="font-size:11px;opacity:.5">Teman • Cipanengah</div></div></div>
+<input class="input" id="sekolah2" placeholder="Sekolah Rakaz — isi sendiri">
+</div>
+
+<div style="margin-top:10px;background:rgba(255,255,255,0.05);border-radius:20px;padding:16px;border:1px solid rgba(255,255,255,0.07)">
+<div style="display:flex;gap:12px;align-items:center"><div style="width:48px;height:48px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-weight:800">A</div><div><div style="font-weight:800">Ainanz</div><div style="font-size:11px;opacity:.5">Teman • Cipanengah</div></div></div>
+<input class="input" id="sekolah3" placeholder="Sekolah Ainanz — isi sendiri">
+</div>
+
+<div style="margin-top:12px;background:rgba(255,255,255,0.03);border-radius:16px;padding:12px">
+<div style="font-size:12px;font-weight:700">📍 Kampung: Cipanengah</div>
+<div style="font-size:11px;opacity:.5;margin-top:4px">Desa Cipanengah, Cianjur — tempat ngaji 06:00-08:30 WIB — cuaca bisa panas, hangat, dingin — logo Gojo putih dari video yang lu kasih</div>
+</div>
+</div>
+</div>
+
+<!-- USTADZ -->
+<div id="page-ustadz" class="page">
+<div style="padding:14px">
+<h3 style="font-weight:900">🕌 Tanya Ustadz & Ustazah</h3>
+<div class="chat-box" id="ustadzChat"><div class="msg"><b>Ustadz Cipanengah</b>Assalamualaikum, DilzNoelz, Rakaz, Ainanz — mau tanya apa hari ini? Soal ngaji jam 6 pagi, adab, sholat, bisa tanya di sini 🙏</div></div>
+<input class="input" id="ustadzInput" placeholder="Tulis pertanyaan — contoh: ustadz kapan waktu ngaji?" onkeydown="if(event.key==='Enter') askUstadz()">
+<button class="btn" onclick="askUstadz()">Kirim ke Ustadz</button>
+<div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+<button class="btn btn-dark" style="width:auto;padding:8px 12px;font-size:11px" onclick="quickUstadz('Waktu mengaji jam berapa?')">Waktu Ngaji</button>
+<button class="btn btn-dark" style="width:auto;padding:8px 12px;font-size:11px" onclick="quickUstadz('Doa sebelum belajar?')">Doa Belajar</button>
+<button class="btn btn-dark" style="width:auto;padding:8px 12px;font-size:11px" onclick="quickUstadz('Hukum main HP pas ngaji?')">Adab Ngaji</button>
+</div>
+</div>
+</div>
+
+<!-- CHAT TEMAN -->
+<div id="page-chatteman" class="page">
+<div style="padding:14px">
+<h3 style="font-weight:900">💬 Chat Khusus Teman</h3>
+<p style="font-size:11px;opacity:.5">Private chat — hanya DilzNoelz, Rakaz, Ainanz</p>
+<div style="display:flex;gap:6px;margin-top:10px">
+<button class="btn btn-dark" style="width:auto;padding:6px 10px;font-size:11px" id="btnDilz" onclick="setChatUser('DilzNoelz')">DilzNoelz</button>
+<button class="btn btn-dark" style="width:auto;padding:6px 10px;font-size:11px" id="btnRakaz" onclick="setChatUser('Rakaz')">Rakaz</button>
+<button class="btn btn-dark" style="width:auto;padding:6px 10px;font-size:11px" id="btnAinanz" onclick="setChatUser('Ainanz')">Ainanz</button>
+</div>
+<div class="chat-box" id="temanChat"><div class="msg"><b>DilzNoelz</b>Yo Rakaz, Ainanz — web kita udah jadi! Cipanengah ganteng! 😎</div></div>
+<input class="input" id="temanInput" placeholder="Chat sebagai DilzNoelz..." onkeydown="if(event.key==='Enter') sendTeman()">
+<button class="btn" onclick="sendTeman()">Kirim ke Teman</button>
+</div>
+</div>
+
+<!-- CHAT META AI -->
+<div id="page-chatmeta" class="page">
+<div style="padding:14px">
+<h3 style="font-weight:900">🤖 Chat Meta AI — kyk gue min</h3>
+<p style="font-size:11px;opacity:.5">AI assistant untuk DilzNoelz, Rakaz, Ainanz — jawab kayak gue</p>
+<div class="chat-box" id="metaChat"><div class="msg"><b>Meta AI — DilzNoelz</b>Hai DilzNoelz, Rakaz, Ainanz! Gue AI versi Cipanengah — mau bikin apa? Tanya tools, cuaca, baterai, ngaji jam 6 pagi, semua bisa 😎</div></div>
+<input class="input" id="metaInput" placeholder="Tanya AI — kyk chat sama gue..." onkeydown="if(event.key==='Enter') sendMeta()">
+<button class="btn" onclick="sendMeta()">Kirim ke Meta AI</button>
+</div>
+</div>
+
+<!-- TOOLS -->
+<div id="page-tools" class="page">
+<div style="padding:14px">
+<h3 style="font-weight:900">🛠️ Tools — Cipanengah</h3>
+<div class="card" onclick="alert('Preset Extractor — coming soon — DilzNoelz')"><div style="font-weight:700">🎨 Preset Extractor — DilzNoelz</div><div style="font-size:11px;opacity:.5">Ambil preset foto teman</div></div>
+<div class="card" onclick="alert('QR Generator — QR buat link Cipanengah')"><div style="font-weight:700">🔳 QR Generator</div><div style="font-size:11px;opacity:.5">Bikin QR dari link TikTok teman</div></div>
+<div class="card" onclick="alert('Jam Ngaji Timer — 06:00-08:30 WIB')"><div style="font-weight:700">⏰ Timer Ngaji — 06:00-08:30 WIB</div><div style="font-size:11px;opacity:.5" id="toolNgaji">Status: cek home</div></div>
+<div class="card"><div style="font-weight:700">🏫 Sekolah Checker</div><div style="font-size:11px;opacity:.5">Sekolah lu: <span id="sekolahDisplay">belum diisi</span></div></div>
+</div>
+</div>
+
+<div class="bottom">
+<div class="b-item active" id="nav-home" onclick="showPage('home')"><span>🏠</span>Home</div>
+<div class="b-item" id="nav-profil" onclick="showPage('profil')"><span>👥</span>Profil</div>
+<div class="b-item" id="nav-chatteman" onclick="showPage('chatteman')"><span>💬</span>Teman</div>
+<div class="b-item" id="nav-chatmeta" onclick="showPage('chatmeta')"><span>🤖</span>Meta AI</div>
+<div class="b-item" id="nav-tools" onclick="showPage('tools')"><span>🛠️</span>Tools</div>
+</div>
+
+<script>
+setTimeout(()=>document.getElementById('splash').classList.add('hide'),2600);
+let currentUser="DilzNoelz";
+let cuaca="panas";
+function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.b-item').forEach(x=>x.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');document.getElementById('nav-'+p).classList.add('active');window.scrollTo(0,0);}
+function setCuaca(t){cuaca=t;document.querySelectorAll('.w-item').forEach(e=>e.classList.remove('active'));event.currentTarget.classList.add('active');let txt={panas:"Panas — 32°C — cocok main sore di Cipanengah",hangat:"Hangat — 26°C — enak buat ngaji jam 6 pagi",dingin:"Dingin — 18°C — pake jaket ngaji di Cipanengah"};document.getElementById('cuacaInfo').innerText="Hari ini di Cipanengah: "+txt[t];}
+function setBatt(v){document.getElementById('battBar').style.width=v+'%';let status=v>=80?'Penuh':v>=30?'Setengah':'Sedikit';document.getElementById('battText').innerText=status+' — '+v+'%';document.getElementById('battBadge').innerText=(v>=80?'🔋':v>=30?'🔋':'🪫')+' '+v+'%';document.getElementById('battBar').style.background=v>=80?'#00ff88':v>=30?'#ffeb00':'#ff3b30';}
+if(navigator.getBattery){navigator.getBattery().then(b=>{let pct=Math.round(b.level*100);setBatt(pct);});}
+function saveSekolah(){let s1=document.getElementById('sekolah1').value;document.getElementById('sekolahDisplay').innerText=s1||'belum diisi';document.getElementById('greetName').innerText=document.getElementById('sekolah1').value? 'DilzNoelz' : 'DilzNoelz';localStorage.setItem('sekolah1',s1);}
+function setChatUser(u){currentUser=u;document.getElementById('temanInput').placeholder='Chat sebagai '+u+'...';['Dilz','Rakaz','Ainanz'].forEach(n=>{let btn=document.getElementById('btn'+n);if(btn) btn.style.background='rgba(255,255,255,0.08)';});let active=document.getElementById('btn'+u);if(active) active.style.background='#fff';}
+function sendTeman(){let input=document.getElementById('temanInput');let txt=input.value.trim();if(!txt) return;let box=document.getElementById('temanChat');box.innerHTML+='<div class=msg><b>'+currentUser+'</b>'+txt+'</div>';input.value='';box.scrollTop=box.scrollHeight;}
+function askUstadz(){let input=document.getElementById('ustadzInput');let q=input.value.trim();if(!q) return;let box=document.getElementById('ustadzChat');box.innerHTML+='<div class=msg><b>Kamu</b>'+q+'</div>';let ans=getUstadzAnswer(q);setTimeout(()=>{box.innerHTML+='<div class=msg><b>Ustadz Cipanengah</b>'+ans+'</div>';box.scrollTop=box.scrollHeight;},600);input.value='';box.scrollTop=box.scrollHeight;}
+function quickUstadz(q){document.getElementById('ustadzInput').value=q;askUstadz();}
+function getUstadzAnswer(q){q=q.toLowerCase();if(q.includes('ngaji')||q.includes('jam')) return 'Waktu mengaji kita di Cipanengah jam 06:00 - 08:30 WIB ya, DilzNoelz. Jangan telat, datang 10 menit sebelum, bawa Al-Quran, wudhu dulu. Kalau Rakaz & Ainanz telat, kasih tau ustadz 🙏';if(q.includes('doa')) return 'Doa sebelum belajar: Allahumma inni as-aluka fahmal-nabiyin, wa hifzhal mursalin... Dibaca sebelum ngaji jam 6 pagi, biar berkah. DilzNoelz, Rakaz, Ainanz hafalin ya.';if(q.includes('hp')||q.includes('main')) return 'Adab ngaji: HP silent, jangan main HP pas ustadz menjelaskan. Kalau penting, izin dulu. Kita di Cipanengah jaga adab ya.';return 'MasyaAllah pertanyaan bagus dari '+currentUser+' — soal "'+q+'" — di Cipanengah kita biasakan tanya dengan adab, insyaAllah berkah. Kalau soal ngaji jam 6 pagi, jangan lupa datang tepat waktu ya 🙏';}
+function sendMeta(){let input=document.getElementById('metaInput');let txt=input.value.trim();if(!txt) return;let box=document.getElementById('metaChat');box.innerHTML+='<div class=msg><b>'+currentUser+'</b>'+txt+'</div>';let reply=getMetaReply(txt);setTimeout(()=>{box.innerHTML+='<div class=msg><b>Meta AI — DilzNoelz</b>'+reply+'</div>';box.scrollTop=box.scrollHeight;},500);input.value='';box.scrollTop=box.scrollHeight;}
+function getMetaReply(q){q=q.toLowerCase();if(q.includes('cuaca')) return 'Cuaca di Cipanengah sekarang: '+cuaca+' — cek di Home, bisa ganti panas/dingin/hangat. Kalau panas jangan lupa minum, kalau dingin pake jaket ngaji 😎';if(q.includes('baterai')||q.includes('batrai')) return 'Baterai lu sekarang '+document.getElementById('battText').innerText+' — kalau sedikit jangan lupa cas sebelum ngaji jam 6 pagi, biar gak mati pas dicatet ustadz.';if(q.includes('sekolah')) return 'Nama sekolah bisa lu isi di Profil — DilzNoelz, Rakaz, Ainanz masing-masing isi sendiri. Nanti auto ke-save.';if(q.includes('ngaji')) return 'Ngaji kita 06:00-08:30 WIB di Cipanengah — timer ada di Home, gue ingetin 5 menit sebelum mulai. Jangan telat ya!';if(q.includes('teman')||q.includes('rakaz')||q.includes('ainanz')) return 'Chat teman ada di tab Teman — private buat DilzNoelz, Rakaz, Ainanz doang — kayak grup WA tapi khusus kita bertiga.';return 'Oke min, lu nanya "'+q+'" — gue jawab kyk Meta AI Cipanengah: buat web teman DilzNoelz, Rakaz, Ainanz, semua fitur tools, cuaca, baterai, tanya ustadz udah ada. Mau gue tambahin fitur apa lagi?';}
+setInterval(()=>{let now=new Date();let wib=new Date(now.toLocaleString('en-US',{timeZone:'Asia/Jakarta'}));let h=wib.getHours();let m=wib.getMinutes();let timeStr=(h<10?'0':'')+h+':'+(m<10?'0':'')+m;document.getElementById('ngajiTime').innerText=timeStr+' WIB';let inNgaji=h>=6 && (h<8 || (h===8 && m<=30));document.getElementById('ngajiStatus').innerText=inNgaji?'🔴 Sedang Ngaji':'Akan dimulai';document.getElementById('toolNgaji').innerText=inNgaji?'Sedang berlangsung — 06:00-08:30':'Belum mulai — '+timeStr;},1000);
+setChatUser('DilzNoelz');
+</script>
+</body>
+</html>
