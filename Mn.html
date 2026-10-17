@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DILZ TOOLS V4 - GERAK</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#07070e;color:#fff;overflow-x:hidden}
+.hero{height:300px;position:relative;overflow:hidden;background:#000}
+.hero video{width:100%;height:100%;object-fit:cover;object-position:center top;filter:contrast(1.2) brightness(0.9)}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#07070e 15%,rgba(7,7,14,0) 60%),radial-gradient(circle at center,#ff000020 0%,transparent 70%);animation:flicker 3s infinite}
+@keyframes flicker{0%,100%{opacity:1}50%{opacity:.8}}
+.eyeGlow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,transparent 40%,#ff1a5a30 70%);box-shadow:0 0 60px #ff1a5a,0 0 120px #8b5cf6;animation:pulse 2s infinite;pointer-events:none}
+@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.6}50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}}
+.info{position:absolute;bottom:60px;left:12px;z-index:3;display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-size:9px;padding:5px 9px;border-radius:99px;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(10px);animation:float 3s infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+.title{position:absolute;bottom:14px;left:12px;z-index:3;font-family:Orbitron;font-weight:900;font-size:19px;color:#ff2a6d;text-shadow:0 0 20px #ff2a6d,0 0 40px #8b5cf6;letter-spacing:1px;animation:glowText 2s infinite}
+@keyframes glowText{0%,100%{text-shadow:0 0 20px #ff2a6d}50%{text-shadow:0 0 30px #ff2a6d,0 0 60px #8b5cf6}}
+.tabs{display:flex;gap:6px;padding:10px;background:#0c0c14;overflow:auto}
+.t{padding:8px 14px;border-radius:99px;border:1px solid #2a2a3a;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;opacity:.5;transition:.2s}
+.t.on{background:#fff;color:#000;opacity:1;box-shadow:0 0 15px rgba(255,255,255,.3)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.card{background:linear-gradient(180deg,#151525,#0e0e1a);border:1px solid #2a2a4a;border-radius:16px;padding:12px;cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-2px);border-color:#ff2a6d;box-shadow:0 10px 30px rgba(255,42,109,.2)}
+.card b{font-size:12px}
+.card p{font-size:9px;opacity:.5;margin-top:3px}
+.m{position:fixed;inset:0;background:#05050a;z-index:99;display:none;flex-direction:column}
+.m.show{display:flex}
+.mh{height:52px;display:flex;justify-content:space-between;align-items:center;padding:0 12px;border-bottom:1px solid #222;background:#0a0a14}
+.mb{flex:1;overflow:auto;padding:12px}
+.in{width:100%;padding:12px;border-radius:12px;border:1px solid #333;background:#14141f;color:#fff;margin-top:8px}
+.btn{width:100%;padding:12px;border-radius:12px;border:none;font-weight:800;margin-top:10px;cursor:pointer}
+.btnR{background:linear-gradient(90deg,#ff2a6d,#8b5cf6);color:#fff;box-shadow:0 0 20px rgba(255,42,109,.4)}
+.btnW{background:#fff;color:#000}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="hero">
+<video autoplay muted loop playsinline id="heroVideo">
+<source src="gojo.mp4" type="video/mp4">
+</video>
+<div class="eyeGlow"></div>
+<div class="info"><div class="chip">📍 Indonesia</div><div class="chip">📱 Android</div><div class="chip">🌐 Opera</div><div class="chip">🟢 Online</div><div class="chip">🔋 91% • VVIP</div></div>
+<div class="title">❄️ DILZ TOOLS NEXUS • GERAK</div>
+</div>
+
+<div class="tabs"><div class="t on">♾️ All</div><div class="t">⬇️ Downloader</div><div class="t">🛠️ Maker</div><div class="t">⚙️ Tools</div></div>
+
+<div class="grid">
+<div class="card" onclick="openTik()"><b>🎵 TikTok - SSSTikTok</b><p>Video tanpa watermark - GERAK WORK</p></div>
+<div class="card" onclick="openTik()"><b>📸 Instagram</b><p>Reels & Foto</p></div>
+<div class="card" onclick="openTik()"><b>☁️ Media Downloader</b><p>All platform</p></div>
+<div class="card"><b>📚 Komik</b><p>Nexus Komik</p></div>
+</div>
+
+<div class="m" id="m-tiktok"><div class="mh"><b>💜 TIKTOK ROOM - SSSTIKTOK GERAK</b><span onclick="closeM()" style="cursor:pointer">✕</span></div><div class="mb">
+<p style="font-size:12px">Tempel link TikTok, preview, pilih format, langsung download.</p>
+<input class="in" id="tikLink" placeholder="https://vt.tiktok.com/ZSbyFNHxx/">
+<button class="btn btnR" onclick="doTik()">🔍 Preview - GERAK</button>
+<div id="tikRes" style="display:none;margin-top:12px;background:#14141f;border-radius:12px;padding:12px">
+<video id="tikV" controls style="width:100%;border-radius:10px;background:#000"></video>
+<p id="tikTitle" style="margin-top:8px;font-weight:700"></p>
+<a id="tikDown" target="_blank"><button class="btn btnR">⬇️ Download MP4 No WM</button></a>
+</div>
+</div></div>
+
+<script>
+function openTik(){document.getElementById('m-tiktok').classList.add('show')}
+function closeM(){document.querySelectorAll('.m').forEach(m=>m.classList.remove('show'))}
+async function doTik(){
+let url=document.getElementById('tikLink').value.trim();if(!url)return alert('Tempel link dulu min!');
+document.getElementById('tikRes').style.display='block';document.getElementById('tikTitle').innerText='⏳ Loading...';
+try{
+let api=`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`;
+let r=await fetch(api);let j=await r.json();
+let v=j.data.play||j.data.hdplay;
+document.getElementById('tikV').src=v;document.getElementById('tikDown').href=v;document.getElementById('tikTitle').innerText='✅ '+j.data.title;
+}catch(e){document.getElementById('tikTitle').innerText='⚠️ Buka backup';document.getElementById('tikDown').href='https://ssstik.io/en?url='+encodeURIComponent(url);}
+}
+</script>
+</body>
+</html>
