@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>dilzGanteng BOT V6 — Eye Estetik</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#000;color:#fff;font-family:system-ui,sans-serif;max-width:440px;margin:0 auto;min-height:100vh;position:relative;overflow-x:hidden}
+.top{position:sticky;top:0;z-index:50;background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.1);padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;gap:10px;align-items:center}
+.logo-img{width:36px;height:36px;background:linear-gradient(135deg,#ffeb00,#ff9500);border-radius:50%;display:grid;place-items:center;font-size:20px;border:2px solid #fff;box-shadow:0 0 20px #ffeb00;color:#000;font-weight:900}
+.badge{background:#ffeb00;color:#000;border-radius:99px;padding:4px 10px;font-size:9px;font-weight:900}
+.page{display:none;min-height:100vh;padding-bottom:100px}
+.page.active{display:block;animation:fadeIn .4s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1}}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:rgba(15,15,20,0.92);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;padding:8px 0 12px;z-index:60;border-radius:24px 24px 0 0}
+.b-item{text-align:center;font-size:10px;font-weight:700;cursor:pointer;opacity:.5;padding:8px 14px;border-radius:16px;transition:.2s;touch-action:manipulation}
+.b-item.active{opacity:1;background:linear-gradient(135deg,#ffeb00,#ff9500);color:#000;box-shadow:0 4px 20px rgba(255,235,0,0.4)}
+.b-item:active{transform:scale(.9)}
+.b-item span{font-size:22px;display:block}
+.qr-box{background:linear-gradient(135deg,#1e1e26,#101014);border:1px solid rgba(255,255,255,0.1);border-radius:28px;padding:20px;margin:14px;text-align:center;position:relative;overflow:hidden}
+.qr-box:before{content:"";position:absolute;inset:0;background:url('eye.mp4');opacity:.05;pointer-events:none}
+#qrcode{display:flex;justify-content:center;margin:14px 0;position:relative;z-index:2}
+#qrcode img{border-radius:16px;border:3px solid #fff;box-shadow:0 0 30px rgba(255,235,0,0.4)}
+.input{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:14px;color:#fff;outline:none;font-size:13px}
+.btn{width:100%;background:linear-gradient(135deg,#ffeb00,#ff9500);color:#000;border:none;border-radius:16px;padding:14px;font-weight:900;cursor:pointer;box-shadow:0 6px 20px rgba(255,235,0,0.3);margin-top:10px}
+.card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:16px;margin:10px 14px;cursor:pointer}
+.c-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:14px;display:flex;gap:12px;align-items:center;margin-bottom:10px;cursor:pointer}
+.c-ava{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#ffeb00,#ff9500);color:#000;display:grid;place-items:center;font-weight:900;overflow:hidden}
+.profile-box{background:linear-gradient(135deg,#1e1e28,#121217);border:1px solid rgba(255,255,255,0.1);border-radius:28px;padding:20px;margin:14px;text-align:center}
+.avatar-big{width:100px;height:100px;border-radius:50%;border:4px solid #fff;display:grid;place-items:center;font-size:48px;margin:0 auto 14px;overflow:hidden;cursor:pointer;box-shadow:0 0 30px rgba(255,235,0,0.4);background:linear-gradient(135deg,#ffeb00,#ff9500)}
+.splash{position:fixed;inset:0;background:#000;z-index:100;display:flex;align-items:center;justify-content:center;transition:.8s cubic-bezier(.7,0,.3,1)}
+.splash.hide{transform:translateY(-110%);opacity:0}
+.splash video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6}
+.splash-content{position:relative;z-index:2;text-align:center}
+.eye-bg{position:fixed;inset:0;z-index:-1;opacity:.12;pointer-events:none}
+.eye-bg video{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.2)}
+</style>
+</head>
+<body>
+
+<!-- VIDEO MATA BACKGROUND ESTETIK — SELALU ADA -->
+<div class="eye-bg"><video autoplay muted loop playsinline id="bgVideo"><source src="eye.mp4" type="video/mp4"></video></div>
+
+<div id="splash" class="splash">
+<video autoplay muted loop playsinline><source src="eye.mp4" type="video/mp4"></video>
+<div class="splash-content">
+<div style="width:100px;height:100px;background:linear-gradient(135deg,#ffeb00,#ff9500);border-radius:50%;display:grid;place-items:center;font-size:50px;margin:0 auto 16px;border:3px solid #fff;box-shadow:0 0 40px #ffeb00">😎</div>
+<h2 style="font-weight:900;letter-spacing:-1px;font-size:22px;text-shadow:0 0 20px #ffeb00">dilzGanteng BOT</h2>
+<p style="font-size:11px;opacity:.7;margin-top:6px;letter-spacing:2px">DOMAIN EXPANSION • EYE ESTETIK</p>
+<p style="font-size:10px;background:#ffeb00;color:#000;border-radius:99px;padding:5px 14px;margin-top:14px;display:inline-block;font-weight:900">V6 EYE ANIMATION • QR REAL • HD</p>
+</div>
+</div>
+
+<div class="top">
+<div class="logo"><div class="logo-img" id="topAva">😎</div><div><div style="font-weight:900;font-size:14px" id="topName">dilzGanteng BOT</div><div style="font-size:9px;opacity:.5">Eye Estetik • Gojo Domain</div></div></div>
+<span class="badge">EYE ON</span>
+</div>
+
+<div id="page-home" class="page active">
+<div class="qr-box">
+<h3 style="font-weight:900">WhatsApp Bot Login — EYE ESTETIK</h3>
+<p style="font-size:11px;opacity:.5">QR REAL + Background Mata Gojo Domain Expansion</p>
+<div id="qrcode"></div>
+<p style="font-size:11px" id="qrStatus">Status: <b style="color:#00ff88">● Connected — <span class="nameSync">dilzGanteng</span> • Eye Active</b></p>
+<p style="font-size:10px;opacity:.4;margin-top:4px" id="qrText">dilzGanteng • ZSgNLdX4u • Eye Animation</p>
+<button class="btn" onclick="refreshQR()">🔄 Refresh QR + Eye Effect</button>
+</div>
+<div style="padding:0 2px">
+<h3 style="font-size:12px;font-weight:900;margin:14px 14px 8px;letter-spacing:1px">🤖 MENU — <span class="nameSync">dilzGanteng</span> • Gojo Eye</h3>
+<div class="card" onclick="showPage('send')"><div style="font-weight:800">📤 Kirim Pesan Massal</div><div style="font-size:11px;opacity:.5">Kirim dengan efek mata domain expansion</div></div>
+<div class="card" onclick="showPage('auto')"><div style="font-weight:800">⚡ Auto Reply — BOT MIWA CHAN</div><div style="font-size:11px;opacity:.5">BOT MIWA CHAN: JIKA MAU MEMBELI CENTANG BIRU...</div></div>
+<div class="card" onclick="showPage('contacts')"><div style="font-weight:800">👥 Daftar Kontak Bot</div><div style="font-size:11px;opacity:.5">Kontak dengan animasi mata</div></div>
+<button class="btn" style="background:#fff;color:#000;margin:10px 14px;width:calc(100% - 28px)" onclick="downloadSelf()">⬇️ DOWNLOAD V6 EYE ESTETIK</button>
+</div>
+</div>
+
+<div id="page-send" class="page"><div style="padding:16px"><h3 style="font-weight:900">📤 Kirim — <span class="nameSync">dilzGanteng</span></h3><input class="input" id="nums" style="margin-top:12px" placeholder="+62"><textarea class="input" id="msg" rows="4" style="margin-top:10px">Halo {name} — {myName} • Gojo Domain Expansion Eye • https://vt.tiktok.com/ZSgNLdX4u/</textarea><button class="btn" onclick="sendBot()">🚀 Kirim dengan Eye Effect</button><div id="log" style="margin-top:12px;font-family:monospace;font-size:11px;background:rgba(255,255,255,0.04);border-radius:16px;padding:12px;min-height:80px">Log eye bot...</div></div></div>
+
+<div id="page-auto" class="page"><div style="padding:16px"><h3 style="font-weight:900">⚡ Auto Reply — Eye</h3><div style="background:rgba(255,255,255,0.04);border-radius:20px;padding:16px;margin-top:12px"><input class="input" value="BOT MIWA CHAN: JIKA MAU MEMBELI CENTANG BIRU MOHON HUBUNGI @dilzGanteng — Gojo Eye"><button class="btn" onclick="alert('Saved Eye Mode')">💾 Simpan</button></div></div></div>
+
+<div id="page-contacts" class="page"><div style="padding:16px"><h3 style="font-weight:900">👥 Kontak — Eye</h3><div style="margin-top:12px"><div class="c-item" onclick="sendTo('+62')"><div class="c-ava">+62</div><div style="flex:1"><div style="font-weight:800;font-size:13px">+628786693580</div><div style="font-size:11px;opacity:.5">BOT MIWA CHAN</div></div></div><div class="c-item" onclick="sendTo('GOJO META AI')"><div class="c-ava">👁️</div><div style="flex:1"><div style="font-weight:800">GOJO META AI — Eye</div><div style="font-size:11px;opacity:.5">Domain Expansion Active</div></div></div></div></div></div>
+
+<div id="page-profile" class="page">
+<div class="profile-box">
+<div class="avatar-big" id="bigAva" onclick="document.getElementById('ppInput').click()">😎</div>
+<input type="file" id="ppInput" accept="image/*" style="display:none" onchange="changePP(event)">
+<h2 style="font-weight:900" id="profileName">dilzGanteng</h2>
+<p style="font-size:11px;opacity:.5;margin-top:4px">Gojo Eye Domain • V6 HD</p>
+<div style="margin-top:16px;text-align:left">
+<label style="font-size:11px;opacity:.5">Ganti Nama — Auto Sync + Eye</label>
+<input class="input" id="nameInput" value="dilzGanteng" oninput="updateName(this.value)">
+<label style="font-size:11px;opacity:.5;margin-top:12px;display:block">Video Eye — Harus ada eye.mp4</label>
+<input class="input" value="eye.mp4 — Domain Expansion Gojo — Estetik Hitam Putih" disabled>
+<div style="margin-top:12px;background:rgba(255,235,0,0.08);border:1px solid rgba(255,235,0,0.2);border-radius:12px;padding:10px;font-size:11px">👁️ Video mata Gojo ini akan selalu ada di background — estetik HD — kalo gak ada file eye.mp4, upload dulu!</div>
+</div>
+<button class="btn" onclick="toggleEye()">👁️ Toggle Eye Animation</button>
+<button class="btn" style="background:#fff;color:#000;margin-top:8px" onclick="downloadSelf()">⬇️ DOWNLOAD V6 EYE</button>
+</div>
+</div>
+
+<div class="bottom">
+<div class="b-item active" id="nav-home" onclick="showPage('home')"><span>👁️</span>Bot</div>
+<div class="b-item" id="nav-send" onclick="showPage('send')"><span>📤</span>Kirim</div>
+<div class="b-item" id="nav-auto" onclick="showPage('auto')"><span>⚡</span>Auto</div>
+<div class="b-item" id="nav-contacts" onclick="showPage('contacts')"><span>👥</span>Kontak</div>
+<div class="b-item" id="nav-profile" onclick="showPage('profile')"><span>😎</span>Profil</div>
+</div>
+
+<script>
+let myName="dilzGanteng";
+let myLink="https://vt.tiktok.com/ZSgNLdX4u/";
+let eyeOn=true;
+setTimeout(()=>document.getElementById('splash').classList.add('hide'),2800);
+function makeQR(t){document.getElementById('qrcode').innerHTML="";new QRCode(document.getElementById('qrcode'),{text:t,width:180,height:180,colorDark:"#000",colorLight:"#fff",correctLevel:QRCode.CorrectLevel.H});document.getElementById('qrText').innerText=t;}
+function refreshQR(){let txt=myName+" • "+myLink+" • EYE • "+Date.now();makeQR(txt);document.getElementById('qrStatus').innerHTML='Status: <b style="color:#00ff88">● Connected — '+myName+' • Eye Refreshed</b>';document.querySelector('.eye-bg').style.opacity="0.3";setTimeout(()=>document.querySelector('.eye-bg').style.opacity="0.12",800);}
+function updateName(v){myName=v||"dilzGanteng";document.querySelectorAll('.nameSync').forEach(e=>e.innerText=myName);document.getElementById('topName').innerText=myName+" BOT";document.getElementById('profileName').innerText=myName;makeQR(myName+" • "+myLink+" • Eye");}
+function changePP(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=function(ev){document.getElementById('bigAva').innerHTML='<img src="'+ev.target.result+'" style="width:100%;height:100%;object-fit:cover">';document.getElementById('topAva').innerHTML='<img src="'+ev.target.result+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';};r.readAsDataURL(f);}
+function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.b-item').forEach(x=>x.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');document.getElementById('nav-'+p).classList.add('active');}
+function sendBot(){let n=document.getElementById('nums').value||'+62';let m=document.getElementById('msg').value.replace(/{myName}/g,myName).replace(/{name}/g,n);document.getElementById('log').innerHTML='['+new Date().toLocaleTimeString()+'] 👁️ '+myName+' Eye Bot kirim ke '+n+'\n'+m+'\n✅ Eye Animation Active • HD';}
+function sendTo(n){showPage('send');document.getElementById('nums').value=n;}
+function toggleEye(){eyeOn=!eyeOn;document.querySelector('.eye-bg').style.display=eyeOn?'block':'none';document.querySelectorAll('.splash video').forEach(v=>v.style.display=eyeOn?'block':'none');alert(eyeOn?'👁️ Eye Animation ON — Gojo Domain Expansion':'👁️ Eye OFF');}
+function downloadSelf(){let c=document.documentElement.outerHTML;let b=new Blob([c],{type:'text/html'});let u=URL.createObjectURL(b);let a=document.createElement('a');a.href=u;a.download=myName+'-BOT-V6-EYE-ESTETIK.html';a.click();URL.revokeObjectURL(u);}
+makeQR(myName+" • "+myLink+" • Eye • V6 HD");
+document.querySelectorAll('.b-item, .card, .c-item, .btn').forEach(el=>{el.addEventListener('touchstart',()=>{}, {passive:true});});
+// fallback jika eye.mp4 gak ada — pake canvas animasi mata
+document.getElementById('bgVideo').addEventListener('error',()=>{
+console.log('eye.mp4 not found — using CSS eye fallback');
+document.querySelector('.eye-bg').innerHTML='<div style="width:100%;height:100%;display:grid;place-items:center;font-size:80px;opacity:.1">👁️</div>';
+});
+</script>
+</body>
+</html>
