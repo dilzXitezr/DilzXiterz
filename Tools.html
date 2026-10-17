@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DILZ TOOLS V3 ULTIMATE - BY SEB</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;800&family=Orbitron:wght@900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
+body{background:#07070e;color:#fff;padding-bottom:70px}
+.hero{height:280px;position:relative;overflow:hidden;background:#000}
+.hero img{width:100%;height:100%;object-fit:cover;animation:zoom 8s infinite alternate}
+@keyframes zoom{0%{transform:scale(1)}100%{transform:scale(1.15)}}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#07070e 10%,transparent 60%)}
+.eyeGlow{position:absolute;left:50%;top:50%;width:200px;height:200px;transform:translate(-50%,-50%);border-radius:50%;box-shadow:0 0 80px #ff1a5a,0 0 140px #8b5cf6;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{scale:1;opacity:.5}50%{scale:1.2;opacity:1}}
+.top{position:absolute;bottom:14px;left:12px;right:12px;z-index:3}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-size:9px;padding:5px 9px;border-radius:99px;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.2);cursor:pointer}
+.chip:active{scale:.9;background:#fff;color:#000}
+.title{font-family:Orbitron;font-size:17px;color:#ff2a6d;text-shadow:0 0 20px #ff2a6d;margin-top:6px}
+.tabs{display:flex;gap:6px;padding:10px;background:#0c0c14;overflow:auto;position:sticky;top:0;z-index:2}
+.t{padding:8px 14px;border-radius:99px;border:1px solid #2a2a3a;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;opacity:.5}
+.t.on{background:#fff;color:#000;opacity:1}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.card{background:linear-gradient(180deg,#17172a,#0e0e1a);border:1px solid #2a2a4a;border-radius:16px;padding:12px;cursor:pointer;transition:.2s}
+.card:active{scale:.96}
+.card b{font-size:11px}
+.card p{font-size:9px;opacity:.5;margin-top:3px}
+.m{position:fixed;inset:0;background:#05050a;z-index:99;display:none;flex-direction:column}
+.m.show{display:flex}
+.mh{height:52px;display:flex;justify-content:space-between;align-items:center;padding:0 12px;border-bottom:1px solid #222;background:#0a0a14}
+.mb{flex:1;overflow:auto;padding:12px}
+.in{width:100%;padding:12px;border-radius:12px;border:1px solid #333;background:#14141f;color:#fff;margin-top:8px}
+.btn{width:100%;padding:12px;border-radius:12px;border:none;font-weight:800;margin-top:10px;cursor:pointer}
+.btnR{background:linear-gradient(90deg,#ff2a6d,#8b5cf6);color:#fff}
+.btnW{background:#fff;color:#000}
+.bottom{position:fixed;bottom:0;left:0;right:0;height:62px;background:#0a0a14;border-top:1px solid #222;display:flex;justify-content:space-around;align-items:center;z-index:50}
+.bItem{display:flex;flex-direction:column;align-items:center;font-size:8px;gap:3px;cursor:pointer;opacity:.6;padding:6px 12px;border-radius:12px}
+.bItem.on{opacity:1;background:#1a1a2e;border:1px solid #333}
+.bItem b{font-size:14px}
+#gameCanvas{width:100%;height:360px;background:linear-gradient(0deg,#5c94fc 0%,#87ceeb 60%);border-radius:12px;border:2px solid #222;display:block}
+.ctrl{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-top:8px}
+.ctrl div{padding:12px;background:#1a1a2e;border:1px solid #333;border-radius:10px;text-align:center;font-weight:800;cursor:pointer;user-select:none}
+.ctrl div:active{background:#fff;color:#000}
+.reader{height:70vh;background:#000;border-radius:12px;overflow:auto;display:flex;flex-direction:column;align-items:center;gap:0}
+.reader img{width:100%;max-width:420px}
+</style>
+</head>
+<body>
+<div class="hero">
+<img src="https://i.ibb.co/4W2Y2L8/gojo-gojo-satoru.jpg" onerror="this.src='https://cdn.myanimelist.net/images/manga/3/258070.jpg'" alt="Gojo">
+<div class="eyeGlow"></div>
+<div class="top">
+<div class="chips">
+<div class="chip" onclick="openM('profil')">👤 Profil</div>
+<div class="chip" onclick="openM('batre')">🔋 <span id="batTxt">91% • VVIP</span></div>
+<div class="chip" onclick="openM('cuaca')">⛅ <span id="cuacaTxt">Bandung 24°C</span></div>
+<div class="chip" onclick="openM('sekolah')">🏫 SMA AL-ATIQIYAH</div>
+<div class="chip" onclick="openM('kampung')">🏡 Cipanengah</div>
+</div>
+<div class="title">❄️ DILZ TOOLS NEXUS V3 • BY SEB DILZNOELZ</div>
+</div>
+</div>
+
+<div class="tabs"><div class="t on" onclick="render('all',this)">♾️ All</div><div class="t" onclick="render('downloader',this)">⬇️ Downloader</div><div class="t" onclick="render('maker',this)">🛠️ Maker</div><div class="t" onclick="render('tools',this)">⚙️ Tools</div><div class="t" onclick="render('game',this)">🎮 Game</div></div>
+
+<div class="grid" id="grid"></div>
+
+<div class="bottom">
+<div class="bItem on" onclick="render('all',null);setB(this)"><b>🏠</b>Home</div>
+<div class="bItem" onclick="openM('komik');setB(this)"><b>📚</b>Komik</div>
+<div class="bItem" onclick="openM('mario');setB(this)"><b>🎮</b>Mario 6D</div>
+<div class="bItem" onclick="openM('profil');setB(this)"><b>👤</b>Profil</div>
+<div class="bItem" onclick="openM('batre');setB(this)"><b>⚙️</b>Tools</div>
+</div>
+
+<!-- MODALS -->
+<div class="m" id="m-komik"><div class="mh"><b>📚 NEXUS KOMIK - BISA BACA!</b><span onclick="closeM()" style="cursor:pointer">✕</span></div><div class="mb">
+<div class="tabs" style="position:static"><div class="t on" onclick="komikTab('beranda',this)">BERANDA</div><div class="t" onclick="komikTab('terbaru',this)">TERBARU</div><div class="t" onclick="komikTab('populer',this)">POPULER</div><div class="t" onclick="komikTab('genre',this)">GENRE</div></div>
+<div class="grid" id="komikGrid"></div>
+<div id="komikReader" style="display:none">
+<button class="btn btnW" onclick="document.getElementById('komikGrid').style.display='grid';document.getElementById('komikReader').style.display='none'">← Kembali ke list</button>
+<h3 id="komikTitle" style="margin:10px 0"></h3>
+<div class="reader" id="readerBox"></div>
+<button class="btn btnR" onclick="nextPage()">Next Halaman →</button>
+</div>
+</div></div>
+
+<div class="m" id="m-mario"><div class="mh"><b>🎮 MARIO 6D - PIPA + MONSTER + BOS + PISTOL</b><span onclick="closeM()" style="cursor:pointer">✕</span></div><div class="mb">
+<canvas id="gameCanvas" width="420" height="360"></canvas>
+<div class="ctrl">
+<div ontouchstart="keys.left=true" ontouchend="keys.left=false" onmousedown="keys.left=true" onmouseup="keys.left=false">←</div>
+<div ontouchstart="keys.right=true" ontouchend="keys.right=false" onmousedown="keys.right=true" onmouseup="keys.right=false">→</div>
+<div ontouchstart="keys.up=true" ontouchend="keys.up=false" onmousedown="keys.up=true" onmouseup="keys.up=false">↑ LOMPAT</div>
+<div ontouchstart="shoot()" onmousedown="shoot()">🔫 TEMBAK</div>
+</div>
+<p style="font-size:10px;opacity:.6;margin-top:8px">Aturan: Pipa hijau bisa naik (tekan ↑ di atas pipa), monster coklat jangan disentuh, kumpulkan koin, tembak bos di akhir pakai pistol!</p>
+<div style="display:flex;gap:6px;margin-top:8px"><span class="chip">❤️ Nyawa: <span id="life">3</span></span><span class="chip">🪙 Koin: <span id="coin">0</span></span><span class="chip">🔫 Peluru: <span id="ammo">20</span></span></div>
+<button class="btn btnR" onclick="initGame()">🔄 Restart Game</button>
+</div></div>
+
+<div class="m" id="m-profil"><div class="mh"><b>👤 Profil - DILZ TOOLS</b><span onclick="closeM()" style="cursor:pointer">✕</span></div><div class="mb">
+<div style="text-align:center;padding:20px"><div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(90deg,#ff2a6d,#8b5cf6);margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:30px">👑</div><h2 style="margin-top:10px">SEB DILZNOELZ</h2><p style="font-size:11px;opacity:.5">Developer DILZ TOOLS NEXUS</p></div>
+<div class="card"><b>🏫 Sekolah</b><p>SMA AL-ATIQIYAH - Bandung, Jawa Barat</p></div>
+<div class="card" style="margin-top:8px"><b>🏡 Kampung</b><p>Cipanengah, Bandung - West Java</p></div>
+<div class="card" style="margin-top:8px"><b>📍 Lokasi</b><p>Bandung, West Java, Indonesia</p></div>
+<button class="btn btnR" onclick="closeM()">Oke min!</button>
+</div></div>
+
+<div class="m" id="m-batre"><div class="mh"><b>🔋 Baterai - DILZ TOOLS</b><span onclick="closeM()" style="cursor:pointer">✕</span></div><div class="mb">
+<h2 id="batBig" style="font-size:40px;text-align:center">🔋 91%</h2><p style="text-align:center;font-size:12px;opacity:.6" id="batStatus">VVIP • Charging?</p>
+<div class="grid" style="padding:0;margin-top:12px"><div class="card" onclick="setBat(100)"><b>🔋 Penuh</b><p>100% - VVIP Mode</p></div><div class="card" onclick="setBat(50)"><b>🪫 Setengah</b><p>50% - Hemat Mode</p></div><div class="card" onclick="setBat(15)"><b>🪫 Sedikit</b><p>15% - Darurat Mode</p></div><div class="card" onclick="cekRealBat()"><b>📱 Cek Asli</b><p>Baca baterai HP beneran</p></div></div>
+</div></div>
+
+<div class="m" id="m-cuaca"><div class="mh"><b>⛅ Cuaca - Cipanengah</b><span onclick="closeM()" style="cursor:pointer">✕</span></div><div class="mb">
+<h2 style="font-size:30px">⛅ Bandung 24°C</h2><p style="font-size:12px;opacity:.6">Cipanengah, Bandung - Cerah Berawan</p>
+<div class="grid" style="padding:0;margin-top:12px"><div class="card"><b>🌤️ Hari ini</b><p>24°C • Cerah</p></div><div class="card"><b>🌧️ Besok</b><p>22°C • Hujan ringan</p></div></div>
+<button class="btn btnR" onclick="alert('Cuaca update: Bandung 24°C - Cipanengah cerah - cocok ngoding DILZ TOOLS min!')">🔄 Refresh Cuaca</button>
+</div></div>
+
+<div class="m" id="m-sekolah"><div class="mh"><b>🏫 SMA AL-ATIQIYAH</b><span onclick="closeM()" style="cursor:pointer">✕</span></div><div class="mb">
+<h2>SMA AL-ATIQIYAH</h2><p style="font-size:12px;opacity:.7;margin-top:6px">Sekolah kebanggaan di Bandung. Klik fitur di bawah:</p>
+<div class="grid" style="padding:0;margin-top:12px"><div class="card" onclick="alert('Jadwal SMA AL-ATIQIYAH: Senin-Jumat 07.00-15.00')"><b>📅 Jadwal</b><p>Lihat jadwal sekolah</p></div><div class="card" onclick="alert('Ekskul: Paskibra, Pramuka, IT Club DILZ')"><b>⚽ Ekskul</b><p>Kegiatan sekolah</p></div></div>
+</div></div>
+
+<div class="m" id="m-kampung"><div class="mh"><b>🏡 Kampung Cipanengah</b><span onclick="closeM()" style="cursor:pointer">✕</span></div><div class="mb">
+<h2>Cipanengah, Bandung</h2><p style="font-size:12px;opacity:.7">Kampung halaman SEB. Tempat lahirnya DILZ TOOLS.</p>
+<div class="card" style="margin-top:12px" onclick="alert('Cipanengah - Bandung Selatan - Udara sejuk - Cocok buat ngoding!')"><b>📍 Lihat Peta</b><p>Buka lokasi Cipanengah</p></div>
+</div></div>
+
+<div class="m" id="m-tiktok"><div class="mh"><b>💜 SSSTIKTOK DILZ</b><span onclick="closeM()" style="cursor:pointer">✕</span></div><div class="mb">
+<input class="in" id="tikLink" placeholder="https://vt.tiktok.com/ZS..."><button class="btn btnR" onclick="doTik()">🔍 Preview</button><div id="tikRes" style="display:none;margin-top:10px;background:#14141f;padding:12px;border-radius:12px"><video id="tikV" controls style="width:100%;border-radius:10px"></video><a id="tikDown" target="_blank"><button class="btn btnR">⬇️ Download MP4</button></a></div>
+</div></div>
+
+<script>
+const tools=[
+{id:'komik',cat:'tools',t:'Komik',d:'Baca manga bisa geser'},
+{id:'tiktok',cat:'downloader',t:'TikTok SSSTik',d:'No watermark work'},
+{id:'mario',cat:'game',t:'Mario 6D',d:'Pipa + Monster + Bos + Pistol'},
+{id:'media',cat:'downloader',t:'Media DL',d:'IG FB YT'},
+{id:'profil',cat:'tools',t:'Profil',d:'SMA & Kampung'},
+{id:'batre',cat:'tools',t:'Baterai',d:'Penuh/Setengah/Sedikit'},
+{id:'cuaca',cat:'tools',t:'Cuaca',d:'Bandung Cipanengah'},
+{id:'sekolah',cat:'tools',t:'SMA AL-ATIQIYAH',d:'Sekolah'},
+{id:'kampung',cat:'tools',t:'Kampung Cipanengah',d:'Kampung'},
+{id:'nik',cat:'tools',t:'Cek NIK',d:'Offline aman'},
+];
+function render(cat,el){
+if(el){document.querySelectorAll('.tabs .t').forEach(x=>x.classList.remove('on'));el.classList.add('on')}
+let g=document.getElementById('grid');g.innerHTML='';
+tools.filter(x=>cat==='all'||x.cat===cat).forEach(x=>{
+g.innerHTML+=`<div class="card" onclick="openM('${x.id}')"><b>${x.t}</b><p>${x.d}</p></div>`;
+});
+}
+render('all',null);
+function openM(id){document.getElementById('m-'+id)?.classList.add('show');if(id==='mario')initGame();if(id==='komik')loadKomik('beranda')}
+function closeM(){document.querySelectorAll('.m').forEach(m=>m.classList.remove('show'))}
+function setB(el){document.querySelectorAll('.bItem').forEach(x=>x.classList.remove('on'));el.classList.add('on')}
+
+// KOMIK BISA BACA
+const komikData={
+beranda:[{title:'Chainsaw Man Ch.1',pages:6},{title:'One Punch-Man Ch.36',pages:5},{title:'Tensei Slime',pages:4},{title:'Frieren',pages:5}],
+terbaru:[{title:'Wind Breaker Ch.12',pages:4},{title:'Kaiju No.8 Ch.8',pages:5}],
+populer:[{title:'One Piece 1100',pages:6},{title:'Jujutsu Kaisen 240',pages:5}],
+genre:[{title:'Action - Solo Leveling',pages:5},{title:'Fantasy - Slime',pages:4}]
+};
+let curKomik=null,curPage=0;
+function loadKomik(cat){
+let g=document.getElementById('komikGrid');g.style.display='grid';document.getElementById('komikReader').style.display='none';g.innerHTML='';
+(komikData[cat]||komikData.beranda).forEach(k=>{
+g.innerHTML+=`<div class="card" onclick="bacaKomik('${k.title}',${k.pages})"><b>${k.title}</b><p>${k.pages} halaman - Tap baca</p></div>`;
+});
+}
+function komikTab(cat,el){document.querySelectorAll('#m-komik .t').forEach(x=>x.classList.remove('on'));el.classList.add('on');loadKomik(cat)}
+function bacaKomik(title,pages){
+curKomik={title,pages};curPage=0;
+document.getElementById('komikGrid').style.display='none';
+document.getElementById('komikReader').style.display='block';
+document.getElementById('komikTitle').innerText=title;
+renderReader();
+}
+function renderReader(){
+let box=document.getElementById('readerBox');box.innerHTML='';
+for(let i=0;i<curKomik.pages;i++){
+let img=document.createElement('img');
+img.src=`https://picsum.photos/seed/${curKomik.title+i}/400/600`;
+if(i===curPage)img.style.border='3px solid #ff2a6d';
+box.appendChild(img);
+}
+box.scrollTop=curPage*620;
+}
+function nextPage(){if(curPage<curKomik.pages-1){curPage++;renderReader()}else alert('Tamat min! Balik ke list ya')}
+
+// BATRE
+function setBat(p){document.getElementById('batBig').innerText='🔋 '+p+'%';document.getElementById('batTxt').innerText=p+'% • VVIP';document.getElementById('batStatus').innerText=p>80?'VVIP • Penuh':p>30?'Setengah • Hemat':'Sedikit • Darurat';}
+async function cekRealBat(){try{let b=await navigator.getBattery();setBat(Math.round(b.level*100));alert('Baterai asli HP lu: '+Math.round(b.level*100)+'%');}catch{alert('Browser gak support baca baterai asli, pakai manual aja min')}}
+// CUACA, SEKOLAH, KAMPUNG udah di modal masing2
+
+// TIKTOK
+async function doTik(){let url=document.getElementById('tikLink').value.trim();if(!url)return alert('Tempel link dulu!');document.getElementById('tikRes').style.display='block';try{let api=`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`;let r=await fetch(api);let j=await r.json();let v=j.data.play||j.data.hdplay;document.getElementById('tikV').src=v;document.getElementById('tikDown').href=v}catch(e){document.getElementById('tikDown').href='https://ssstik.io/en?url='+encodeURIComponent(url);}}
+
+// MARIO 6D GAME
+let canvas,ctx,keys={},player,monsters,pipes,boss,bullets,coins,life=3,coinC=0,ammo=20;
+function initGame(){
+canvas=document.getElementById('gameCanvas');ctx=canvas.getContext('2d');
+keys={};player={x:30,y:250,w:24,h:24,vy:0,onGround:false};bullets=[];coins=[{x:200,y:260},{x:400,y:180},{x:600,y:200}];monsters=[{x:300,y:284,w:20,h:20,dir:-1},{x:550,y:284,w:20,h:20,dir:-1}];pipes=[{x:380,y:240,h:80},{x:700,y:200,h:120}];boss={x:900,y:220,w:50,h:60,hp:5,alive:true};life=3;coinC=0;ammo=20;updateHUD();
+requestAnimationFrame(loop);
+}
+function updateHUD(){document.getElementById('life').innerText=life;document.getElementById('coin').innerText=coinC;document.getElementById('ammo').innerText=ammo;}
+function loop(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ // ground
+ctx.fillStyle='#8B4513';ctx.fillRect(0,310,2000,50);
+ctx.fillStyle='#228B22';ctx.fillRect(0,310,2000,10);
+ // coins
+coins.forEach((c,i)=>{ctx.fillStyle='gold';ctx.beginPath();ctx.arc(c.x,c.y,8,0,Math.PI*2);ctx.fill();if(Math.abs(player.x-c.x)<20&&Math.abs(player.y-c.y)<20){coins.splice(i,1);coinC++;updateHUD();}});
+ // pipes - bisa naik
+pipes.forEach(p=>{ctx.fillStyle='#00AA00';ctx.fillRect(p.x,p.y,p.w=40,p.h);ctx.fillRect(p.x-5,p.y,50,15);if(player.x>p.x&&player.x<p.x+40&&player.y+player.h>p.y-5&&player.y+player.h<p.y+10){if(keys.up){player.y=p.y-player.h;player.vy=-2} }});
+ // monsters
+monsters.forEach((m,i)=>{m.x+=m.dir;if(m.x<0||m.x>1000)m.dir*=-1;ctx.fillStyle='#8B4513';ctx.fillRect(m.x,m.y,m.w,m.h);ctx.fillStyle='#fff';ctx.fillRect(m.x+4,m.y+4,4,4);if(Math.abs(player.x-m.x)<20&&Math.abs(player.y-m.y)<20){life--;updateHUD();player.x=30;if(life<=0){alert('Game Over min!');initGame();return;}} bullets.forEach((b,bi)=>{if(b.x>m.x&&b.x<m.x+m.w&&b.y>m.y&&b.y<m.y+m.h){monsters.splice(i,1);bullets.splice(bi,1)}})});
+ // boss ganas
+if(boss.alive){ctx.fillStyle='#FF0000';ctx.fillRect(boss.x,boss.y,boss.w,boss.h);ctx.fillStyle='#000';ctx.fillText('BOSS',boss.x+5,boss.y-5);if(boss.x>player.x)boss.x-=0.5;if(Math.abs(player.x-boss.x)<30&&Math.abs(player.y-boss.y)<30){life--;updateHUD();} bullets.forEach((b,bi)=>{if(b.x>boss.x&&b.x<boss.x+boss.w&&b.y>boss.y&&b.y<boss.y+boss.h){boss.hp--;bullets.splice(bi,1);if(boss.hp<=0){boss.alive=false;alert('BOS KALAH! Menang min! 🎉');}}});}
+ // bullets pistol
+bullets.forEach((b,i)=>{b.x+=5;ctx.fillStyle='yellow';ctx.fillRect(b.x,b.y,6,3);if(b.x>1000)bullets.splice(i,1)});
+ // player
+if(keys.left)player.x-=3;if(keys.right)player.x+=3;player.vy+=0.6;player.y+=player.vy;if(player.y>310-player.h){player.y=310-player.h;player.vy=0;player.onGround=true}else player.onGround=false;if(keys.up&&player.onGround){player.vy=-10;player.onGround=false}
+if(player.x<0)player.x=0;if(player.x>1000-24)player.x=1000-24;
+ctx.fillStyle='#FF0000';ctx.fillRect(player.x,player.y,player.w,player.h);ctx.fillStyle='#0000FF';ctx.fillRect(player.x+16,player.y+6,8,4); // pistol
+ // camera
+let cam=Math.max(0,player.x-150);ctx.save();ctx.translate(-cam,0); // simple
+ctx.restore();
+requestAnimationFrame(loop);
+}
+function shoot(){if(ammo<=0)return alert('Peluru habis!');ammo--;bullets.push({x:player.x+24,y:player.y+10});updateHUD();}
+window.addEventListener('keydown',e=>{if(e.code==='ArrowLeft')keys.left=true;if(e.code==='ArrowRight')keys.right=true;if(e.code==='ArrowUp'||e.code==='Space'){keys.up=true;setTimeout(()=>keys.up=false,100)}if(e.code==='KeyF')shoot()});
+window.addEventListener('keyup',e=>{if(e.code==='ArrowLeft')keys.left=false;if(e.code==='ArrowRight')keys.right=false;});
+</script>
+</body>
+</html>
