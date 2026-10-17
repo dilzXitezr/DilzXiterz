@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>dilzNoelz AI - seb dilzNoelz AI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
+body{background:#070709;color:#fff;min-height:100vh;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #1a1a1a;background:#0a0a0c;position:sticky;top:0;z-index:10}
+.logo{font-weight:900;letter-spacing:-0.5px;font-size:18px}
+.logo span{opacity:.5;font-weight:600}
+.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
+.icon{width:56px;height:56px;border-radius:14px;background:#15151a;border:1px solid #23232a;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
+.h1{font-size:20px;font-weight:700;margin-bottom:6px}
+.sub{font-size:13px;opacity:.5;max-width:300px;line-height:1.4}
+.chat{width:100%;max-width:640px;margin:0 auto;padding:10px 16px 120px;display:flex;flex-direction:column;gap:12px}
+.bubble{padding:12px 14px;border-radius:16px;font-size:13px;line-height:1.5;max-width:85%}
+.user{align-self:flex-end;background:#fff;color:#000;border-bottom-right-radius:4px}
+.ai{align-self:flex-start;background:#141419;border:1px solid #222;color:#e8e8e8;border-bottom-left-radius:4px}
+.model-list{max-height:260px;overflow:auto;background:#121216;border:1px solid #222;border-radius:14px;padding:8px;margin-top:8px;display:none}
+.model-list.show{display:block}
+.model{padding:8px 10px;border-radius:8px;font-size:11px;opacity:.8;cursor:pointer;border:1px solid transparent}
+.model:hover{background:#1c1c22;border-color:#333}
+.model b{color:#fff}
+.input-wrap{position:fixed;bottom:0;left:0;right:0;padding:12px 16px;background:linear-gradient(to top,#070709 80%,transparent);backdrop-filter:blur(12px)}
+.input-box{max-width:640px;margin:0 auto;background:#121216;border:1px solid #24242c;border-radius:18px;display:flex;align-items:center;padding:8px 10px;gap:8px}
+.input-box input{flex:1;background:transparent;border:none;color:#fff;outline:none;font-size:14px}
+.tag{background:#1c1c22;border:1px solid #2a2a32;border-radius:99px;padding:4px 10px;font-size:10px}
+.send{width:32px;height:32px;border-radius:50%;background:#fff;color:#000;border:none;font-weight:900;cursor:pointer}
+.preview{width:100%;background:#fff;border-radius:16px;overflow:hidden;margin-top:10px;border:1px solid #222}
+.preview .bar{padding:8px 12px;background:#f5f5ff;display:flex;justify-content:space-between;font-size:10px;color:#666}
+.lp{padding:22px;color:#111}
+.lp h2{font-size:26px;line-height:1.1;font-weight:900;margin:8px 0}
+.lp h2 span{color:#7c5bff}
+.btns{display:flex;gap:8px;margin:12px 0}
+.btns div{padding:8px 14px;border-radius:99px;font-size:12px;font-weight:700}
+.p{background:#6c4dff;color:#fff}
+.s{background:#eee;color:#111}
+</style>
+</head>
+<body>
+<div class="top">
+<div class="logo">dilzNoelz AI <span>seb • FicTur Style</span></div>
+<div style="font-size:11px;opacity:.4">Cipanengah • DILZ RGN</div>
+</div>
+
+<div class="center" id="welcome">
+<div class="icon">↗</div>
+<div class="h1">Mulai cerita apa saja</div>
+<div class="sub">Ketik apa saja. Kalau ceritamu butuh wajah, dilzNoelz AI akan menggambarkannya. Khusus untuk seb.</div>
+</div>
+
+<div class="chat" id="chat"></div>
+
+<div class="model-list" id="models" style="position:fixed;bottom:90px;left:50%;transform:translateX(-50%);width:90%;max-width:640px;z-index:20">
+<div style="font-size:10px;opacity:.4;padding:6px 10px">FicTur Family (14 model) + DOA Family (28 model) = 42 model — versi dilzNoelz AI</div>
+<div class="model" onclick="pick('FicTur Q1 Code')"><b>[FicTur] Q1 Code</b> — Kaylan • asisten debugger sekaligus</div>
+<div class="model" onclick="pick('FicTur Q2 Code')"><b>[FicTur] Q2 Code</b> — Gemini • lebih pintar, ingat konteks</div>
+<div class="model" onclick="pick('FicTur C1')"><b>[FicTur] C1</b> — Liat besar, cepat & tega diskal</div>
+<div class="model" onclick="pick('FicTur CS5')"><b>[FicTur] CS5</b> — Claude Sonnet 5 • Anthropic</div>
+<div class="model" onclick="pick('FicTur CF51')"><b>[FicTur] CF51</b> — Claude Sonnet 5 • Anthropic</div>
+<div class="model" onclick="pick('FicTur GS2')"><b>[FicTur] GS2</b> — GLM-2 • Kimi</div>
+<div class="model" onclick="pick('FicTur K3')"><b>[FicTur] K3</b> — Kimi K3 • Moonshot AI</div>
+<div class="model" onclick="pick('FicTur LMX')"><b>[FicTur] LMX</b> — Gemini 3.5 Flash Lite</div>
+<div class="model" onclick="pick('FicTur DOA S5')"><b>[FicTur] DOA S5</b> — Gemini 3 Flash • bandelbanget</div>
+<div class="model" onclick="pick('FicTur DOA D0731')"><b>[FicTur] DOA D0731</b> — bandelbanget 0731 • bandelbanget</div>
+<div class="model" onclick="pick('FicTur DOA Flash Vision')"><b>[FicTur] DOA Flash Vision</b> — bandelbanget vision</div>
+<div class="model" onclick="pick('FicTur DOA S5 Pro')"><b>[FicTur] DOA S5 Pro</b> — Gemini 3 Pro • bandelbanget</div>
+<div class="model" onclick="pick('FicTur DOA GS2 Mod')"><b>[FicTur] DOA GS2 Mod</b> — GLM-2 Mod • bandelbanget</div>
+<div class="model" onclick="pick('dilzNoelz AI - seb')"><b>[dilzNoelz] seb • Custom</b> — Khusus untuk seb dilzNoelz • DILZ RGN OSINT</div>
+</div>
+
+<div class="input-wrap">
+<div class="input-box">
+<div class="tag" id="curModel" onclick="document.getElementById('models').classList.toggle('show')">[dilzNoelz] seb</div>
+<input id="inp" placeholder="Tulis sesuatu..." onkeydown="if(event.key==='Enter')send()">
+<button class="send" onclick="send()">↑</button>
+</div>
+<div style="text-align:center;font-size:9px;opacity:.3;margin-top:6px">dilzNoelz AI • Bojonggenteng • Sukabumi • 2026</div>
+</div>
+
+<script>
+let chat=document.getElementById('chat');
+let welcome=document.getElementById('welcome');
+let cur='[dilzNoelz] seb';
+function pick(m){cur='['+m+']'; if(m.includes('seb')) cur='[dilzNoelz] seb'; document.getElementById('curModel').innerText=cur; document.getElementById('models').classList.remove('show')}
+function addMsg(t,who){
+welcome.style.display='none';
+let d=document.createElement('div'); d.className='bubble '+who; d.innerText=t; chat.appendChild(d); chat.scrollTop=chat.scrollHeight;
+}
+function send(){
+let inp=document.getElementById('inp'); let v=inp.value.trim(); if(!v) return;
+addMsg(v,'user'); inp.value='';
+setTimeout(()=>{
+if(v.toLowerCase().includes('hai') || v.toLowerCase().includes('halo') || v.toLowerCase()==='hi'){
+addMsg('Hai! Ada yang bisa kubantu?','ai');
+}else if(v.toLowerCase().includes('landing')){
+addMsg('Berikut contoh landing page modern untuk layanan kreatif digital:','ai');
+let wrap=document.createElement('div'); wrap.className='preview';
+wrap.innerHTML=`<div class="bar"><span>HTML • landing-page-kreatif • 12KB</span><span style="display:flex;gap:6px"><span style="background:#eee;padding:3px 8px;border-radius:99px">Buka</span><span style="background:#111;color:#fff;padding:3px 8px;border-radius:99px">Download</span></span></div>
+<div class="lp"><div style="font-size:10px;color:#7c5bff;font-weight:700">+ Ruang kreatif untuk semua orang</div><h2>Ubah ide sederhana<br>menjadi karya yang<br><span>berkesan.</span></h2><div style="font-size:12px;opacity:.7;line-height:1.5;margin:8px 0">KreasiKu membantu kamu merancang, mengembangkan, dan membagikan ide kreatif dengan cara yang lebih mudah, cepat, dan menyenangkan.</div><div class="btns"><div class="p">Coba Gratis →</div><div class="s">Pelajari Lebih Lanjut</div></div><div style="font-size:10px;opacity:.5;margin-top:10px">✓ Dipercaya 10.000+ kreator • Tim kreatif sedang bekerja bersama</div><div style="margin-top:16px;background:#f6f5ff;border-radius:12px;padding:12px"><div style="font-weight:800;font-size:13px">+250% ide kreatif lebih cepat diwujudkan bersama KreasiKu.</div><div style="font-size:11px;opacity:.6;margin-top:6px">Semua yang kamu butuhkan untuk mulai berkarya — Rancang proses kreatifmu dari awal hingga menjadi hasil yang siap dibagikan.</div></div></div>`;
+chat.appendChild(wrap);
+}else{
+addMsg('Siap seb! Gue dilzNoelz AI - versi khusus lu. Mau gue bikinin landing page, OSINT tool, atau PP almarhum kayak kemarin? Ketik aja: "buat kode html landing page"','ai');
+}
+},600);
+}
+</script>
+</body>
+</html>
