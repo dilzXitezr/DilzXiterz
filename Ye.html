@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>DILZ TOOLS - All Tools Nexus by seb</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+body{background:#05050a;color:#fff;min-height:100vh;overflow-x:hidden}
+.hero{height:210px;position:relative;background:radial-gradient(circle at 60% 40%,#1a0a3a 0%,#000 60%);overflow:hidden;border-bottom:1px solid #1a1a2e}
+.eye{position:absolute;right:10%;top:5%;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,#ff2a6d 0%,#5a0a7a 30%,#000 70%);box-shadow:0 0 60px #ff2a6d,0 0 100px #7c3aed;animation:pulse 3s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.hero h1{position:absolute;bottom:16px;left:14px;font-family:'Orbitron';color:#ff2a6d;font-size:20px;font-weight:900;letter-spacing:1px;text-shadow:0 0 15px #ff2a6d}
+.info{display:flex;gap:6px;flex-wrap:wrap;position:absolute;bottom:44px;left:14px}
+.chip{background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:3px 8px;font-size:9px;display:flex;gap:4px;align-items:center;backdrop-filter:blur(10px)}
+.tabs{display:flex;gap:6px;padding:10px 12px;background:#080810;border-bottom:1px solid #1a1a2e;overflow:auto}
+.tab{padding:7px 14px;border-radius:99px;border:1px solid #222;font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer;opacity:.5}
+.tab.active{background:#fff;color:#000;opacity:1;border-color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.card{background:linear-gradient(180deg,#12121e,#0a0a12);border:1px solid rgba(124,58,237,.2);border-radius:16px;padding:12px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.card:hover{border-color:#a78bfa;transform:translateY(-2px);box-shadow:0 10px 30px rgba(124,58,237,.2)}
+.card .ico{width:36px;height:36px;border-radius:10px;background:#1a1330;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:8px;border:1px solid rgba(167,139,250,.2)}
+.card b{font-size:12px;display:block;line-height:1.2}
+.card p{font-size:9px;opacity:.5;margin-top:4px;line-height:1.4}
+.card .foot{margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+.badge{font-size:8px;padding:3px 7px;border-radius:4px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1)}
+.arrow{font-size:12px;opacity:.3}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(20px);z-index:99;display:none;flex-direction:column}
+.modal.show{display:flex}
+.m-head{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid #222;background:#0a0a12}
+.m-body{flex:1;overflow:auto;padding:14px}
+.input{width:100%;background:#11111d;border:1px solid #2a2a3a;border-radius:12px;padding:12px 14px;color:#fff;font-size:13px;outline:none}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-weight:800;cursor:pointer;margin-top:10px;font-size:13px}
+.btn-r{background:linear-gradient(90deg,#ff2a6d,#8b5cf6);color:#fff;box-shadow:0 0 20px rgba(255,42,109,.4)}
+.btn-w{background:#fff;color:#000}
+.komik-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.komik{border-radius:12px;overflow:hidden;background:#12121e;border:1px solid #222}
+.komik img{width:100%;height:160px;object-fit:cover}
+.komik div{padding:8px}
+.komik b{font-size:10px;line-height:1.2;display:block}
+.stat{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}
+.stat div{background:#11111d;border:1px solid #222;border-radius:10px;padding:10px;text-align:center}
+.stat b{font-size:18px;display:block}
+.stat span{font-size:8px;opacity:.5}
+.kbd{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:10px}
+.kbd div{background:#1a1a2e;border-radius:8px;padding:8px;text-align:center;font-size:11px;font-weight:700;border:1px solid #2a2a4a}
+.previewBox{background:#0f0f1a;border:1px solid #2a2a4a;border-radius:14px;padding:12px;margin-top:10px}
+.chatBox{height:60vh;display:flex;flex-direction:column}
+.msgs{flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px;padding-bottom:10px}
+.msg{padding:10px 12px;border-radius:14px;max-width:80%;font-size:12px;line-height:1.5}
+.user{align-self:flex-end;background:#fff;color:#000}
+.ai{align-self:flex-start;background:#1a1a2e;border:1px solid #333}
+</style>
+</head>
+<body>
+<div class="hero"><div class="eye"></div><h1>❄️ DILZ TOOLS NEXUS</h1>
+<div class="info">
+<div class="chip">📍 Indonesia</div><div class="chip">📱 Android</div><div class="chip">🌐 Opera</div><div class="chip">🟢 Online</div><div class="chip">🔋 91% • VVIP</div>
+</div>
+</div>
+
+<div class="tabs">
+<div class="tab active" onclick="filterTab(this,'all')">♾️ All</div>
+<div class="tab" onclick="filterTab(this,'downloader')">⬇️ Downloader</div>
+<div class="tab" onclick="filterTab(this,'maker')">🛠️ Maker</div>
+<div class="tab" onclick="filterTab(this,'tools')">⚙️ Tools</div>
+</div>
+
+<div style="padding:8px 14px;font-size:11px;opacity:.4;font-weight:800;letter-spacing:1px">▦ SEMUA TOOLS - BY SEB DILZNOELZ</div>
+
+<div class="grid" id="grid">
+<div class="card" data-cat="tools" onclick="openTool('komik')"><div class="ico">📚</div><b>Komik</b><p>Baca manga, manhwa & manhua</p><div class="foot"><span class="badge">READ</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="downloader" onclick="openTool('media')"><div class="ico">☁️</div><b>Media Downloader</b><p>TikTok, Instagram, Facebook, Threads, YouTube, Pinterest & CapCut</p><div class="foot"><span class="badge">MEDIA</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="downloader" onclick="openTool('terabox')"><div class="ico">📦</div><b>Terabox Downloader</b><p>Ambil file dari link share Terabox</p><div class="foot"><span class="badge">FILE</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="downloader" onclick="openTool('ig')"><div class="ico">📸</div><b>Instagram</b><p>Download video & foto</p><div class="foot"><span class="badge">IG</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="downloader" onclick="openTool('tiktok')"><div class="ico">🎵</div><b>TikTok</b><p>Video, foto & audio tanpa watermark</p><div class="foot"><span class="badge">TIKTOK</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="downloader" onclick="openTool('yt')"><div class="ico">▶️</div><b>YouTube</b><p>Video & audio</p><div class="foot"><span class="badge">YT</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="tools" onclick="openTool('nik')"><div class="ico">🪪</div><b>Cek NIK</b><p>Bedah format NIK tanpa sentuh data pribadi</p><div class="foot"><span class="badge">CEK</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="maker" onclick="openTool('alight')"><div class="ico">🎬</div><b>Generator Alight Motion</b><p>By Vyan - Buat akun AM premium</p><div class="foot"><span class="badge">AM</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="maker" onclick="openTool('repair')"><div class="ico">🛠️</div><b>Vyan Video Repair</b><p>Perbaikan metadata MP4/MOV rusak</p><div class="foot"><span class="badge">REPAIR</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="tools" onclick="openTool('source')"><div class="ico">💻</div><b>GET SOURCE CODE</b><p>Secure Web Intelligence - Extract source</p><div class="foot"><span class="badge">CODE</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="tools" onclick="openTool('ai')"><div class="ico">🤖</div><b>DILZ AI - Nexus AI</b><p>Ask me anything - DILZ version</p><div class="foot"><span class="badge">AI</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="maker" onclick="openTool('web2apk')"><div class="ico">📲</div><b>Web2APK Builder</b><p>Convert HTML to APK - Spin Workspace</p><div class="foot"><span class="badge">APK</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="maker" onclick="openTool('deploy')"><div class="ico">▲</div><b>Deploy Vercel</b><p>Deploy project HTML ke Vercel/Netlify</p><div class="foot"><span class="badge">DEPLOY</span><span class="arrow">→</span></div></div>
+<div class="card" data-cat="tools" onclick="openTool('otp')" style="opacity:.6"><div class="ico">📵</div><b>OTP Tools [DEMO]</b><p>UI only - dinonaktifkan untuk keamanan</p><div class="foot"><span class="badge">OFF</span><span class="arrow">→</span></div></div>
+</div>
+
+<!-- MODALS -->
+<div class="modal" id="m-komik"><div class="m-head"><b>NEXUS KOMIK • DILZ TOOLS</b><span onclick="closeTool()" style="font-size:20px;cursor:pointer">✕</span></div><div class="m-body"><div class="tabs"><div class="tab active">BERANDA</div><div class="tab">TERBARU</div><div class="tab">POPULER</div><div class="tab">GENRE</div></div><div class="komik-grid" style="margin-top:12px">
+<div class="komik"><img src="https://i.imgur.com/8Km9tLL.png"><div><b>Tensei Shitara Slime datta Ken</b><span style="font-size:9px;opacity:.4">Tensei</span></div></div>
+<div class="komik"><img src="https://i.imgur.com/8Km9tLL.png"><div><b>Sousou no Frieren</b><span style="font-size:9px;opacity:.4">Fantasy</span></div></div>
+<div class="komik"><img src="https://i.imgur.com/8Km9tLL.png"><div><b>Chainsaw Man</b><span style="font-size:9px;opacity:.4">Shounen</span></div></div>
+<div class="komik"><img src="https://i.imgur.com/8Km9tLL.png"><div><b>One Punch-Man</b><span style="font-size:9px;opacity:.4">Action • Ch 36</span></div></div>
+</div><button class="btn btn-w" onclick="closeTool()">Kembali</button></div></div>
+
+<div class="modal" id="m-tiktok"><div class="m-head"><b>💜 TIKTOK ROOM - DILZ TOOLS</b><span onclick="closeTool()" style="cursor:pointer">✕</span></div><div class="m-body">
+<p style="font-size:12px;line-height:1.5">Preview dulu, pilih format, lalu download langsung. Tempel link TikTok untuk preview video/foto, caption, statistik, pilihan MP4/MP3/JPG, dan download tanpa pindah ke halaman lain.</p>
+<input class="input" id="tikLink" placeholder="https://vt.tiktok.com/ZSbyFNHxx/" style="margin-top:12px">
+<button class="btn btn-r" onclick="previewTik()">🔍 Preview</button>
+<div class="previewBox" id="tikPrev" style="display:none"><b id="tikTitle">✨ Video TikTok ditemukan!</b><p style="font-size:11px;opacity:.6;margin-top:4px">Siap download • By DILZ TOOLS</p><div style="display:flex;gap:6px;margin-top:10px"><button class="btn btn-w" style="flex:1;padding:8px;font-size:11px">👑 MP4 HD</button><button class="btn btn-w" style="flex:1;padding:8px;font-size:11px">🎵 MP3</button></div><button class="btn btn-r">⬇️ Download Sekarang</button></div>
+</div></div>
+
+<div class="modal" id="m-nik"><div class="m-head"><b>🪪 Bedah Format NIK - DILZ TOOLS</b><span onclick="closeTool()" style="cursor:pointer">✕</span></div><div class="m-body">
+<p style="font-size:11px;opacity:.7">NIK ID adalah alat untuk membedah NIK: kode wilayah, tanggal lahir, jenis kelamin, dan nomor urut — semua proses aman, tidak ada yang dikirim atau disimpan ke server manapun.</p>
+<div class="stat"><div><b>16</b><span>DIGIT NIK</span></div><div><b>38</b><span>PROVINSI</span></div><div><b>0</b><span>DATA KIRIM</span></div></div>
+<div style="display:flex;gap:6px;margin:10px 0"><div class="tab active">Cek NIK</div><div class="tab">Generate</div><div class="tab">Panduan</div></div>
+<input class="input" id="nikIn" maxlength="16" placeholder="Masukkan NIK (16 DIGIT) contoh 3273xxxxxxxxxxxx">
+<button class="btn btn-w" onclick="cekNik()">JALANKAN</button>
+<div id="nikOut" class="previewBox" style="display:none"></div>
+<div class="kbd"><div>F</div><div>F</div><div>K</div><div>K</div><div>E</div><div>B</div><div>R</div><div>H</div><div>V</div><div>S</div><div>S</div><div>S</div><div>P</div><div>R</div><div>G</div><div>U</div></div>
+</div></div>
+
+<div class="modal" id="m-ai"><div class="m-head"><b>💠 NEXUS AI - DILZ TOOLS</b><span onclick="closeTool()" style="cursor:pointer">✕</span></div><div class="m-body">
+<div class="chatBox"><div style="text-align:center;padding:20px"><div style="font-size:40px">🔷</div><b style="font-family:'Orbitron'">NEXUS AI</b><p style="font-size:11px;opacity:.5">Ask me anything - DILZ Version</p><div style="display:flex;gap:6px;justify-content:center;margin-top:8px;flex-wrap:wrap"><span class="chip">Apa itu AI</span><span class="chip">Bantu coding Python</span><span class="chip">Tulis email</span><span class="chip">Machine learning</span></div></div><div class="msgs" id="aiMsgs"></div><div style="display:flex;gap:8px"><input class="input" id="aiIn" placeholder="Tanya Nexus AI..." style="flex:1"><button class="btn btn-r" style="width:60px;margin:0" onclick="sendAi()">➤</button></div></div>
+</div></div>
+
+<div class="modal" id="m-source"><div class="m-head"><b>GET SOURCE CODE - DILZ</b><span onclick="closeTool()" style="cursor:pointer">✕</span></div><div class="m-body">
+<h2 style="font-family:'Orbitron';font-size:18px">GET SOURCE CODE</h2><p style="font-size:10px;opacity:.5">Secure Web Intelligence • Real-time Source Extraction</p>
+<input class="input" placeholder="https://your-site.vercel.app" style="margin-top:12px">
+<button class="btn btn-w">↗ Extract</button><div style="margin-top:10px;font-size:10px"><label><input type="checkbox" checked> Bundle CSS & JS</label><br><label><input type="checkbox"> Clone penuh (base64)</label><br><label><input type="checkbox" checked> Live render</label></div>
+<div class="stat"><div><b>0</b><span>TOTAL</span></div><div><b>0</b><span>SUCCESS</span></div><div><b>0</b><span>FAILED</span></div></div>
+</div></div>
+
+<div class="modal" id="m-web2apk"><div class="m-head"><b>Web2APK - DILZ TOOLS</b><span onclick="closeTool()" style="cursor:pointer">✕</span></div><div class="m-body">
+<h3>🌐 Web2File HTML</h3><input class="input" placeholder="https://example.com" style="margin-top:8px"><input class="input" placeholder="Toko Kita (Launcher Label)" style="margin-top:8px"><input class="input" placeholder="com.web2apk.tokokita" style="margin-top:8px"><input class="input" placeholder="1" style="margin-top:8px;width:48%;display:inline-block"><input class="input" placeholder="1.0.0" style="margin-top:8px;width:48%;display:inline-block"><button class="btn btn-w" style="margin-top:12px">📁 Choose PNG Icon (192x192)</button><button class="btn btn-r">Build APK</button>
+</div></div>
+
+<div class="modal" id="m-deploy"><div class="m-head"><b>Deploy Vercel - DILZ</b><span onclick="closeTool()" style="cursor:pointer">✕</span></div><div class="m-body">
+<div class="tabs"><div class="tab active">▲ Vercel</div><div class="tab">⬢ Netlify</div><div class="tab">📁 FILE</div><div class="tab">HTML</div></div>
+<input class="input" placeholder="vercel.com/account/tokens" style="margin-top:12px"><input class="input" placeholder="NAMA PROJECT" style="margin-top:8px"><div style="margin-top:12px;background:#11111d;border:1px dashed #444;border-radius:12px;padding:30px;text-align:center"><div style="font-size:30px">☁️</div><p style="font-size:12px;margin-top:6px">Tap untuk pilih file</p></div><button class="btn btn-r">‹› DEPLOY</button>
+</div></div>
+
+<div class="modal" id="m-otp"><div class="m-head"><b>OTP Tools - DEMO ONLY</b><span onclick="closeTool()" style="cursor:pointer">✕</span></div><div class="m-body"><h2 style="color:#ff2a6d">Fitur Dinonaktifkan</h2><p style="font-size:12px;margin-top:8px;line-height:1.6">Untuk mencegah penyalahgunaan & spam, fitur kirim OTP ke 26+ platform dinonaktifkan. Di video asli itu ada, tapi di versi DILZ TOOLS gue ganti jadi edukasi UI only. Jika kamu butuh testing OTP untuk nomor kamu sendiri, gunakan layanan resmi provider.</p><button class="btn btn-w" onclick="closeTool()">Mengerti</button></div></div>
+
+<div class="modal" id="m-media"><div class="m-head"><b>Media Downloader</b><span onclick="closeTool()" style="cursor:pointer">✕</span></div><div class="m-body"><p style="font-size:12px">Pilih platform, tempel link, preview & download.</p><div class="grid" style="padding:0;margin-top:10px"><div class="card" onclick="openTool('tiktok')">🎵 TikTok</div><div class="card" onclick="openTool('ig')">📸 Instagram</div><div class="card">📘 Facebook</div><div class="card">▶️ YouTube</div></div></div></div>
+<div class="modal" id="m-alight"><div class="m-head"><b>Generator Alight Motion By Vyan</b><span onclick="closeTool()" style="cursor:pointer">✕</span></div><div class="m-body"><h3>Aktivasi Akun</h3><div class="stat"><div><b>1</b></div></div><p style="font-size:12px;margin-top:10px">Activate your account - Masukkan email aktif, Magic Link akan dikirim (cek folder Spam / Promotions).</p><input class="input" placeholder="youremail@gmail.com" style="margin-top:10px"><button class="btn btn-w" style="margin-top:10px">Let's start</button><p style="font-size:9px;opacity:.4;margin-top:10px">Gunakan email Gmail yang masih aktif • Cek folder Spam • Link hanya berlaku sekitar 5 menit</p></div></div>
+<div class="modal" id="m-repair"><div class="m-head"><b>Vyan Video Repair</b><span onclick="closeTool()" style="cursor:pointer">✕</span></div><div class="m-body"><div style="background:#11111d;border:1px dashed #444;border-radius:12px;padding:30px;text-align:center"><div style="font-size:30px">📤</div><p style="font-size:12px">Pilih atau jatuhkan video MP4 / MOV</p><p style="font-size:9px;opacity:.5">MP4/MOV rusak, akan memeriksa codec, HDR, Dolby Vision, dll</p></div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-w" style="flex:1">120 FPS</button><button class="btn btn-w" style="flex:1">60 FPS</button></div></div></div>
+
+<script>
+function filterTab(el,cat){
+document.querySelectorAll('.tabs .tab').forEach(t=>t.classList.remove('active'));
+el.classList.add('active');
+document.querySelectorAll('#grid .card').forEach(c=>{
+if(cat==='all' || c.dataset.cat===cat) c.style.display='block'; else c.style.display='none';
+});
+}
+function openTool(name){
+let id='m-'+name;
+let modal=document.getElementById(id);
+if(!modal){modal=document.getElementById('m-media');}
+if(modal){modal.classList.add('show')}
+}
+function closeTool(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'))}
+function previewTik(){
+let v=document.getElementById('tikLink').value;
+if(!v){alert('Tempel link dulu min!');return}
+document.getElementById('tikPrev').style.display='block';
+document.getElementById('tikTitle').innerText='✨ Link OK: '+v.slice(0,25)+'...';
+}
+function cekNik(){
+let nik=document.getElementById('nikIn').value.trim();
+if(nik.length!==16 || isNaN(nik)){alert('NIK harus 16 digit angka!');return}
+let prov=nik.substring(0,2);
+let tgl=nik.substring(6,12);
+let out=`<b style="color:#a78bfa">HASIL BEDAH NIK (LOKAL, TIDAK DIKIRIM):</b><br><br>
+• Provinsi Code: ${prov}<br>• Tanggal Lahir Code: ${tgl}<br>• Jenis Kelamin: ${parseInt(nik.substring(6,8))>40?'Wanita':'Pria'}<br>• Validasi: ${nik.length===16?'✅ Valid format':'❌'}<br><br><span style="font-size:10px;opacity:.5">Ini hanya parsing format, bukan mengambil data dukcapil. Aman, offline.</span>`;
+document.getElementById('nikOut').innerHTML=out;
+document.getElementById('nikOut').style.display='block';
+}
+function sendAi(){
+let inp=document.getElementById('aiIn');
+let v=inp.value.trim(); if(!v) return;
+let box=document.getElementById('aiMsgs');
+box.innerHTML+=`<div class="msg user">${v}</div>`;
+inp.value='';
+setTimeout(()=>{box.innerHTML+=`<div class="msg ai">Hai seb! Gue DILZ AI - versi Nexus AI dari DILZ TOOLS. Lu nanya: "${v}" - Gue siap bantu coding, bikin caption, atau jelasin tools yang ada di DILZ TOOLS. Ketik apa aja!</div>`; box.scrollTop=box.scrollHeight;},500);
+}
+document.getElementById('aiIn')?.addEventListener('keydown',e=>{if(e.key==='Enter')sendAi()});
+</script>
+</body>
+</html>
