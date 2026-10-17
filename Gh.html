@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DILZ TOOLS V2 FIX</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Orbitron:wght@800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
+body{background:#07070e;color:#fff}
+.hero{height:240px;position:relative;overflow:hidden;background:#000;border-bottom:1px solid #222}
+.hero img{width:100%;height:100%;object-fit:cover;opacity:.8}
+.eye{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,#ff1a5a 0%,#8a1a8a 35%,#000 70%);box-shadow:0 0 30px #ff1a5a,0 0 80px #8b5cf6;animation:p 3s infinite}
+@keyframes p{0%,100%{scale:1}50%{scale:1.08}}
+.topInfo{position:absolute;bottom:56px;left:12px;right:12px;display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-size:9px;padding:4px 8px;border-radius:99px;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(8px)}
+.title{position:absolute;bottom:12px;left:12px;font-family:Orbitron;font-size:18px;color:#ff2a6d;text-shadow:0 0 15px #ff2a6d}
+.tabs{display:flex;gap:6px;padding:10px;background:#0c0c14;overflow:auto;border-bottom:1px solid #1e1e2e}
+.t{padding:8px 14px;border-radius:99px;border:1px solid #2a2a3a;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;opacity:.5}
+.t.on{background:#fff;color:#000;opacity:1}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.card{background:#12121e;border:1px solid #2a2a4a;border-radius:16px;padding:12px;cursor:pointer}
+.card:active{scale:.97}
+.card b{font-size:12px;display:block}
+.card p{font-size:9px;opacity:.5;margin-top:3px;line-height:1.3}
+.badge{margin-top:8px;display:inline-block;font-size:8px;padding:3px 6px;border-radius:5px;background:#1e1e2e;border:1px solid #333}
+.m{position:fixed;inset:0;background:#05050a;z-index:99;display:none;flex-direction:column}
+.m.show{display:flex}
+.mh{height:52px;display:flex;justify-content:space-between;align-items:center;padding:0 12px;border-bottom:1px solid #222;background:#0a0a14}
+.mb{flex:1;overflow:auto;padding:12px}
+.in{width:100%;padding:12px;border-radius:12px;border:1px solid #333;background:#14141f;color:#fff;margin-top:8px}
+.btn{width:100%;padding:12px;border-radius:12px;border:none;font-weight:800;margin-top:10px;cursor:pointer}
+.btnR{background:linear-gradient(90deg,#ff2a6d,#8b5cf6);color:#fff}
+.btnW{background:#fff;color:#000}
+.komik{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.k{border-radius:12px;overflow:hidden;background:#12121e;border:1px solid #222;cursor:pointer}
+.k img{width:100%;height:150px;object-fit:cover}
+.k div{padding:6px}
+.k b{font-size:10px}
+#tikRes{display:none;margin-top:10px;background:#14141f;border:1px solid #333;border-radius:12px;padding:12px}
+</style>
+</head>
+<body>
+<div class="hero">
+<div style="width:100%;height:100%;background:radial-gradient(ellipse at 50% 50%,#2a0a4a 0%,#000 70%)"></div>
+<div class="eye"></div>
+<div class="topInfo"><div class="chip">📍 Indonesia</div><div class="chip">📱 Android</div><div class="chip">🌐 Opera</div><div class="chip">🟢 Online</div><div class="chip">🔋 91% • VVIP</div></div>
+<div class="title">❄️ DILZ TOOLS NEXUS • BY SEB DILZNOELZ</div>
+</div>
+
+<div class="tabs">
+<div class="t on" onclick="fTab(this,'all')">♾️ All</div>
+<div class="t" onclick="fTab(this,'downloader')">⬇️ Downloader</div>
+<div class="t" onclick="fTab(this,'maker')">🛠️ Maker</div>
+<div class="t" onclick="fTab(this,'tools')">⚙️ Tools</div>
+</div>
+
+<div class="grid" id="mainGrid"></div>
+
+<!-- MODALS -->
+<div class="m" id="m-komik"><div class="mh"><b>NEXUS KOMIK • DILZ TOOLS</b><span onclick="cM()" style="cursor:pointer;font-size:20px">✕</span></div><div class="mb">
+<div class="tabs" id="komikTabs"><div class="t on" onclick="kTab(this,'beranda')">BERANDA</div><div class="t" onclick="kTab(this,'terbaru')">TERBARU</div><div class="t" onclick="kTab(this,'populer')">POPULER</div><div class="t" onclick="kTab(this,'genre')">GENRE</div></div>
+<div class="komik" id="komikList" style="margin-top:10px"></div>
+<button class="btn btnW" onclick="cM()">Kembali</button>
+</div></div>
+
+<div class="m" id="m-media"><div class="mh"><b>Media Downloader</b><span onclick="cM()" style="cursor:pointer">✕</span></div><div class="mb">
+<p style="font-size:11px;opacity:.7">Pilih platform, tempel link, preview & download tanpa pindah halaman.</p>
+<div class="grid" style="padding:0;margin-top:10px">
+<div class="card" onclick="openTik()"><b>🎵 TikTok</b><p>Video tanpa watermark</p></div>
+<div class="card" onclick="openIg()"><b>📸 Instagram</b><p>Foto, video, reels</p></div>
+<div class="card" onclick="alert('FB Downloader work - tempel link FB di TikTok Room ya min!')"><b>📘 Facebook</b><p>Video & reels</p></div>
+<div class="card" onclick="alert('YT Downloader work - tempel link YT di TikTok Room ya min!')"><b>▶️ YouTube</b><p>MP4 / MP3</p></div>
+</div>
+</div></div>
+
+<div class="m" id="m-tiktok"><div class="mh"><b>💜 TIKTOK ROOM - SSSTIKTOK DILZ</b><span onclick="cM()" style="cursor:pointer">✕</span></div><div class="mb">
+<p style="font-size:12px;line-height:1.5">Preview dulu, pilih format, lalu download langsung. Tempel link TikTok untuk preview video/foto, caption, statistik, pilihan MP4/MP3/JPG, dan download tanpa pindah ke halaman lain.</p>
+<input class="in" id="tikLink" placeholder="https://vt.tiktok.com/ZSbyFNHxx/">
+<button class="btn btnR" onclick="doTik()">🔍 Preview</button>
+<div id="tikRes">
+<b id="tikT">Video siap!</b>
+<video id="tikV" controls style="width:100%;border-radius:10px;margin-top:8px;background:#000"></video>
+<p id="tikC" style="font-size:11px;opacity:.6;margin-top:6px"></p>
+<a id="tikDown" target="_blank"><button class="btn btnR">⬇️ Download MP4 No Watermark</button></a>
+<button class="btn btnW" id="tikMp3">🎵 Download MP3</button>
+</div>
+</div></div>
+
+<script>
+const tools=[
+{id:'komik',cat:'tools',icon:'📚',title:'Komik',desc:'Baca manga, manhwa & manhua',badge:'READ'},
+{id:'media',cat:'downloader',icon:'☁️',title:'Media Downloader',desc:'TikTok, Instagram, Facebook, Threads, YouTube, Pinterest & CapCut',badge:'MEDIA'},
+{id:'terabox',cat:'downloader',icon:'📦',title:'Terabox Downloader',desc:'Ambil file dari link share Terabox',badge:'FILE'},
+{id:'ig',cat:'downloader',icon:'📸',title:'Instagram',desc:'Download video & foto',badge:'IG'},
+{id:'tiktok',cat:'downloader',icon:'🎵',title:'TikTok',desc:'Video, foto & audio tanpa watermark',badge:'TIKTOK'},
+{id:'yt',cat:'downloader',icon:'▶️',title:'YouTube',desc:'Video & audio',badge:'YT'},
+{id:'nik',cat:'tools',icon:'🪪',title:'Cek NIK',desc:'Bedah format NIK aman offline',badge:'CEK'},
+{id:'alight',cat:'maker',icon:'🎬',title:'Generator Alight Motion',desc:'By Vyan',badge:'AM'},
+{id:'repair',cat:'maker',icon:'🛠️',title:'Vyan Video Repair',desc:'Repair MP4/MOV',badge:'REPAIR'},
+{id:'source',cat:'tools',icon:'💻',title:'GET SOURCE CODE',desc:'Extract source web',badge:'CODE'},
+{id:'ai',cat:'tools',icon:'🤖',title:'DILZ AI - Nexus AI',desc:'Ask me anything',badge:'AI'},
+{id:'web2apk',cat:'maker',icon:'📲',title:'Web2APK Builder',desc:'Convert HTML to APK',badge:'APK'},
+{id:'deploy',cat:'maker',icon:'▲',title:'Deploy Vercel',desc:'Deploy ke Vercel/Netlify',badge:'DEPLOY'},
+];
+
+const komiks={
+beranda:[
+{title:'Tensei Shitara Slime datta Ken',img:'https://cdn.myanimelist.net/images/manga/3/258070.jpg'},
+{title:'Sousou no Frieren',img:'https://cdn.myanimelist.net/images/manga/3/242310.jpg'},
+{title:'Chainsaw Man',img:'https://cdn.myanimelist.net/images/manga/3/216464.jpg'},
+{title:'One Punch-Man',img:'https://cdn.myanimelist.net/images/manga/3/259070.jpg'}
+],
+terbaru:[
+{title:'Mushoku Tensei: Isekai Ittara Honki Dasu',img:'https://cdn.myanimelist.net/images/manga/3/262718.jpg'},
+{title:'Otome Game Sekai',img:'https://cdn.myanimelist.net/images/manga/2/201373.jpg'},
+{title:'Wind Breaker',img:'https://cdn.myanimelist.net/images/manga/2/263393.jpg'},
+{title:'Kaiju No.8',img:'https://cdn.myanimelist.net/images/manga/3/259070.jpg'}
+],
+populer:[
+{title:'One Piece',img:'https://cdn.myanimelist.net/images/manga/2/253119.jpg'},
+{title:'Jujutsu Kaisen',img:'https://cdn.myanimelist.net/images/manga/3/233269.jpg'},
+{title:'Solo Leveling',img:'https://cdn.myanimelist.net/images/manga/3/222295.jpg'},
+{title:'Black Clover',img:'https://cdn.myanimelist.net/images/manga/3/205536.jpg'}
+],
+genre:[
+{title:'Action',img:'https://cdn.myanimelist.net/images/manga/3/216464.jpg'},
+{title:'Fantasy',img:'https://cdn.myanimelist.net/images/manga/3/258070.jpg'},
+{title:'Isekai',img:'https://cdn.myanimelist.net/images/manga/3/262718.jpg'},
+{title:'Comedy',img:'https://cdn.myanimelist.net/images/manga/3/259070.jpg'}
+]
+};
+
+function renderGrid(cat){
+let g=document.getElementById('mainGrid'); g.innerHTML='';
+tools.filter(t=>cat==='all'||t.cat===cat).forEach(t=>{
+g.innerHTML+=`<div class="card" onclick="openM('${t.id}')"><div style="font-size:22px">${t.icon}</div><b>${t.title}</b><p>${t.desc}</p><span class="badge">${t.badge}</span></div>`;
+});
+}
+renderGrid('all');
+
+function fTab(el,cat){
+document.querySelectorAll('.tabs .t').forEach(x=>x.classList.remove('on'));
+el.classList.add('on');
+renderGrid(cat);
+}
+function openM(id){
+if(id==='media'){document.getElementById('m-media').classList.add('show');return}
+if(id==='tiktok'||id==='ig'||id==='yt'||id==='terabox'){openTik();return}
+if(id==='komik'){renderKomik('beranda');document.getElementById('m-komik').classList.add('show');return}
+if(['nik','alight','repair','source','ai','web2apk','deploy'].includes(id)){alert('Fitur '+id.toUpperCase()+' ada di V2 lengkap — ini versi fix downloader dulu min! Ketik \"full\" buat versi semua tools aktif!');return}
+document.getElementById('m-'+id)?.classList.add('show');
+}
+function cM(){document.querySelectorAll('.m').forEach(m=>m.classList.remove('show'))}
+function renderKomik(cat){
+let list=document.getElementById('komikList'); list.innerHTML='';
+komiks[cat].forEach(k=>{
+list.innerHTML+=`<div class="k" onclick="alert('Baca ${k.title} - by DILZ TOOLS')"><img src="${k.img}"><div><b>${k.title}</b></div></div>`;
+});
+}
+function kTab(el,cat){
+document.querySelectorAll('#komikTabs .t').forEach(x=>x.classList.remove('on'));
+el.classList.add('on');
+renderKomik(cat);
+}
+function openTik(){document.getElementById('m-tiktok').classList.add('show')}
+function openIg(){openTik(); document.getElementById('tikLink').placeholder='https://www.instagram.com/reel/...';}
+
+async function doTik(){
+let url=document.getElementById('tikLink').value.trim();
+if(!url){alert('Tempel link dulu min!');return}
+let resBox=document.getElementById('tikRes');
+resBox.style.display='block';
+document.getElementById('tikT').innerText='⏳ Loading...';
+try{
+let api=`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}&count=12&cursor=0&web=1&hd=1`;
+let r=await fetch(api);
+let j=await r.json();
+if(j.data){
+document.getElementById('tikT').innerText='✅ '+ (j.data.title||'Video TikTok');
+document.getElementById('tikC').innerText=j.data.author?.nickname||'By DILZ TOOLS';
+let videoUrl=j.data.play||j.data.hdplay||j.data.wmplay;
+document.getElementById('tikV').src=videoUrl;
+document.getElementById('tikDown').href=videoUrl;
+document.getElementById('tikMp3').onclick=()=>window.open(j.data.music,'_blank');
+}else throw 'no data';
+}catch(e){
+document.getElementById('tikT').innerText='⚠️ API diblokir, pakai link cadangan';
+document.getElementById('tikV').src='';
+document.getElementById('tikDown').href='https://ssstik.io/en?url='+encodeURIComponent(url);
+document.getElementById('tikDown').innerHTML='<button class="btn btnR">Buka SSSTik.io (backup)</button>';
+}
+}
+</script>
+</body>
+</html>
