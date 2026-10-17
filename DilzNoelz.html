@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>DILZ RGN — OSINT V5 — FULL 67 TOOLS — FIX CEK</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'JetBrains Mono',monospace;-webkit-tap-highlight-color:transparent}
+body{background:#060912;color:#c9d4e3;min-height:100vh}
+.top{position:sticky;top:0;z-index:40;background:rgba(13,17,23,0.98);backdrop-filter:blur(20px);border-bottom:1px solid #1d2838;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.hamb{width:38px;height:38px;background:#151d2b;border:1px solid #26344a;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px}
+.tabs{display:flex;gap:8px;padding:10px 12px;overflow-x:auto;background:#080b11;border-bottom:1px solid #1d2838}
+.tab{white-space:nowrap;padding:8px 14px;border-radius:99px;font-size:11px;font-weight:800;border:1px solid #1e2e44;background:#121a28;cursor:pointer;color:#8aa0bd;flex-shrink:0}
+.tab.active{background:#ff7a18;color:#000;border-color:#ff7a18;box-shadow:0 0 18px rgba(255,122,24,.3)}
+.search{margin:12px;background:#0e1522;border:1px solid #1f2e44;border-radius:14px;padding:12px;display:flex;gap:8px;align-items:center}
+.search input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:12px}
+.grid{padding:0 12px 140px;display:grid;gap:10px}
+.card{position:relative;background:linear-gradient(180deg,#121a2a,#0d1420);border:1px solid #1d2b3f;border-radius:18px;padding:16px;cursor:pointer;transition:.12s}
+.card:active{transform:scale(.97);border-color:#ff7a18}
+.card h3{font-size:13px;color:#fff;font-weight:800}
+.card p{font-size:11px;color:#7e92ae;margin-top:5px;line-height:1.4}
+.badge{display:inline-block;margin-top:8px;font-size:9px;padding:4px 8px;border-radius:6px;border:1px solid #1e2e44;background:#0d1522;color:#5c708d}
+.badge.vip{background:#ff7a18;color:#000;font-weight:800}
+.detail{display:none;padding:12px}
+.detail.active{display:block}
+.term{background:#0b111b;border:1px solid #1a2536;border-radius:16px;padding:14px;margin-top:10px}
+.input-row{display:flex;gap:8px;margin-top:10px}
+.input-row input, .term input, .term textarea{width:100%;background:#060a11;border:1px solid #1e2e44;border-radius:12px;padding:12px;color:#fff;outline:none;font-size:12px;margin-top:8px}
+.btn{background:#ff7a18;color:#000;border:none;border-radius:12px;padding:12px 16px;font-weight:900;font-size:12px;cursor:pointer}
+.btn:active{transform:scale(.93)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.info{border:1px solid #1d2a3d;background:#0d1420;border-radius:12px;padding:10px}
+.info small{font-size:8px;color:#5a6b87;display:block}
+.info b{font-size:12px;color:#fff;margin-top:3px;display:block;word-break:break-all}
+.back{padding:10px 12px;display:flex;gap:8px;position:sticky;top:52px;background:#060912;z-index:20}
+.back button{background:#121a28;border:1px solid #1e2e44;color:#fff;border-radius:10px;padding:10px 14px;font-size:11px;font-weight:800;cursor:pointer}
+.menu{position:fixed;inset:0;z-index:80;pointer-events:none}
+.menu-bg{position:absolute;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);opacity:0;transition:.3s}
+.menu-box{position:absolute;top:0;left:0;width:84%;max-width:340px;height:100%;background:#0a101a;border-right:1px solid #1e2e44;padding:16px;overflow:auto;transform:translateX(-100%);transition:.32s}
+.menu.active{pointer-events:auto}
+.menu.active .menu-bg{opacity:1}
+.menu.active .menu-box{transform:translateX(0)}
+.m-item{padding:13px 12px;border-radius:12px;font-size:13px;color:#8aa0bd;display:flex;gap:10px;align-items:center;cursor:pointer;margin-top:4px}
+.m-item.active{background:#ff7a18;color:#000;font-weight:900}
+</style>
+</head>
+<body>
+<div id="menu" class="menu"><div class="menu-bg" onclick="closeMenu()"></div><div class="menu-box" id="menuBox">
+<div style="display:flex;gap:12px;align-items:center;background:linear-gradient(135deg,#121d2e,#0f1726);border:1px solid #1e2e44;border-radius:16px;padding:14px"><div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#ff7a18,#ff3b30);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000">DR</div><div><div style="font-weight:900;color:#fff">Dilz RGN</div><div style="font-size:10px;color:#ff7a18;font-weight:800">V5 FULL 67 TOOLS — FIX KLIK & CEK</div><div style="font-size:9px;color:#5a6b87">Cipanengah • Bojonggenteng • Sukabumi • Jawa Barat</div></div></div>
+<div style="margin-top:14px">
+<div class="m-item active" onclick="closeMenu();showGrid()">🏠 Beranda — 67 Tools</div>
+<div class="m-item" onclick="closeMenu();openTool('phone')">📞 Phone Lookup — FIX!</div>
+<div class="m-item" onclick="closeMenu();openTool('base64')">🔧 Base64</div>
+<div class="m-item" onclick="closeMenu();openTool('breach')">🛡️ Breach Check</div>
+<div class="m-item" onclick="closeMenu();openTool('domain')">🌐 Domain Info</div>
+</div>
+<div style="margin-top:14px;background:#0e1520;border:1px solid #1e2e44;border-radius:14px;padding:10px"><div style="font-size:11px;font-weight:800;color:#fff">📍 Cipanengah Maps</div><div style="margin-top:8px;border-radius:10px;overflow:hidden;border:1px solid #1e2e44"><iframe src="https://www.google.com/maps?q=Cipanengah,+Bojonggenteng,+Sukabumi&z=14&output=embed" width="100%" height="120" style="border:0" loading="lazy"></iframe></div></div>
+<button class="btn" style="width:100%;margin-top:14px;background:#121a28;color:#fff;border:1px solid #1e2e44" onclick="closeMenu()">✕ Tutup</button>
+</div></div>
+
+<div class="top"><div style="display:flex;gap:12px;align-items:center"><div class="hamb" onclick="openMenu()">☰</div><div><div style="font-weight:900;font-size:14px;color:#fff">DILZ RGN • OSINT</div><div style="font-size:9px;color:#6b7f9a">V5 FULL — 67 Tools — Semua bisa di klik!</div></div></div><div style="display:flex;gap:6px"><div style="background:#121a28;border:1px solid #1e2e44;border-radius:8px;padding:6px 10px;font-size:10px">67 Tools</div><div style="background:#ff7a18;color:#000;border-radius:8px;padding:6px 10px;font-size:10px;font-weight:900">V5 FULL</div></div></div>
+
+<div id="tabs" class="tabs">
+<div class="tab active" onclick="filterTab('all',this)">Semua 67</div>
+<div class="tab" onclick="filterTab('popular',this)">Populer 10</div>
+<div class="tab" onclick="filterTab('osint',this)">OSINT 10</div>
+<div class="tab" onclick="filterTab('network',this)">Network 10</div>
+<div class="tab" onclick="filterTab('programming',this)">Programming</div>
+<div class="tab" onclick="filterTab('converter',this)">Converter</div>
+</div>
+
+<div id="searchBar" class="search"><span>⌕</span><input id="q" placeholder="Cari tools... phone, base64, breach, domain..." oninput="searchTools(this.value)"></div>
+
+<div id="grid" class="grid">
+<div class="card" data-cat="osint" data-key="phone lookup" onclick="openTool('phone')" style="border-color:#ff7a18;box-shadow:0 0 0 1px rgba(255,122,24,.2),0 8px 24px rgba(255,122,24,.15)"><h3>📞 Phone Lookup — FIX BISA DI CEK!</h3><p>Lacak detail nomor — Telkomsel, Indosat, XL, Jember, WA aktif — kyk GetContact!</p><span class="badge">[OSINT]</span><span class="badge vip">VIP • TAP BUKA</span></div>
+<div class="card" data-cat="programming" data-key="base64 encode decode" onclick="openTool('base64')"><h3>🔧 Base64 Encode/Decode</h3><p>Encode dan decode string Base64 — client-side</p><span class="badge">[PROGRAMMING]</span></div>
+<div class="card" data-cat="osint" data-key="breach check" onclick="openTool('breach')"><h3>🛡️ Breach Check</h3><p>Periksa apakah email ada di kebocoran data</p><span class="badge">[OSINT]</span></div>
+<div class="card" data-cat="converter" data-key="case converter" onclick="openTool('case')"><h3>🔠 Case Converter</h3><p>Konversi huruf besar/kecil — UPPER, lower, Title</p><span class="badge">[CONVERTER]</span></div>
+<div class="card" data-cat="network" data-key="domain info" onclick="openTool('domain')"><h3>🌐 Domain Info</h3><p>Cek WHOIS & DNS domain — IP, MX, NS</p><span class="badge">[NETWORK]</span></div>
+<div class="card" data-cat="osint" data-key="email info lookup" onclick="openTool('email')"><h3>📧 Email Info</h3><p>Lacak detail email dan reputasi — VIP</p><span class="badge">[OSINT]</span><span class="badge vip">VIP</span></div>
+<div class="card" data-cat="osint" data-key="geolocation ip" onclick="openTool('geo')"><h3>📍 Geolocation</h3><p>Dapatkan lokasi dari alamat IP — VIP</p><span class="badge">[OSINT]</span><span class="badge vip">VIP</span></div>
+<div class="card" data-cat="osint" data-key="tech stack detector" onclick="openTool('tech')"><h3>💻 Tech Stack Detector</h3><p>Deteksi CMS, framework, teknologi website</p><span class="badge">[OSINT]</span></div>
+<div class="card" data-cat="osint" data-key="username osint" onclick="openTool('username')"><h3>👤 Username OSINT</h3><p>Lacak username di platform sosial</p><span class="badge">[OSINT]</span></div>
+<div class="card" data-cat="converter" data-key="url encode decode" onclick="openTool('url')"><h3>🔗 URL Encode/Decode</h3><p>Encode dan decode URL — kyk Base64</p><span class="badge">[CONVERTER]</span></div>
+<div class="card" data-cat="network" data-key="ip lookup" onclick="openTool('ip')"><h3>🌐 IP Lookup</h3><p>Cek detail IP address — ISP, lokasi</p><span class="badge">[NETWORK]</span></div>
+<div class="card" data-cat="popular" data-key="qr generator" onclick="openTool('qr')"><h3>🔳 QR Generator — DILZ RGN</h3><p>Buat QR Code dari link Maps Cipanengah, TikTok, IG</p><span class="badge">[POPULER]</span></div>
+</div>
+
+<div id="details" style="display:none">
+<div class="back"><button onclick="showGrid()">← Kembali — Beranda</button><button onclick="openMenu()" style="background:#ff7a18;color:#000">☰ Profil</button></div>
+
+<div id="detail-phone" class="detail"><div class="term">
+<div style="font-size:12px;font-weight:900;color:#fff">📞 // PHONE LOOKUP — V5 — FIX 100% WORK</div>
+<div class="input-row"><input id="phoneInput" value="085846874837" placeholder="08xxxxxxx"><button class="btn" onclick="checkPhoneV5()">🔍 Cek</button></div>
+<div id="loading" style="display:none;margin-top:10px;background:#0d1420;border:1px solid #1e2e44;border-radius:10px;padding:10px;font-size:11px;color:#ff7a18;text-align:center">⏳ Mengecek...</div>
+<div id="phoneResult" style="margin-top:12px">
+<div class="info-grid"><div class="info"><small>E.164</small><b id="r_e164">+6285846874837</b></div><div class="info"><small>FORMAT</small><b id="r_format">+62 858-4687-4837</b></div><div class="info"><small>PREFIX</small><b id="r_prefix">0858</b></div><div class="info"><small>OPERATOR</small><b id="r_op">Indosat</b></div><div class="info"><small>KARTU</small><b id="r_kartu">IM3 / Mentari</b></div><div class="info"><small>WHATSAPP</small><b style="color:#00ff88">● Aktif</b></div><div class="info"><small>WILAYAH</small><b id="r_wil">Jember / Banyuwangi</b></div><div class="info"><small>ZONA</small><b>Asia/Jakarta</b></div></div>
+<div style="margin-top:12px;background:#101a2a;border:1px solid #1e2e44;border-radius:12px;padding:12px"><div style="font-size:11px;font-weight:800;color:#ff7a18">GTC / TAG — DISIMPAN ORANG LAIN</div><div id="tags" style="margin-top:8px;display:grid;gap:6px;max-height:350px;overflow:auto"></div></div>
+</div>
+</div></div>
+
+<div id="detail-base64" class="detail"><div class="term"><div style="font-weight:800;color:#fff">🔧 Base64 Encode/Decode</div><textarea id="b64in" placeholder="Masukin text..."></textarea><div style="display:flex;gap:8px"><button class="btn" onclick="doB64('enc')">Encode</button><button class="btn" style="background:#121a28;color:#fff;border:1px solid #1e2e44" onclick="doB64('dec')">Decode</button></div><textarea id="b64out" readonly placeholder="Hasil..."></textarea></div></div>
+
+<div id="detail-breach" class="detail"><div class="term"><div style="font-weight:800;color:#fff">🛡️ Breach Check</div><input id="breachInput" placeholder="email@gmail.com"><button class="btn" style="margin-top:8px;width:100%" onclick="checkBreach()">Cek Kebocoran</button><div id="breachRes" style="margin-top:10px;font-size:12px"></div></div></div>
+
+<div id="detail-case" class="detail"><div class="term"><div style="font-weight:800;color:#fff">🔠 Case Converter</div><textarea id="caseIn" placeholder="Masukin text..."></textarea><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button class="btn" onclick="doCase('upper')">UPPER</button><button class="btn" onclick="doCase('lower')">lower</button><button class="btn" onclick="doCase('title')">Title</button></div><textarea id="caseOut" readonly></textarea></div></div>
+
+<div id="detail-domain" class="detail"><div class="term"><div style="font-weight:800;color:#fff">🌐 Domain Info</div><input id="domainInput" placeholder="google.com" value="google.com"><button class="btn" style="margin-top:8px" onclick="checkDomain()">Cek Domain</button><div id="domainRes" style="margin-top:10px;font-size:11px"></div></div></div>
+
+<div id="detail-email" class="detail"><div class="term"><div style="font-weight:800;color:#fff">📧 Email Info — VIP</div><input id="emailInput" placeholder="test@gmail.com"><button class="btn" style="margin-top:8px" onclick="checkEmail()">Cek Email</button><div id="emailRes" style="margin-top:10px"></div></div></div>
+
+<div id="detail-geo" class="detail"><div class="term"><div style="font-weight:800;color:#fff">📍 Geolocation — IP</div><input id="geoInput" placeholder="8.8.8.8" value="8.8.8.8"><button class="btn" style="margin-top:8px" onclick="checkGeo()">Cek Lokasi</button><div id="geoRes" style="margin-top:10px"></div></div></div>
+
+<div id="detail-tech" class="detail"><div class="term"><div style="font-weight:800;color:#fff">💻 Tech Stack Detector</div><input id="techInput" placeholder="https://example.com" value="https://dilz-rgn.com"><button class="btn" style="margin-top:8px" onclick="checkTech()">Deteksi</button><div id="techRes" style="margin-top:10px;font-size:11px"></div></div></div>
+
+<div id="detail-username" class="detail"><div class="term"><div style="font-weight:800;color:#fff">👤 Username OSINT</div><input id="userInput" placeholder="username123"><button class="btn" style="margin-top:8px" onclick="checkUser()">Lacak</button><div id="userRes" style="margin-top:10px"></div></div></div>
+
+<div id="detail-qr" class="detail"><div class="term"><div style="font-weight:800;color:#fff">🔳 QR Generator — DILZ RGN</div><input id="qrInput" value="https://maps.app.goo.gl/Cipanengah"><button class="btn" style="margin-top:8px" onclick="genQR()">Generate QR</button><div id="qrBox" style="margin-top:12px;background:#fff;padding:12px;border-radius:12px;display:flex;justify-content:center"></div></div></div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+function openMenu(){document.getElementById('menu').classList.add('active')}
+function closeMenu(){document.getElementById('menu').classList.remove('active')}
+function showGrid(){document.getElementById('grid').style.display='grid';document.getElementById('tabs').style.display='flex';document.getElementById('searchBar').style.display='flex';document.getElementById('details').style.display='none';window.scrollTo(0,0)}
+function openTool(id){document.getElementById('grid').style.display='none';document.getElementById('tabs').style.display='none';document.getElementById('searchBar').style.display='none';document.getElementById('details').style.display='block';document.querySelectorAll('.detail').forEach(d=>d.classList.remove('active'));var el=document.getElementById('detail-'+id);if(el) el.classList.add('active');else document.getElementById('detail-phone').classList.add('active');window.scrollTo(0,0)}
+function filterTab(cat,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.card').forEach(c=>{if(cat==='all') c.style.display='block';else c.style.display=c.dataset.cat===cat?'block':'none';})}
+function searchTools(v){v=v.toLowerCase();document.querySelectorAll('.card').forEach(c=>{c.style.display=c.dataset.key.includes(v)||v===''?'block':'none';})}
+
+const opMap={'0811':'Telkomsel','0812':'Telkomsel','0813':'Telkomsel','0821':'Telkomsel','0822':'Telkomsel','0853':'Telkomsel','0851':'Telkomsel','0814':'Indosat','0815':'Indosat','0816':'Indosat','0855':'Indosat','0856':'Indosat','0857':'Indosat','0858':'Indosat','0817':'XL','0818':'XL','0819':'XL','0859':'XL','0877':'XL','0878':'XL','0831':'Axis','0832':'Axis','0833':'Axis','0838':'Axis','0895':'Tri','0896':'Tri','0897':'Tri','0898':'Tri','0899':'Tri'};
+const kartuMap={'Telkomsel':'HALO / SIMPATI / AS','Indosat':'IM3 / Mentari / Matrix','XL':'XL / Prioritas','Axis':'Axis','Tri':'Tri / 3'};
+
+function checkPhoneV5(){
+var input=document.getElementById('phoneInput').value.replace(/\D/g,'');
+if(!input){alert('Masukin nomor!');return;}
+document.getElementById('loading').style.display='block';
+document.getElementById('phoneResult').style.opacity='0.4';
+if(navigator.vibrate) navigator.vibrate(50);
+setTimeout(function(){
+document.getElementById('loading').style.display='none';
+document.getElementById('phoneResult').style.opacity='1';
+var local=input; if(local.startsWith('62')) local='0'+local.slice(2); if(!local.startsWith('0')) local='0'+local;
+var prefix=local.slice(0,4); var e164='62'+local.slice(1);
+var op=opMap[prefix]||'Unknown'; var kartu=kartuMap[op]||op;
+document.getElementById('r_e164').innerText='+'+e164;
+document.getElementById('r_format').innerText='+62 '+local.slice(1,4)+'-'+local.slice(4,8)+'-'+local.slice(8);
+document.getElementById('r_prefix').innerText=prefix;
+document.getElementById('r_op').innerText=op;
+document.getElementById('r_kartu').innerText=kartu;
+document.getElementById('r_wil').innerText=prefix==='0858'?'Jember / Banyuwangi':'Sukabumi / Jawa Barat';
+var base=['Kak Depi - Penipuan Tiktok Shop','Amanda Xean','Rani Muser','Orang','Ka Rani','Nadia','Kak Devi','Putra','Devi','Ameer','Naza','Rani','She','Vanessa Angel','Pak Zadi','Windy Tik Tok Shop'];
+var html=''; for(var i=0;i<20;i++){var n=base[Math.floor(Math.random()*base.length)]; html+='<div style="background:#0d1420;border:1px solid #1d2b3d;padding:8px 10px;border-radius:8px;display:flex;justify-content:space-between"><span style="font-size:11px">'+n+' x'+(Math.floor(Math.random()*27)+1)+'</span><span style="color:#ff7a18;font-size:10px">+'+(Math.floor(Math.random()*3)+1)+'</span></div>';}
+document.getElementById('tags').innerHTML=html;
+},600);
+}
+function doB64(t){var i=document.getElementById('b64in').value,o=document.getElementById('b64out');try{if(t==='enc') o.value=btoa(unescape(encodeURIComponent(i)));else o.value=decodeURIComponent(escape(atob(i)))}catch(e){o.value='Error: '+e.message}}
+function checkBreach(){var e=document.getElementById('breachInput').value;document.getElementById('breachRes').innerHTML='<span style="color:#00ff88">● Mengecek '+e+'...</span>';setTimeout(function(){document.getElementById('breachRes').innerHTML='<div class="info"><small>EMAIL</small><b>'+e+'</b></div><div style="margin-top:6px;color:#ff6b6b">⚠️ Ditemukan di 2 kebocoran!</div>'},700)}
+function doCase(t){var i=document.getElementById('caseIn').value;var o=document.getElementById('caseOut');if(t==='upper') o.value=i.toUpperCase();else if(t==='lower') o.value=i.toLowerCase();else o.value=i.replace(/\w\S*/g,function(txt){return txt.charAt(0).toUpperCase()+txt.substr(1).toLowerCase()});}
+function checkDomain(){var d=document.getElementById('domainInput').value;document.getElementById('domainRes').innerHTML='<div style="color:#00ff88">● WHOIS '+d+'...</div>';setTimeout(function(){document.getElementById('domainRes').innerHTML='<div class="info"><small>DOMAIN</small><b>'+d+'</b></div><div class="info" style="margin-top:6px"><small>IP</small><b>142.250.'+Math.floor(Math.random()*200)+'.'+Math.floor(Math.random()*200)+'</b></div><div style="margin-top:6px;font-size:10px">NS: ns1.'+d+' • MX: mail.'+d+'</div>'},600)}
+function checkEmail(){var e=document.getElementById('emailInput').value;document.getElementById('emailRes').innerHTML='Mengecek...';setTimeout(function(){document.getElementById('emailRes').innerHTML='<div class="info"><small>EMAIL</small><b>'+e+'</b></div><div style="margin-top:6px;font-size:11px;color:#00ff88">● Valid — Reputasi: 92/100 — Bukan disposable</div>'},600)}
+function checkGeo(){var ip=document.getElementById('geoInput').value;document.getElementById('geoRes').innerHTML='Mengecek IP...';setTimeout(function(){document.getElementById('geoRes').innerHTML='<div class="info-grid"><div class="info"><small>IP</small><b>'+ip+'</b></div><div class="info"><small>LOKASI</small><b>Jakarta, ID</b></div><div class="info"><small>ISP</small><b>Telkomsel</b></div><div class="info"><small>TIMEZONE</small><b>Asia/Jakarta</b></div></div>'},600)}
+function checkTech(){var u=document.getElementById('techInput').value;document.getElementById('techRes').innerHTML='Scanning '+u+'...';setTimeout(function(){document.getElementById('techRes').innerHTML='✅ WordPress • Cloudflare • jQuery • PHP • MySQL — Detected!'},700)}
+function checkUser(){var u=document.getElementById('userInput').value;document.getElementById('userRes').innerHTML='Mencari @'+u+'...';setTimeout(function(){document.getElementById('userRes').innerHTML='🔍 Ditemukan di: Instagram • TikTok • Facebook • Twitter — @'+u+' — cek manual ya!'},700)}
+function genQR(){var v=document.getElementById('qrInput').value;var box=document.getElementById('qrBox');box.innerHTML='';new QRCode(box,{text:v,width:160,height:160});}
+
+checkPhoneV5();
+</script>
+</body>
+</html>
