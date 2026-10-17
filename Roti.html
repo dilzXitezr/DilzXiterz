@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WA Bug Lab</title>
+<style>
+:root{--green:#00d084;--bg:#0b141a;--panel:#111f27;--muted:#91a4ad}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#eef5f7;font-family:system-ui,Arial,sans-serif}
+header{padding:22px 18px;background:#102a25;border-bottom:1px solid #21463d;display:flex;gap:12px;align-items:center}
+.logo{width:48px;height:48px;border-radius:15px;background:var(--green);display:grid;place-items:center;color:#06271c;font-size:25px;font-weight:900}
+h1{font-size:21px;margin:0}header p{margin:3px 0 0;color:#a9c7bd;font-size:13px}
+main{padding:18px;max-width:620px;margin:auto}.card{background:var(--panel);border:1px solid #263943;border-radius:18px;padding:18px;margin-bottom:14px}
+h2{font-size:16px;margin:0 0 8px}.desc{color:var(--muted);font-size:13px;line-height:1.5}
+button{border:0;border-radius:12px;padding:13px 15px;font-weight:750;font-size:14px;cursor:pointer}
+.primary{background:var(--green);color:#06271c;width:100%;margin-top:10px}.secondary{background:#263942;color:#eef5f7}
+.row{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.row button{flex:1}
+.screen{background:#071d19;border:1px solid #205143;border-radius:14px;padding:15px;min-height:100px;margin-top:13px}
+.status{color:var(--green);font-weight:700;font-size:13px}.bubble{background:#1b3930;padding:10px 12px;border-radius:12px;margin-top:10px;font-size:14px;overflow-wrap:anywhere}
+footer{text-align:center;color:#70848d;font-size:12px;padding:12px 20px 26px}
+</style>
+</head>
+<body>
+<header><div class="logo">✳</div><div><h1>WA Bug Lab</h1><p>Simulasi & pengujian UI lokal</p></div></header>
+<main>
+<section class="card"><h2>🧪 Bug Simulator</h2><div class="desc">Jalankan simulasi error visual di halaman ini saja. Tidak mengirim pesan dan tidak memengaruhi WhatsApp atau perangkat lain.</div>
+<div class="row"><button class="secondary" onclick="simulate('delay')">Simulasi delay</button><button class="secondary" onclick="simulate('error')">Simulasi error</button></div>
+<button class="primary" onclick="resetLab()">Reset simulasi</button>
+<div class="screen" id="screen"><div class="status">● SISTEM SIAP</div><div class="bubble">Selamat datang di WA Bug Lab. Pilih simulasi untuk mulai.</div></div>
+</section>
+<section class="card"><h2>💬 Preview pesan</h2><div class="desc">Ketik pesan untuk melihat bagaimana teks tampil dalam gelembung chat demo.</div>
+<textarea id="msg" placeholder="Tulis pesan demo..." rows="3" style="width:100%;margin-top:12px;padding:12px;border-radius:12px;background:#0b141a;color:#eef5f7;border:1px solid #344751;font:inherit;resize:vertical"></textarea>
+<button class="primary" onclick="preview()">Tampilkan preview</button><div id="preview"></div>
+</section>
+</main><footer>WA Bug Lab • Demo lokal, bukan aplikasi WhatsApp resmi</footer>
+<script>
+const screen=document.getElementById('screen');
+function simulate(type){
+ if(type==='delay'){screen.innerHTML='<div class="status">◷ SIMULASI DELAY</div><div class="bubble">Memuat pesan demo...</div>';setTimeout(()=>{screen.innerHTML='<div class="status">✓ SIMULASI SELESAI</div><div class="bubble">Pesan demo berhasil dimuat. Ini hanya efek visual.</div>'},1400)}
+ else {screen.innerHTML='<div class="status" style="color:#ffcc66">⚠ SIMULASI ERROR</div><div class="bubble">Contoh: pesan demo gagal dirender. Tidak ada aplikasi lain yang terdampak.</div>'}
+}
+function resetLab(){screen.innerHTML='<div class="status">● SISTEM SIAP</div><div class="bubble">Simulasi sudah direset.</div>';document.getElementById('preview').innerHTML=''}
+function preview(){const v=document.getElementById('msg').value;const box=document.getElementById('preview');box.innerHTML='';const b=document.createElement('div');b.className='bubble';b.textContent=v||'Pesan masih kosong.';box.appendChild(b)}
+</script>
+</body></html>
