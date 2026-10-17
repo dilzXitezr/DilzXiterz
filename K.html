@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>dilzGanteng — WhatsApp Bot Web</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0f1115;color:#fff;font-family:system-ui,sans-serif;max-width:420px;margin:0 auto;min-height:100vh;border-left:3px solid #222;border-right:3px solid #222;position:relative}
+.top{background:#111;padding:12px;border-bottom:3px solid #222;display:flex;justify-content:space-between;align-items:center;font-weight:900;position:sticky;top:0;z-index:50}
+.logo{display:flex;gap:8px;align-items:center}
+.badge{background:#ffeb00;color:#000;border-radius:99px;padding:3px 8px;font-size:9px;font-weight:800}
+.page{display:none;padding-bottom:90px;min-height:100vh}
+.page.active{display:block}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:#111;border-top:3px solid #222;display:flex;justify-content:space-around;padding:6px 0 8px;z-index:60}
+.b-item{text-align:center;font-size:10px;font-weight:700;cursor:pointer;opacity:.5;padding:6px 10px;border-radius:12px}
+.b-item.active{opacity:1;background:#ffeb00;color:#000;border:2px solid #fff;box-shadow:3px 3px 0 #000}
+.b-item span{font-size:22px;display:block}
+.qr-box{background:#fff;border:3px solid #222;border-radius:20px;padding:20px;margin:12px;text-align:center;color:#111;box-shadow:4px 4px 0 #000}
+.qr{width:180px;height:180px;background:#000;color:#fff;display:grid;place-items:center;font-size:12px;border-radius:12px;margin:0 auto 12px;font-family:monospace;white-space:pre;line-height:1.2}
+.input{background:#1a1d24;border:2px solid #333;border-radius:12px;padding:12px;color:#fff;width:100%;outline:none;margin-top:8px;font-size:12px}
+.btn{width:100%;background:#ffeb00;color:#000;border:3px solid #000;border-radius:12px;padding:12px;font-weight:900;margin-top:10px;cursor:pointer;box-shadow:3px 3px 0 #000}
+.btn:active{transform:translate(1px,1px);box-shadow:1px 1px 0 #000}
+.card{background:#1a1d24;border:2px solid #2a2d35;border-radius:16px;padding:12px;margin:10px 12px;box-shadow:3px 3px 0 #000;cursor:pointer}
+.c-item{background:#1a1d24;border:2px solid #2a2d35;border-radius:16px;padding:12px;display:flex;gap:12px;align-items:center;margin-bottom:10px;box-shadow:3px 3px 0 #000;cursor:pointer}
+.c-ava{width:44px;height:44px;border-radius:50%;background:#ffeb00;color:#000;display:grid;place-items:center;font-weight:900;flex-shrink:0}
+.splash{position:fixed;inset:0;background:#0f1115;z-index:100;display:flex;align-items:center;justify-content:center;text-align:center;transition:.5s}
+.splash.hide{transform:translateY(-110%)}
+.splash-box{background:#1a1d24;border:3px solid #333;border-radius:24px;padding:24px;box-shadow:6px 6px 0 #000}
+</style>
+</head>
+<body>
+
+<div id="splash" class="splash"><div class="splash-box"><div style="width:80px;height:80px;background:#ffeb00;border-radius:50%;display:grid;place-items:center;font-size:40px;margin:0 auto 12px;border:3px solid #000">🤖</div><h2>dilzGanteng BOT</h2><p style="font-size:11px;opacity:.5;margin-top:4px">WhatsApp Bot Web — Ganteng Edition</p><p style="font-size:11px;background:#ffeb00;color:#000;border-radius:99px;padding:4px 10px;margin-top:12px;display:inline-block;font-weight:800">v4.0 BOT READY!</p></div></div>
+
+<div class="top"><div class="logo"><div style="width:26px;height:26px;background:#ffeb00;border-radius:50%;display:grid;place-items:center;color:#000">😎</div><b>dilzGanteng BOT</b><span class="badge">BOT ON</span></div><span>⋮</span></div>
+
+<div id="page-home" class="page active">
+<div class="qr-box">
+<h3 style="font-weight:900">WhatsApp Bot Login</h3>
+<p style="font-size:11px;opacity:.6;margin-top:4px">Scan QR untuk hubungkan bot dilzGanteng</p>
+<div class="qr" id="qr">████ ▄▄▄▄▄ █▀█ █
+████ █   █ █▄█ █
+████ █▄▄▄█ █▀█ █
+████▄▄▄▄▄▄▄█▄█ █
+dilzGanteng
+WA-BOT
+ZSgNLdX4u
+SCAN ME!</div>
+<p style="font-size:11px;margin-top:8px" id="qrStatus">Status: <b style="color:green">● Connected — dilzGanteng</b></p>
+<button class="btn" onclick="refreshQR()">🔄 Refresh QR</button>
+</div>
+
+<div style="padding:0 12px">
+<h3 style="font-size:14px;font-weight:900;margin:12px 0 8px">🤖 Bot Menu — dilzGanteng</h3>
+<div class="card" onclick="showPage('send')">
+<div style="font-weight:800">📤 Kirim Pesan Massal</div>
+<div style="font-size:11px;opacity:.6;margin-top:4px">Kirim pesan ke banyak nomor sekaligus — dilzGanteng Ganteng Edition</div>
+</div>
+<div class="card" onclick="showPage('auto')">
+<div style="font-weight:800">⚡ Auto Reply — BOT MIWA CHAN</div>
+<div style="font-size:11px;opacity:.6;margin-top:4px">BOT MIWA CHAN: JIKA MAU MEMBELI CENTANG BIRU MOH...</div>
+</div>
+<div class="card" onclick="showPage('contacts')">
+<div style="font-weight:800">👥 Daftar Kontak Bot</div>
+<div style="font-size:11px;opacity:.6;margin-top:4px">+62, GOJO META AI, Lactoo, dani — semua bisa di chat bot</div>
+</div>
+<button class="btn" style="background:#111;color:#ffeb00;border-color:#333" onclick="downloadSelf()">⬇️ DOWNLOAD dilzGanteng BOT WEB</button>
+<button class="btn" style="background:#fff;color:#000" onclick="window.open('https://vt.tiktok.com/ZSgNLdX4u/','_blank')">🔗 BUKA TIKTOK ZSgNLdX4u</button>
+</div>
+</div>
+
+<div id="page-send" class="page">
+<div style="padding:14px">
+<h3 style="font-weight:900">📤 Kirim Pesan — dilzGanteng BOT</h3>
+<label style="font-size:11px;opacity:.6;margin-top:12px;display:block">Nomor Tujuan (pisah koma)</label>
+<input class="input" id="nums" placeholder="+628786693580, +62812xxxx">
+<label style="font-size:11px;opacity:.6;margin-top:10px;display:block">Pesan — BOT MIWA CHAN</label>
+<textarea class="input" id="msg" rows="4" placeholder="BOT MIWA CHAN: JIKA MAU MEMBELI CENTANG BIRU MOHON HUBUNGI @dilzGanteng — ganteng edition 😎"></textarea>
+<button class="btn" onclick="sendBot()">🚀 Kirim via dilzGanteng BOT</button>
+<div id="log" style="margin-top:12px;font-family:monospace;font-size:11px;opacity:.7;background:#1a1d24;border:1px solid #333;border-radius:12px;padding:10px;min-height:100px">Log bot dilzGanteng akan muncul disini...</div>
+</div>
+</div>
+
+<div id="page-auto" class="page">
+<div style="padding:14px">
+<h3 style="font-weight:900">⚡ Auto Reply — BOT MIWA CHAN</h3>
+<div style="background:#1a1d24;border:2px solid #2a2d35;border-radius:16px;padding:12px;margin-top:12px">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:800">Auto Reply ON/OFF</span><span style="background:#00ff88;color:#000;border-radius:99px;padding:3px 10px;font-size:10px;font-weight:800">ON</span></div>
+<input class="input" value="BOT MIWA CHAN: JIKA MAU MEMBELI CENTANG BIRU MOHON HUBUNGI @dilzGanteng">
+<input class="input" value="Halo {name} — dilzGanteng ganteng 😎 — https://vt.tiktok.com/ZSgNLdX4u/">
+<button class="btn" onclick="alert('Auto reply disimpan — dilzGanteng BOT')">💾 Simpan Auto Reply</button>
+</div>
+<div style="margin-top:14px">
+<h4 style="font-size:12px;font-weight:800">Contoh Chat Auto Reply:</h4>
+<div class="c-item" style="margin-top:8px"><div class="c-ava">U</div><div><div style="font-size:12px;font-weight:800">User</div><div style="font-size:11px;opacity:.6">bang beli centang biru dong</div></div></div>
+<div class="c-item" style="border-color:#ffeb00"><div class="c-ava" style="background:#111;color:#ffeb00">🤖</div><div><div style="font-size:12px;font-weight:800">BOT MIWA CHAN — dilzGanteng</div><div style="font-size:11px;opacity:.7">JIKA MAU MEMBELI CENTANG BIRU MOHON HUBUNGI @dilzGanteng — ganteng 😎</div></div></div>
+</div>
+</div>
+</div>
+
+<div id="page-contacts" class="page">
+<div style="padding:14px">
+<h3 style="font-weight:900">👥 Kontak Bot — dilzGanteng</h3>
+<div style="margin-top:12px">
+<div class="c-item" onclick="sendTo('+628786693580')"><div class="c-ava">+62</div><div style="flex:1"><div style="font-size:13px;font-weight:800">+628786693580</div><div style="font-size:11px;opacity:.6">BOT MIWA CHAN: JIKA MAU MEMBELI CENTANG BIRU MOH...</div></div><div style="font-size:10px;opacity:.5">11:24</div></div>
+<div class="c-item" onclick="sendTo('GOJO META AI')"><div class="c-ava" style="background:#111;color:#fff">😎</div><div style="flex:1"><div style="font-size:13px;font-weight:800">GOJO META AI ⚠️ — dilzGanteng</div><div style="font-size:11px;opacity:.6">AI sedang sibuk, coba lagi nanti - Klik untuk buka</div></div><div style="font-size:10px;opacity:.5">11:23</div></div>
+<div class="c-item" onclick="sendTo('Lactoo')"><div class="c-ava">L</div><div style="flex:1"><div style="font-size:13px;font-weight:800">Lactoo</div><div style="font-size:11px;opacity:.6">BOT MIWA CHAN: JIKA MAU MEMBELI CENTANG BIRU</div></div><div style="font-size:10px;opacity:.5">11:20</div></div>
+<div class="c-item" onclick="sendTo('dani')"><div class="c-ava" style="background:#ffeb00;color:#000">d</div><div style="flex:1"><div style="font-size:13px;font-weight:800">dani</div><div style="font-size:11px;opacity:.6">BOT MIWA CHAN: JIKA MAU MEMBELI CENTANG BIRU</div></div><div style="font-size:10px;opacity:.5">10:58</div></div>
+</div>
+</div>
+</div>
+
+<div id="page-profile" class="page">
+<div style="padding:12px">
+<div style="background:#1a1d24;border:2px solid #333;border-radius:20px;padding:16px;text-align:center;box-shadow:4px 4px 0 #000">
+<div style="width:90px;height:90px;background:#ffeb00;border-radius:50%;border:3px solid #000;display:grid;place-items:center;font-size:48px;margin:0 auto 12px">😎</div>
+<h2 style="font-weight:900">dilzGanteng</h2>
+<p style="font-size:11px;opacity:.6;margin-top:4px">WhatsApp Bot Web — Ganteng Edition v4</p>
+<p style="font-size:11px;margin-top:8px;background:#ffeb00;color:#000;border-radius:99px;padding:4px 10px;display:inline-block;font-weight:800">BOT ON • https://vt.tiktok.com/ZSgNLdX4u/</p>
+<div style="margin-top:16px;text-align:left">
+<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #2a2d35"><span style="font-size:12px">Nama Bot</span><span style="font-size:12px;font-weight:800">dilzGanteng 😎</span></div>
+<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #2a2d35"><span style="font-size:12px">Link</span><span style="font-size:12px;font-weight:800">ZSgNLdX4u</span></div>
+<div style="display:flex;justify-content:space-between;padding:10px 0"><span style="font-size:12px">Status</span><span style="font-size:12px;font-weight:800;color:#00ff88">● Online Ganteng</span></div>
+</div>
+<button class="btn" onclick="alert('Bot dilzGanteng ganteng restart!')">🔄 Restart Bot</button>
+<button class="btn" style="background:#fff;color:#000;margin-top:8px" onclick="downloadSelf()">⬇️ DOWNLOAD BOT WEB</button>
+</div>
+</div>
+</div>
+
+<div class="bottom">
+<div class="b-item active" id="nav-home" onclick="showPage('home')"><span>🤖</span>Bot</div>
+<div class="b-item" id="nav-send" onclick="showPage('send')"><span>📤</span>Kirim</div>
+<div class="b-item" id="nav-auto" onclick="showPage('auto')"><span>⚡</span>Auto</div>
+<div class="b-item" id="nav-contacts" onclick="showPage('contacts')"><span>👥</span>Kontak</div>
+<div class="b-item" id="nav-profile" onclick="showPage('profile')"><span>👤</span>Profil</div>
+</div>
+
+<script>
+setTimeout(()=>document.getElementById('splash').classList.add('hide'),1400);
+function showPage(p){
+document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+document.querySelectorAll('.b-item').forEach(x=>x.classList.remove('active'));
+document.getElementById('page-'+p).classList.add('active');
+document.getElementById('nav-'+p).classList.add('active');
+window.scrollTo(0,0);
+}
+function refreshQR(){
+let qr=document.getElementById('qr');
+qr.innerText='Loading...\nScanning...';
+setTimeout(()=>{qr.innerText='████ ▄▄▄▄▄ █▀█ █\n████ █   █ █▄█ █\n████ █▄▄▄█ █▀█ █\n████▄▄▄▄▄▄▄█▄█ █\ndilzGanteng\nWA-BOT\nNEW QR!\nSCAN ME!';document.getElementById('qrStatus').innerHTML='Status: <b style="color:green">● Connected — dilzGanteng NEW QR</b>';},800);
+}
+function sendBot(){
+let nums=document.getElementById('nums').value||'+628786693580';
+let msg=document.getElementById('msg').value||'BOT MIWA CHAN: JIKA MAU MEMBELI CENTANG BIRU';
+let log=document.getElementById('log');
+log.innerHTML=`[${new Date().toLocaleTimeString()}] 🤖 dilzGanteng BOT mulai kirim...\n[${new Date().toLocaleTimeString()}] Ke: ${nums}\n[${new Date().toLocaleTimeString()}] Pesan: ${msg}\n[${new Date().toLocaleTimeString()}] ✅ Terkirim! — dilzGanteng ganteng 😎\n[${new Date().toLocaleTimeString()}] Link: https://vt.tiktok.com/ZSgNLdX4u/`;
+}
+function sendTo(name){
+showPage('send');
+document.getElementById('nums').value=name;
+document.getElementById('msg').value=`Halo ${name} — ini dari dilzGanteng BOT — https://vt.tiktok.com/ZSgNLdX4u/ — ganteng 😎`;
+}
+function downloadSelf(){
+let c=document.documentElement.outerHTML;
+let blob=new Blob([c],{type:'text/html'});
+let u=URL.createObjectURL(blob);
+let a=document.createElement('a');a.href=u;a.download='dilzGanteng-WA-BOT.html';a.click();URL.revokeObjectURL(u);
+}
+</script>
+</body>
+</html>
