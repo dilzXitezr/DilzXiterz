@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DILZ RGN — OSINT — Swipe Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'JetBrains Mono',monospace}
+body{background:#070a0f;color:#cdd6e3;min-height:100vh;overflow-x:hidden}
+.top{position:sticky;top:0;z-index:50;background:#0d1117;border-bottom:1px solid #1e2633;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.hamb{width:32px;height:32px;background:#151b27;border:1px solid #232e41;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.tabs{display:flex;gap:8px;padding:10px 12px;overflow:auto;background:#080b11;border-bottom:1px solid #1e2633}
+.tab{white-space:nowrap;padding:7px 12px;border-radius:99px;font-size:11px;font-weight:700;border:1px solid #1e2a3d;background:#121a28;cursor:pointer;color:#8b9bb4;flex-shrink:0}
+.tab.active{background:#ff7a18;color:#000;border-color:#ff7a18}
+.search{margin:12px;background:#0e141f;border:1px solid #1f2b3e;border-radius:14px;padding:10px 12px;display:flex;gap:8px;align-items:center}
+.search input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:12px}
+.grid{padding:0 12px 120px;display:grid;gap:10px}
+.card{background:linear-gradient(180deg,#111827,#0e1521);border:1px solid #1c2738;border-radius:16px;padding:14px;cursor:pointer;position:relative}
+.card h3{font-size:13px;color:#fff;font-weight:800}
+.card p{font-size:11px;color:#7a8aa3;margin-top:4px}
+.badge{margin-top:8px;display:inline-block;font-size:9px;padding:3px 8px;border-radius:6px;border:1px solid #1e2a3d;background:#0d1522;color:#5a6b87}
+.badge.vip{background:#ff7a18;color:#000;border-color:#ff7a18;font-weight:800}
+.detail{display:none;padding:12px}
+.detail.active{display:block}
+.term{background:#0b111b;border:1px solid #1a2536;border-radius:12px;padding:12px;margin-top:10px}
+.term-head{font-size:11px;color:#5a6b87;margin-bottom:10px}
+.input-row{display:flex;gap:8px;margin-top:8px}
+.input-row input{flex:1;background:#060a11;border:1px solid #1e2e44;border-radius:10px;padding:12px;color:#fff;outline:none;font-size:12px}
+.btn{background:#ff7a18;color:#000;border:none;border-radius:10px;padding:12px 16px;font-weight:800;font-size:12px;cursor:pointer}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.info{border:1px solid #1d2a3d;background:#0d1420;border-radius:10px;padding:10px}
+.info small{font-size:8px;color:#5a6b87;display:block}
+.info b{font-size:12px;color:#fff;margin-top:2px;display:block}
+
+/* === MENU BISA DI GESER === */
+.menu{position:fixed;inset:0;z-index:100;pointer-events:none}
+.menu-bg{position:absolute;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(10px);opacity:0;transition:opacity .3s}
+.menu-box{position:absolute;top:0;left:0;width:82%;max-width:320px;height:100%;background:#0b1018;border-right:1px solid #1e2a3d;padding:16px;overflow:auto;transform:translateX(-100%);transition:transform .32s cubic-bezier(.16,1,.3,1);will-change:transform;touch-action:pan-y}
+.menu.active{pointer-events:auto}
+.menu.active .menu-bg{opacity:1}
+.menu.active .menu-box{transform:translateX(0)}
+.menu.dragging .menu-box{transition:none}
+.profile{display:flex;gap:12px;align-items:center;background:linear-gradient(135deg,#111a28,#0e1521);border:1px solid #1e2a3d;border-radius:14px;padding:12px;position:relative;overflow:hidden}
+.ava{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#ff7a18,#ff3b30);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:16px;flex-shrink:0;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-3px) rotate(2deg)}}
+.m-item{padding:13px 10px;border-radius:10px;font-size:13px;color:#8ba0bd;display:flex;gap:10px;align-items:center;cursor:pointer;margin-top:3px;transition:.15s}
+.m-item:hover{background:#131c2a;color:#fff;transform:translateX(4px)}
+.m-item.active{background:#ff7a18;color:#000;font-weight:800}
+.swipe-hint{position:fixed;left:0;top:0;bottom:0;width:20px;z-index:20;/* area buat swipe dari pinggir */}
+</style>
+</head>
+<body>
+<div class="swipe-hint" id="swipeHint"></div>
+
+<div class="top">
+<div style="display:flex;gap:12px;align-items:center"><div class="hamb" id="hambBtn">☰</div><div><div style="font-weight:900;font-size:14px;color:#fff">DILZ RGN • OSINT</div><div style="font-size:9px;color:#5a6b87">Swipe dari kiri — Profil bisa gerak!</div></div></div>
+<div style="display:flex;gap:8px"><div style="background:#121a28;border:1px solid #1e2a3d;border-radius:8px;padding:6px 10px;font-size:10px">67 Tools</div><div style="background:#ff7a18;color:#000;border-radius:8px;padding:6px 10px;font-size:10px;font-weight:800">V2 SWIPE</div></div>
+</div>
+
+<div class="tabs">
+<div class="tab active">Semua 67</div><div class="tab">Populer 10</div><div class="tab">OSINT 10</div><div class="tab">Network 10</div>
+</div>
+
+<div class="search"><span>⌕</span><input placeholder="Cari tools... phone lookup kyk di video" readonly onclick="alert('Ketik di Phone Lookup ya!')"><span style="font-size:10px;background:#111a28;border:1px solid #1e2a3d;padding:4px 8px;border-radius:6px">Swipe kiri 👈</span></div>
+
+<div class="grid">
+<div class="card" onclick="openTool('phone')" style="border-color:#ff7a18;box-shadow:0 0 20px rgba(255,122,24,0.15)"><h3>📞 Phone Lookup — BISA DI GESER!</h3><p>Lacak detail nomor — kyk video lu — Telkomsel, Jember, WA aktif</p><span class="badge">[OSINT]</span><span class="badge vip">VIP • SWIPE PROFILE</span></div>
+<div class="card"><h3>🔧 Base64 Encode/Decode</h3><p>Encode dan decode string Base64</p><span class="badge">[PROGRAMMING]</span></div>
+<div class="card"><h3>🛡️ Breach Check</h3><p>Periksa apakah email ada di kebocoran data</p><span class="badge">[OSINT]</span></div>
+</div>
+
+<div id="details" style="padding:0 12px 120px;display:none">
+<div id="detail-phone" class="detail active"><div class="term"><div class="term-head">📞 // PHONE LOOKUP — DILZ RGN — SWIPE PROFILE WORK</div><div class="input-row"><input id="phoneInput" value="081234567890"><button class="btn" onclick="checkPhone()">Cek</button></div><div id="phoneResult" style="margin-top:12px"><div class="info-grid"><div class="info"><small>PREFIX</small><b id="r_prefix">0812</b></div><div class="info"><small>OPERATOR</small><b id="r_op">Telkomsel</b></div><div class="info"><small>WILAYAH</small><b>Jember</b></div><div class="info"><small>WHATSAPP</small><b style="color:#00ff88">Aktif</b></div></div><div style="margin-top:10px;font-size:10px;color:#5a6b87">Geser profil dari kiri buat liat menu — bisa di drag pake jari — kyk di video TikTok lu!</div></div></div></div>
+</div>
+
+<!-- MENU BISA DI GESER -->
+<div id="menu" class="menu">
+<div class="menu-bg" id="menuBg"></div>
+<div class="menu-box" id="menuBox">
+<div class="profile" id="profileCard">
+<div class="ava">DR</div>
+<div><div style="font-weight:900;font-size:14px;color:#fff">Dilz RGN</div><div style="font-size:11px;color:#ff7a18;font-weight:700">Wanz Xploit Style • V2 Swipe</div><div style="font-size:9px;color:#5a6b87;margin-top:2px">Cipanengah • Bojonggenteng<br>Sukabumi • Jawa Barat</div></div>
+<div style="margin-left:auto;font-size:18px;animation:float 2s infinite">👋</div>
+</div>
+
+<div style="margin-top:14px">
+<div class="m-item active">🏠 Beranda — Bisa di geser!</div>
+<div class="m-item">🤖 Dev AI <span style="margin-left:auto;background:#ff7a18;color:#000;font-size:8px;padding:2px 6px;border-radius:4px">BETA</span></div>
+<div class="m-item">🔔 Notifikasi</div>
+<div class="m-item">💳 Langganan</div>
+<div class="m-item">🔑 API Key — DILZ RGN</div>
+<div class="m-item">📚 Dokumentasi</div>
+<div class="m-item">ℹ️ Tentang</div>
+<div class="m-item">🚩 Laporan</div>
+</div>
+
+<div style="margin-top:16px;background:#0e1520;border:1px solid #1e2a3d;border-radius:12px;padding:12px">
+<div style="font-size:11px;font-weight:800;color:#fff">📍 Lokasi — Maps Cipanengah</div>
+<div style="margin-top:8px;border-radius:10px;overflow:hidden;border:1px solid #1e2a3d"><iframe src="https://www.google.com/maps?q=Cipanengah,+Bojonggenteng,+Sukabumi&z=14&output=embed" width="100%" height="120" style="border:0"></iframe></div>
+<div style="margin-top:8px;font-size:9px;color:#5a6b87">Jawa Barat • Sukabumi • Bojonggenteng • Cipanengah — Sma AL-ATIYAH dekat sini!</div>
+</div>
+
+<div style="margin-top:12px;padding:10px;background:#111a28;border-radius:10px;font-size:10px;color:#7a8aa3;text-align:center">👈 Geser ke kiri buat nutup profil — atau tap di luar<br>Swipe dari pinggir kiri layar buat buka lagi!</div>
+
+<button class="btn" style="width:100%;margin-top:12px;background:#121a28;color:#fff;border:1px solid #1e2a3d" onclick="closeMenu()">✕ Tutup — Swipe Kiri</button>
+</div>
+</div>
+
+<script>
+const menu=document.getElementById('menu');
+const menuBox=document.getElementById('menuBox');
+const menuBg=document.getElementById('menuBg');
+const hambBtn=document.getElementById('hambBtn');
+const swipeHint=document.getElementById('swipeHint');
+let startX=0, currentX=0, isDragging=false;
+
+function openMenu(){
+menu.classList.add('active');
+menuBox.style.transform='translateX(0)';
+menuBg.style.opacity='1';
+}
+function closeMenu(){
+menuBox.style.transform='translateX(-100%)';
+menuBg.style.opacity='0';
+setTimeout(()=>menu.classList.remove('active'),300);
+}
+hambBtn.addEventListener('click',openMenu);
+menuBg.addEventListener('click',closeMenu);
+
+// === SWIPE LOGIC — BISA DI GESER KYK VIDEO ===
+menuBox.addEventListener('touchstart',e=>{
+startX=e.touches[0].clientX;
+isDragging=true;
+menu.classList.add('dragging');
+},{passive:true});
+
+menuBox.addEventListener('touchmove',e=>{
+if(!isDragging) return;
+currentX=e.touches[0].clientX - startX;
+if(currentX<0){ // geser ke kiri buat nutup
+menuBox.style.transform=`translateX(${currentX}px)`;
+menuBg.style.opacity=`${1 + currentX/300}`;
+}
+},{passive:true});
+
+menuBox.addEventListener('touchend',e=>{
+isDragging=false;
+menu.classList.remove('dragging');
+if(currentX < -80){
+closeMenu();
+}else{
+menuBox.style.transform='translateX(0)';
+menuBg.style.opacity='1';
+}
+currentX=0;
+});
+
+// Swipe dari pinggir kiri layar buat BUKA profil
+let edgeStartX=0, edgeDragging=false;
+document.addEventListener('touchstart',e=>{
+edgeStartX=e.touches[0].clientX;
+if(edgeStartX < 25){
+edgeDragging=true;
+if(!menu.classList.contains('active')){
+menu.classList.add('active');
+menuBox.style.transition='none';
+}
+}
+},{passive:true});
+
+document.addEventListener('touchmove',e=>{
+if(!edgeDragging) return;
+let diff=e.touches[0].clientX - edgeStartX;
+if(diff>0 && diff<320){
+menuBox.style.transform=`translateX(${-320 + diff}px)`;
+menuBg.style.opacity=`${diff/320}`;
+}
+},{passive:true});
+
+document.addEventListener('touchend',e=>{
+if(!edgeDragging) return;
+edgeDragging=false;
+menuBox.style.transition='';
+let diff=e.changedTouches[0].clientX - edgeStartX;
+if(diff > 100){
+openMenu();
+}else{
+closeMenu();
+}
+});
+
+// Mouse drag buat di laptop juga bisa
+let mouseDown=false;
+menuBox.addEventListener('mousedown',e=>{mouseDown=true;startX=e.clientX;menu.classList.add('dragging');});
+window.addEventListener('mousemove',e=>{
+if(!mouseDown) return;
+currentX=e.clientX - startX;
+if(currentX<0){menuBox.style.transform=`translateX(${currentX}px)`;}
+});
+window.addEventListener('mouseup',()=>{
+if(!mouseDown) return;
+mouseDown=false;
+menu.classList.remove('dragging');
+if(currentX < -80) closeMenu();
+else {menuBox.style.transform='translateX(0)';}
+currentX=0;
+});
+
+function openTool(id){alert('Buka tool: '+id+' — full version ada di file sebelumnya — ini demo swipe profile!');}
+function checkPhone(){
+let raw=document.getElementById('phoneInput').value.replace(/\D/g,'');
+let prefix=raw.slice(0,4);
+document.getElementById('r_prefix').innerText=prefix;
+document.getElementById('r_op').innerText=prefix.startsWith('0812')?'Telkomsel':'XL';
+}
+checkPhone();
+</script>
+</body>
+</html>
