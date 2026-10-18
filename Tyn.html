@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DILZ x AI - PP EDITION</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;800;900&family=Orbitron:wght@900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
+body{background:#05050a;color:#fff;min-height:100vh;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 20% 10%,#1a0a3a 0%,transparent 60%),radial-gradient(ellipse at 80% 90%,#2a0a2a 0%,#000 70%),#000}
+.header{height:64px;display:flex;justify-content:space-between;align-items:center;padding:0 16px;border-bottom:1px solid #1e1e2e;background:rgba(10,10,20,.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+.left{display:flex;align-items:center;gap:10px}
+.pp{width:44px;height:44px;border-radius:50%;border:2px solid #ff2a8a;box-shadow:0 0 15px #ff2a8a,0 0 30px #8b5cf6;overflow:hidden;animation:glow 2s infinite}
+.pp img{width:100%;height:100%;object-fit:cover}
+@keyframes glow{0%,100%{box-shadow:0 0 15px #ff2a8a}50%{box-shadow:0 0 25px #ff2a8a,0 0 40px #8b5cf6}}
+.logo{font-family:Orbitron;font-size:18px;font-weight:900;letter-spacing:1px}
+.logo span{color:#c084ff}
+.nav{display:none;gap:18px;font-size:12px;opacity:.7}
+@media(min-width:768px){.nav{display:flex}}
+.launch{padding:8px 16px;border-radius:99px;border:none;background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff;font-weight:800;font-size:11px;cursor:pointer;box-shadow:0 0 20px rgba(236,72,153,.5)}
+.hero{text-align:center;padding:40px 16px 20px}
+.hero h1{font-size:32px;line-height:1.1;font-weight:900;text-shadow:0 0 20px #a855f7}
+.hero h1 span{background:linear-gradient(90deg,#fff,#f0abfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero h2{font-size:18px;margin-top:10px;opacity:.9}
+.hero p{font-size:11px;opacity:.6;margin:12px auto 0;max-width:420px;line-height:1.5}
+.btns{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.btn{padding:12px 22px;border-radius:99px;border:none;font-weight:800;font-size:12px;cursor:pointer;transition:.2s}
+.btn:active{scale:.95}
+.btnP{background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff;box-shadow:0 0 20px rgba(168,85,247,.6)}
+.btnO{background:transparent;color:#fff;border:1px solid #a855f7;box-shadow:0 0 15px rgba(168,85,247,.3) inset}
+.cards{display:grid;grid-template-columns:1fr;gap:12px;padding:16px;max-width:900px;margin:0 auto}
+@media(min-width:640px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.card{background:linear-gradient(180deg,#151525,#0a0a14);border:1px solid #2a2a4a;border-radius:16px;padding:18px;text-align:center;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#a855f7,transparent)}
+.card b{display:block;margin-top:10px;font-size:12px}
+.card p{font-size:9px;opacity:.5;margin-top:6px;line-height:1.4}
+.icon{width:48px;height:48px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:28px;filter:drop-shadow(0 0 10px #a855f7)}
+.footer{text-align:center;padding:18px;font-size:8px;opacity:.4;letter-spacing:1px}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="header">
+<div class="left">
+<div class="pp"><img src="pp.jpg" alt="PP"></div>
+<div class="logo">DILZ x <span>AI</span></div>
+</div>
+<div class="nav"><div>Home</div><div>Features</div><div>Docs</div><div>Pricing</div><div>Contact</div></div>
+<button class="launch" onclick="document.getElementById('toolkit').scrollIntoView({behavior:'smooth'})">Launch App</button>
+</div>
+
+<div class="hero">
+<h1>Welcome to the <span>toolkit</span></h1>
+<h2>Build, Automate, Innovate with DILZ x AI</h2>
+<p>Your all-in-one AI toolkit for developers, creators, and researchers. Build smarter workflows, automate tasks, and unlock intelligent insights in seconds.</p>
+<div class="btns">
+<button class="btn btnP" onclick="masuk()">Get Started</button>
+<button class="btn btnO" onclick="alert('DILZ x AI v21 • BY SEB DILZNOELZ • SMA AL-ATIQIYAH • Cipanengah')">Learn More</button>
+</div>
+</div>
+
+<div class="cards" id="toolkit">
+<div class="card"><div class="icon">🧠</div><b>Neural Processing</b><p>Advanced models tailored for speed, precision, and creativity. No Gojo, pure DILZ style.</p></div>
+<div class="card"><div class="icon">📈</div><b>Real-time Analytics</b><p>Monitor, analyze, and optimize your AI workflows live. SMA AL-ATIQIYAH tech.</p></div>
+<div class="card"><div class="icon">🛡️</div><b>Secure & Private</b><p>Enterprise-grade security with privacy-first design. Kampung Cipanengah secure.</p></div>
+</div>
+
+<div class="footer">Powered by DILZ x AI • Version 21 • Dark Mode • dilzNoelz v21 • PP: Anime White Hair • jangan lupa mampir ya 😋 • SMA AL-ATIQIYAH</div>
+
+<script>
+function masuk(){
+alert('MASUK ke DILZ x AI TOOLS! - Nanti gue hubungin ke chat AI v20.1 NO GOJO ya min!');
+location.href='dilz-x-ai-NO-GOJO.html';
+}
+</script>
+</body>
+</html>
