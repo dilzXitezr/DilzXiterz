@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DILZ x AI - FIX PP + CHAT</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;800;900&family=Orbitron:wght@900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
+body{background:#05050a;color:#fff;min-height:100vh;display:flex;flex-direction:column}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 20% 10%,#1a0a3a 0%,transparent 60%),radial-gradient(ellipse at 80% 90%,#2a0a2a 0%,#000 70%),#000}
+.header{height:62px;display:flex;justify-content:space-between;align-items:center;padding:0 14px;border-bottom:1px solid #222;background:rgba(10,10,20,.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}
+.left{display:flex;align-items:center;gap:10px}
+.pp{width:44px;height:44px;border-radius:50%;border:2px solid #ff2a8a;box-shadow:0 0 15px #ff2a8a,0 0 30px #8b5cf6;overflow:hidden;flex-shrink:0}
+.pp img{width:100%;height:100%;object-fit:cover;display:block}
+.logo{font-family:Orbitron;font-size:16px;font-weight:900}
+.logo span{color:#c084ff}
+.btnTop{padding:8px 14px;border-radius:99px;border:none;background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff;font-weight:800;font-size:11px;cursor:pointer}
+.main{flex:1;display:flex;flex-direction:column;max-width:900px;margin:0 auto;width:100%}
+.hero{text-align:center;padding:24px 14px 12px}
+.hero h1{font-size:28px;font-weight:900}
+.hero p{font-size:11px;opacity:.6;margin-top:8px;line-height:1.5}
+.chatBox{flex:1;margin:12px;background:rgba(15,15,30,.8);border:1px solid #2a2a4a;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;min-height:380px}
+.msgs{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:84%;padding:10px 12px;border-radius:14px;font-size:12px;line-height:1.5;word-wrap:break-word}
+.user{align-self:flex-end;background:linear-gradient(90deg,#a855f7,#ec4899);border-bottom-right-radius:4px}
+.ai{align-self:flex-start;background:#1a1a2e;border:1px solid #2e2e4e;border-bottom-left-radius:4px}
+.msg img{width:100%;border-radius:8px;margin-top:8px}
+.bar{display:flex;gap:8px;padding:10px;background:#0a0a14;border-top:1px solid #222}
+.in{flex:1;padding:12px 14px;border-radius:99px;border:1px solid #333;background:#151525;color:#fff;font-size:13px;outline:none}
+.in:focus{border-color:#a855f7}
+.send{width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff;font-size:18px;cursor:pointer;flex-shrink:0}
+.tools{display:flex;gap:6px;padding:8px 12px;overflow:auto;border-bottom:1px solid #222}
+.chip{padding:6px 12px;border-radius:99px;background:#1a1a2e;border:1px solid #3a3a5a;font-size:10px;font-weight:700;white-space:nowrap;cursor:pointer;flex-shrink:0}
+.chip:active{scale:.95}
+.foot{text-align:center;padding:10px;font-size:8px;opacity:.35}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<div class="header">
+<div class="left">
+<div class="pp"><img src="https://i.ibb.co/6g0r9y0/anime-white-hair.jpg" id="ppImg" alt="PP" onerror="this.src='https://via.placeholder.com/44x44/a855f7/fff?text=D'"></div>
+<div class="logo">DILZ x <span>AI</span></div>
+</div>
+<button class="btnTop" onclick="alert('DILZ x AI v21.1 FIX • BY SEB DILZNOELZ • SMA AL-ATIQIYAH • Cipanengah • NO GOJO • PP Anime White Hair')">INFO</button>
+</div>
+
+<div class="main">
+<div class="hero">
+<h1>Welcome to the toolkit</h1>
+<p>Build, Automate, Innovate with DILZ x AI • Chat AI work • Image AI work • PP lu udah nempel • 100% bisa dipencet!</p>
+</div>
+
+<div class="chatBox">
+<div class="tools">
+<div class="chip" onclick="setPrompt('Halo')">👋 Halo</div>
+<div class="chip" onclick="setPrompt('/image eye in hand neon pink horror')">👁️ Mata Tangan</div>
+<div class="chip" onclick="setPrompt('/image logo DILZ x AI neon pink purple futuristic')">🎨 Logo</div>
+<div class="chip" onclick="setPrompt('Buatin komik pendek tentang mata di tangan')">📚 Komik</div>
+<div class="chip" onclick="setPrompt('Jelasin SMA AL-ATIQIYAH')">🏫 Sekolah</div>
+</div>
+<div class="msgs" id="msgs">
+<div class="msg ai">Yo min! Ini <b>V21.1 FIX</b> — udah bener!<br><br>✅ PP lu (anime rambut putih) udah muncul di kiri atas — ada glow pink<br>✅ Chat bisa dipencet — ketik bawah terus pencet tombol kirim ➤<br>✅ /image bisa — ketik <b>/image eye in hand</b> langsung jadi gambar<br>✅ Semua tombol chip di atas bisa dipencet!<br><br>Coba ketik sekarang min!</div>
+</div>
+<div class="bar">
+<input class="in" id="input" placeholder="Ketik disini... contoh: /image eye in hand" onkeydown="if(event.key==='Enter') send()">
+<button class="send" id="sendBtn" onclick="send()">➤</button>
+</div>
+</div>
+
+<div class="foot">DILZ x AI v21.1 FIX • NO GOJO • PP Anime White Hair • BY SEB DILZNOELZ • SMA AL-ATIQIYAH Cipanengah • dilzNoelz • jangan lupa mampir ya 😋</div>
+</div>
+
+<script>
+// FIX PP - pakai file lokal lu kalau ada, kalau gak pakai base64 fallback
+const ppImg = document.getElementById('ppImg');
+// coba load dari file lokal pp.jpg dulu
+ppImg.src = 'pp.jpg';
+setTimeout(()=>{
+if(ppImg.naturalWidth===0){
+ppImg.src='https://i.ibb.co/6g0r9y0/anime-white-hair.jpg';
+}
+},500);
+
+const msgs = document.getElementById('msgs');
+const input = document.getElementById('input');
+
+function setPrompt(t){
+input.value = t;
+input.focus();
+}
+
+function addMsg(text, who){
+let d = document.createElement('div');
+d.className = 'msg '+who;
+d.innerHTML = text;
+msgs.appendChild(d);
+msgs.scrollTop = msgs.scrollHeight;
+return d;
+}
+
+function send(){
+let q = input.value.trim();
+if(!q) return;
+addMsg(q, 'user');
+input.value = '';
+let thinking = addMsg('⏳ DILZ x AI ngetik...', 'ai');
+
+setTimeout(async ()=>{
+try{
+if(q.toLowerCase().startsWith('/image')){
+let prompt = q.replace('/image','').trim() || 'eye in hand neon pink';
+let url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=512&height=512&nologo=true&seed=${Math.floor(Math.random()*99999)}`;
+thinking.innerHTML = `🎨 <b>${prompt}</b><br><img src="${url}" onload="this.scrollIntoView()" style="border:1px solid #333"><br><br><a href="${url}" target="_blank" style="color:#a855f7;font-size:10px">⬇️ BUKA LINK / DOWNLOAD</a>`;
+}else{
+let jawaban = '';
+let low = q.toLowerCase();
+if(low.includes('halo') || low.includes('intro') || low.includes('siapa')){
+jawaban = `Yo min! Gue <b>DILZ x AI v21.1</b> — buatan <b>SEB DILZNOELZ</b> — anak <b>SMA AL-ATIQIYAH</b> Kampung <b>Cipanengah</b> Bandung!<br><br>Brand lu: <b>mata di tangan dilzNoelz v19.2</b> — <b>jangan lupa mampir ya 😋</b><br><br>Fitur:<br>• 💬 Chat AI (gue ini)<br>• 🎨 /image buat gambar<br>• 📚 Komik AI<br>• No Gojo — full brand lu!`;
+}else if(low.includes('komik')){
+jawaban = `📚 <b>KOMIK: Mata Tangan dilzNoelz</b><br><br><div style="background:#fff;color:#000;border-radius:10px;padding:10px;border:2px solid #000"><div style="font-size:24px;text-align:center">👁️✋</div><div style="background:#fff;border:2px solid #000;border-radius:10px;padding:6px;font-size:11px;font-weight:800;margin:6px 0">Aku adalah mata yang melihat semua!</div><div style="font-size:9px;background:#000;color:#fff;padding:4px;text-align:center">DILZ x AI - Chapter 1</div></div><br>Cerita: Tangan yang memiliki mata bisa melihat masa depan!`;
+}else if(low.includes('sekolah') || low.includes('sma') || low.includes('al-atiqiyah')){
+jawaban = `🏫 <b>SMA AL-ATIQIYAH</b><br>• Sekolah lu min!<br>• Di Bandung, Kampung Cipanengah<br>• Dibikin web DILZ x AI biar keren!<br>• Mau gue tambahin profil sekolah di web?`;
+}else{
+jawaban = `Oke min, lu bilang: "<b>${q}</b>"<br><br>Gue DILZ x AI v21.1 — udah fix chat bisa dipencet! PP lu (anime rambut putih) udah di kiri atas!<br><br>Ketik <b>/image eye in hand neon pink</b> buat coba bikin gambar brand lu — langsung jadi!`;
+}
+thinking.innerHTML = jawaban + `<br><br><span style="opacity:.4;font-size:8px">DILZ x AI • NO GOJO • PP Edition</span>`;
+}
+msgs.scrollTop = msgs.scrollHeight;
+}catch(e){
+thinking.innerHTML = `⚠️ Error min: ${e.message}<br>Coba ketik lagi!`;
+}
+}, 400);
+}
+
+// biar tombol kirim pasti kepencet - double bind
+document.getElementById('sendBtn').addEventListener('touchstart', function(e){e.preventDefault(); send();});
+</script>
+</body>
+</html>
