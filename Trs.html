@@ -1,0 +1,458 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dilz X Tools - Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* --- 1. HALAMAN LOGIN --- */
+        #login-screen {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: all 0.5s ease;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.2);
+        }
+
+        .login-box h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .login-box h2 span { color: #ff007f; }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: #ccc;
+            letter-spacing: 1px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #ff007f;
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(90deg, #ff007f 0%, #b700ff 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+        }
+
+        #error-msg {
+            color: #ff4d4d;
+            font-size: 13px;
+            margin-top: 15px;
+            display: none;
+            font-weight: 600;
+        }
+
+        /* --- 2. HALAMAN DEPAN (WELCOME SCREEN) --- */
+        #welcome-screen {
+            display: none; /* Tersembunyi sebelum login */
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .container.fade-out {
+            opacity: 0;
+            transform: scale(1.1);
+            pointer-events: none;
+        }
+
+        .profile-container {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            padding: 3px;
+            background: #ff007f;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.8), 0 0 50px rgba(255, 0, 127, 0.4);
+            margin-bottom: 30px;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .profile-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #121212;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        h1 span.pink { color: #ff007f; }
+
+        .subtitle {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #d1d1d1;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            background: linear-gradient(90deg, #ff007f 0%, #b700ff 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(183, 0, 255, 0.4);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(255, 0, 127, 0.8);
+        }
+
+        .btn .star { margin: 0 10px; }
+
+        /* --- 3. LOADING SCREEN --- */
+        #loading-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #0a0a0a;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 9999; opacity: 0; visibility: hidden; transition: opacity 0.4s ease;
+        }
+
+        #loading-screen.show { opacity: 1; visibility: visible; }
+
+        .spinner {
+            width: 70px; height: 70px;
+            border: 5px solid rgba(255, 0, 127, 0.2);
+            border-top: 5px solid #ff007f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .loading-text {
+            font-size: 14px; letter-spacing: 2px; color: #ff007f; font-weight: 700;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        /* --- 4. DASHBOARD TOOLS --- */
+        #dashboard {
+            display: none;
+            padding: 30px 20px;
+            min-height: 100vh;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .header-dash {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .header-title h2 { font-size: 22px; font-weight: 800; }
+        .header-title h2 span { color: #ff007f; }
+        .header-title p { font-size: 12px; color: #aaa; margin-top: 5px; }
+
+        .header-profile {
+            width: 45px; height: 45px; border-radius: 50%;
+            border: 2px solid #ff007f; overflow: hidden;
+        }
+        .header-profile img { width: 100%; height: 100%; object-fit: cover; }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .tool-card:hover {
+            background: rgba(255, 0, 127, 0.15);
+            border-color: #ff007f;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 127, 0.3);
+        }
+
+        .tool-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+        .tool-card h3 { font-size: 13px; font-weight: 600; color: #fff; }
+        .tool-card p { font-size: 10px; color: #aaa; margin-top: 5px; }
+
+        .btn-logout {
+            margin-top: 30px;
+            width: 100%;
+            background: transparent;
+            border: 1px solid #ff007f;
+            color: #ff007f;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-logout:hover { background: #ff007f; color: white; }
+
+    </style>
+</head>
+<body>
+
+    <!-- 1. HALAMAN LOGIN -->
+    <div id="login-screen">
+        <div class="login-box">
+            <h2>LOGIN <span>DILZ X</span> TOOLS</h2>
+            <div class="input-group">
+                <label>USERNAME</label>
+                <input type="text" id="username" placeholder="Masukkan Username">
+            </div>
+            <div class="input-group">
+                <label>PASSWORD</label>
+                <input type="password" id="password" placeholder="Masukkan Password">
+            </div>
+            <button class="btn-login" onclick="prosesLogin()">MASUK</button>
+            <p id="error-msg">Username atau Password Salah!</p>
+        </div>
+    </div>
+
+    <!-- 2. HALAMAN DEPAN (WELCOME) -->
+    <div id="welcome-screen">
+        <div class="container" id="main-container">
+            <div class="profile-container">
+                <img src="https://i.ibb.co.com/6P8Z5K2/IMG-20240418-WA0000.jpg" alt="Dilz Profile">
+            </div>
+            <h1>DILZ <span class="pink">X</span> TOOLS</h1>
+            <p class="subtitle">WELCOME TO THE TOOLKIT</p>
+            <button onclick="mulaiMasuk()" class="btn">
+                <span class="star">✦</span> MASUK SEKARANG <span class="star">✦</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 3. LOADING SCREEN -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <div class="loading-text">MEMUAT DILZ X TOOLS...</div>
+    </div>
+
+    <!-- 4. DASHBOARD TOOLS -->
+    <div id="dashboard">
+        <div class="header-dash">
+            <div class="header-title">
+                <h2>DILZ <span>X TOOLS</span></h2>
+                <p>Pilih alat yang ingin digunakan</p>
+            </div>
+            <div class="header-profile">
+                <img src="https://i.ibb.co.com/6P8Z5K2/IMG-20240418-WA0000.jpg" alt="Profile">
+            </div>
+        </div>
+
+        <div class="tools-grid">
+            <div class="tool-card">
+                <span class="tool-icon">📱</span>
+                <h3>Cek Nomor HP</h3>
+                <p>Lacak lokasi nomor</p>
+            </div>
+            <div class="tool-card">
+                <span class="tool-icon">🔐</span>
+                <h3>Generator Password</h3>
+                <p>Buat sandi acak aman</p>
+            </div>
+            <div class="tool-card">
+                <span class="tool-icon">📶</span>
+                <h3>Cek Kecepatan WiFi</h3>
+                <p>Tes koneksi internet</p>
+            </div>
+            <div class="tool-card">
+                <span class="tool-icon">🖼️</span>
+                <h3>Hapus Background</h3>
+                <p>Hapus latar belakang foto</p>
+            </div>
+            <div class="tool-card">
+                <span class="tool-icon">🎮</span>
+                <h3>Free Fire Info</h3>
+                <p>Cek ID & Nama FF</p>
+            </div>
+            <div class="tool-card">
+                <span class="tool-icon">🌐</span>
+                <h3>Shortlink</h3>
+                <p>Pendekkan URL panjang</p>
+            </div>
+        </div>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. Fungsi Login
+        function prosesLogin() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+            const loginScreen = document.getElementById('login-screen');
+            const welcomeScreen = document.getElementById('welcome-screen');
+
+            // Cek Username & Password (137 & 147)
+            if (user === "137" && pass === "147") {
+                errorMsg.style.display = "none";
+                loginScreen.style.display = "none"; // Sembunyikan login
+                welcomeScreen.style.display = "flex"; // Tampilkan welcome
+            } else {
+                errorMsg.style.display = "block"; // Munculkan pesan error
+            }
+        }
+
+        // 2. Fungsi Animasi Saat Tombol Masuk Diklik
+        function mulaiMasuk() {
+            const welcomeScreen = document.getElementById('welcome-screen');
+            const mainContainer = document.getElementById('main-container');
+            const loadingScreen = document.getElementById('loading-screen');
+            const dashboard = document.getElementById('dashboard');
+
+            mainContainer.classList.add('fade-out');
+
+            setTimeout(() => {
+                loadingScreen.classList.add('show');
+
+                setTimeout(() => {
+                    loadingScreen.classList.remove('show');
+                    welcomeScreen.style.display = 'none';
+                    dashboard.style.display = 'block';
+                    mainContainer.classList.remove('fade-out');
+                }, 2500); 
+            }, 500);
+        }
+
+        // 3. Fungsi Logout (Kembali ke Login)
+        function logout() {
+            const dashboard = document.getElementById('dashboard');
+            const loginScreen = document.getElementById('login-screen');
+            
+            // Reset input form
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            
+            dashboard.style.display = 'none';
+            loginScreen.style.display = 'flex';
+        }
+    </script>
+
+</body>
+</html>
+```
+
+Perubahan yang dilakukan:
+
+1. Halaman Login Baru: Ada kotak form transparan di tengah layar.
+2. Validasi JS: Jika Anda memasukkan Username 137 dan Password 147, Anda akan diarahkan ke halaman Welcome. Jika salah, akan muncul tulisan merah "Username atau Password Salah!".
+3. Tombol Logout: Di halaman Dashboard, tombol di bagian bawah saya ubah menjadi tombol Logout. Jika diklik, Anda akan kembali ke halaman Login dan form akan dikosongkan kembali.
