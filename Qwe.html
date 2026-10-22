@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DILZ X HIBURAN</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090611;color:#f8f1ff;font-family:Arial,sans-serif}
+header{padding:22px 16px;background:linear-gradient(135deg,#31085b,#100d24,#6818a7);border-bottom:1px solid #a855f7}
+header h1{margin:0;color:#e6b7ff;font-size:26px;letter-spacing:2px}
+header p{color:#d6c5e9;font-size:12px}
+nav{display:flex;gap:8px;overflow:auto;padding:12px;background:#100b1c;position:sticky;top:0;z-index:5}
+button,.tab{background:#29163e;color:white;border:1px solid #673b8b;border-radius:10px;padding:10px 13px;cursor:pointer}
+button:active{transform:scale(.97)}
+main{padding:15px;max-width:900px;margin:auto}
+.panel{background:#151020;border:1px solid #38254d;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 0 18px #5b168622}
+h2{font-size:18px;color:#d9a5ff}
+input{width:100%;padding:12px;margin:7px 0;background:#0c0914;color:white;border:1px solid #65417d;border-radius:9px}
+.eye-area{text-align:center;padding:22px 8px;background:radial-gradient(ellipse,#351354,#100b1b 70%);border-radius:16px}
+.eye{margin:12px auto;width:145px;height:76px;border:3px solid #d8a5ff;border-radius:80% 15%;transform:rotate(45deg);display:grid;place-items:center;box-shadow:0 0 24px #b65cff;animation:blink 3s infinite}
+.pupil{width:45px;height:45px;background:radial-gradient(circle,#fff 0 7%,#a9e8ff 10% 22%,#6b29ad 35%,#080410 68%);border-radius:50%;animation:look 2.2s infinite alternate}
+@keyframes blink{0%,42%,48%,100%{transform:rotate(45deg) scaleY(1)}45%{transform:rotate(45deg) scaleY(.08)}}
+@keyframes look{to{transform:translate(10px,-3px)}}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{overflow:hidden;border-radius:14px;background:#1b1229;border:1px solid #49305e}
+.poster{height:145px;display:grid;place-items:center;text-align:center;padding:12px;font-size:18px;font-weight:bold;background:linear-gradient(145deg,#39175a,#17102d,#7c289b)}
+.card p{padding:0 10px;font-size:12px;color:#d6c9e5;min-height:30px}
+.card button{margin:0 10px 12px;width:calc(100% - 20px)}
+.small{font-size:12px;color:#b9a8ca}
+.tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.tools button{min-height:48px}
+audio{width:100%;margin:10px 0}
+footer{text-align:center;padding:25px;color:#8f7aa6;font-size:12px}
+.hidden{display:none}
+@media(min-width:600px){.grid{grid-template-columns:repeat(3,1fr)}.tools{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header>
+  <h1>✦ DILZ X HIBURAN</h1>
+  <p>ANIME • MOVIE • MUSIC • YOUR ENTERTAINMENT</p>
+</header>
+<nav>
+  <button onclick="show('home')">Beranda</button>
+  <button onclick="show('anime')">Anime</button>
+  <button onclick="show('film')">Film</button>
+  <button onclick="show('music')">Musik</button>
+  <button onclick="show('tools')">39 Tools</button>
+</nav>
+<main>
+<section id="home">
+  <div class="panel">
+    <h2>Selamat datang, Dilz 💜</h2>
+    <p>Tempat hiburan anime, film, musik, dan berbagai tools dalam satu halaman.</p>
+    <input id="search" placeholder="Cari anime atau film..." oninput="searchCards()">
+  </div>
+
+  <div class="eye-area">
+    <div class="eye"><div class="pupil"></div></div>
+    <h2>THE PURPLE EYE</h2>
+    <p class="small">Animasi mata • DILZ X</p>
+    <button onclick="replayEye()">↻ Ulangi animasi</button>
+  </div>
+
+  <div class="panel">
+    <h2>⚡ Menu hiburan</h2>
+    <div class="grid">
+      <div class="card"><div class="poster">🎌 ANIME</div><p>Jelajahi dunia anime.</p><button onclick="show('anime')">Buka anime</button></div>
+      <div class="card"><div class="poster">🎬 MOVIES</div><p>Temukan film pilihan.</p><button onclick="show('film')">Buka film</button></div>
+      <div class="card"><div class="poster">🎧 MUSIC</div><p>Dengarkan koleksi lagu sendiri.</p><button onclick="show('music')">Buka musik</button></div>
+      <div class="card"><div class="poster">🩹 ANIMATION</div><p>Animasi ilustrasi perban.</p><button onclick="show('animation')">Lihat animasi</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="anime" class="hidden">
+  <div class="panel"><h2>🎌 Katalog Anime</h2><p class="small">Pilih trailer atau cari judulnya di YouTube.</p>
+    <div class="grid">
+      <div class="card"><div class="poster">⚔️ DEMON SLAYER</div><p>Petualangan dan aksi fantasi.</p><button onclick="trailer('Demon Slayer official trailer')">Lihat trailer</button></div>
+      <div class="card"><div class="poster">👁️ JUJUTSU KAISEN</div><p>Aksi supernatural.</p><button onclick="trailer('Jujutsu Kaisen official trailer')">Lihat trailer</button></div>
+      <div class="card"><div class="poster">🏴‍☠️ ONE PIECE</div><p>Petualangan bajak laut.</p><button onclick="trailer('One Piece official anime trailer')">Lihat trailer</button></div>
+      <div class="card"><div class="poster">🍥 NARUTO</div><p>Kisah ninja dan persahabatan.</p><button onclick="trailer('Naruto official anime trailer')">Lihat trailer</button></div>
+      <div class="card"><div class="poster">🌀 BLEACH</div><p>Aksi fantasi supernatural.</p><button onclick="trailer('Bleach official anime trailer')">Lihat trailer</button></div>
+      <div class="card"><div class="poster">🧱 ATTACK ON TITAN</div><p>Drama dan misteri fantasi.</p><button onclick="trailer('Attack on Titan official trailer')">Lihat trailer</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="film" class="hidden">
+  <div class="panel"><h2>🎬 Katalog Film</h2><p class="small">Poster ilustratif, bukan video film. Tombol membuka pencarian trailer.</p>
+    <div class="grid">
+      <div class="card"><div class="poster">🚀 SCI-FI</div><p>Film fiksi ilmiah.</p><button onclick="trailer('official science fiction movie trailers')">Cari trailer</button></div>
+      <div class="card"><div class="poster">🧭 ADVENTURE</div><p>Film petualangan.</p><button onclick="trailer('official adventure movie trailers')">Cari trailer</button></div>
+      <div class="card"><div class="poster">😂 COMEDY</div><p>Film komedi.</p><button onclick="trailer('official comedy movie trailers')">Cari trailer</button></div>
+      <div class="card"><div class="poster">🕵️ MYSTERY</div><p>Film misteri.</p><button onclick="trailer('official mystery movie trailers')">Cari trailer</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="music" class="hidden">
+  <div class="panel">
+    <h2>🎵 DILZ MUSIC PLAYER</h2>
+    <p class="small">Pilih satu atau beberapa file lagu dari HP kamu. Musik akan berulang otomatis.</p>
+    <input type="file" id="songs" accept="audio/*" multiple>
+    <p id="songName">Belum ada lagu dipilih.</p>
+    <audio id="player" controls loop></audio>
+    <div class="tools">
+      <button onclick="playSong()">▶ Putar</button>
+      <button onclick="document.getElementById('player').pause()">Ⅱ Jeda</button>
+      <button onclick="resumeSong()">⏵ Lanjutkan</button>
+      <button onclick="nextSong()">⏭ Lagu berikutnya</button>
+      <button onclick="document.getElementById('player').pause();document.getElementById('player').currentTime=0">■ Berhenti</button>
+    </div>
+    <p class="small">Catatan: pemutar ini memakai audio yang kamu pilih sendiri. Lagu dari tautan TikTok tidak otomatis diekstrak menjadi audio.</p>
+  </div>
+</section>
+
+<section id="animation" class="hidden">
+  <div class="panel" style="text-align:center">
+    <h2>🩹 BANDAGE HAND</h2>
+    <div id="hand" style="font-size:90px;animation:wave 1.5s infinite alternate">✋</div>
+    <p>Ilustrasi tangan dengan perban — animasi dekoratif.</p>
+    <button onclick="document.getElementById('hand').style.animation='none';void document.getElementById('hand').offsetWidth;document.getElementById('hand').style.animation='wave 1.5s infinite alternate'">Ulangi animasi</button>
+  </div>
+</section>
+
+<section id="tools" class="hidden">
+  <div class="panel">
+    <h2>⚡ 39 TOOLS</h2>
+    <p class="small">Tools sederhana yang bisa dijalankan langsung di halaman ini.</p>
+    <div class="tools" id="toolGrid"></div>
+    <div id="toolOutput" class="panel">Pilih salah satu tools di atas.</div>
+  </div>
+</section>
+</main>
+<footer>DILZ X HIBURAN © 2026 • Made for fun 💜</footer>
+<style>
+@keyframes wave{from{transform:rotate(-12deg)}to{transform:rotate(12deg) translateY(-8px)}}
+</style>
+<script>
+function show(id){
+ document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function trailer(q){window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(q),'_blank')}
+function replayEye(){
+ const e=document.querySelector('.eye');
+ e.style.animation='none';void e.offsetWidth;e.style.animation='blink 3s infinite';
+ const p=document.querySelector('.pupil');p.style.animation='none';void p.offsetWidth;p.style.animation='look 2.2s infinite alternate';
+}
+function searchCards(){
+ const q=document.getElementById('search').value.toLowerCase();
+ document.querySelectorAll('.card').forEach(c=>{
+  c.style.display=c.innerText.toLowerCase().includes(q)?'':'none';
+ });
+}
+let songFiles=[],songIndex=0;
+const player=document.getElementById('player');
+document.getElementById('songs').addEventListener('change',e=>{
+ songFiles=Array.from(e.target.files);songIndex=0;
+ if(songFiles.length)loadSong();
+});
+function loadSong(){
+ const f=songFiles[songIndex];if(!f)return;
+ player.src=URL.createObjectURL(f);
+ document.getElementById('songName').textContent='♫ '+f.name+' ('+(songIndex+1)+'/'+songFiles.length+')';
+}
+function playSong(){if(!songFiles.length){alert('Pilih file lagu dari HP terlebih dahulu.');return}player.play()}
+function resumeSong(){playSong()}
+function nextSong(){if(!songFiles.length)return;songIndex=(songIndex+1)%songFiles.length;loadSong();playSong()}
+player.addEventListener('ended',nextSong);
+
+const toolNames=[
+'Jam digital','Tanggal hari ini','Kalkulator','Catatan','Penghitung kata',
+'Pembuat nama','Teks kapital','Teks kecil','Balik teks','Salin teks',
+'Pemilih warna','Generator angka','Dadu virtual','Lempar koin','Timer',
+'Stopwatch','Status baterai','Cuaca manual','Kekuatan password','Pembuat sandi',
+'Hitung karakter','Persentase','Konversi km/mil','Konversi kg/lb','Konversi °C/°F',
+'QR pencarian','Buka Google','Buka YouTube','Buka Maps','Buka Wikipedia',
+'Pencarian anime','Pencarian film','Pencarian musik','Pilih foto profil','Info browser',
+'Mode fokus','Efek teks','Hitung mundur','Tentang aplikasi'
+];
+const grid=document.getElementById('toolGrid');
+toolNames.forEach((name,i)=>{
+ const b=document.createElement('button');b.textContent=(i+1)+'. '+name;
+ b.onclick=()=>runTool(i,name);grid.appendChild(b);
+});
+function runTool(i,name){
+ const o=document.getElementById('toolOutput');
+ if(i===0){o.innerHTML='<h2>Jam digital</h2><p>'+new Date().toLocaleTimeString()+'</p>';return}
+ if(i===1){o.innerHTML='<h2>Tanggal</h2><p>'+new Date().toLocaleDateString('id-ID',{dateStyle:'full'})+'</p>';return}
+ if(i===2){o.innerHTML='<h2>Kalkulator</h2><input id="calc" placeholder="Contoh: 12*5+3"><button onclick="try{document.getElementById(\\'calcResult\\').textContent=Function(\\'return (\\'+document.getElementById(\\'calc\\').value+\\')\\')()}catch(e){document.getElementById(\\'calcResult\\').textContent=\\'Periksa rumus\\'}">Hitung</button><p id="calcResult"></p>';return}
+ if(i===6||i===7||i===8||i===9||i===4||i===20||i===36){o.innerHTML='<h2>'+name+'</h2><textarea id="txt" rows="4" style="width:100%;background:#100b1c;color:white" placeholder="Tulis teks di sini"></textarea><button onclick="editText('+i+')">Proses</button><p id="result"></p>';return}
+ if(i===16){if(navigator.getBattery){navigator.getBattery().then(b=>o.innerHTML='<h2>Status baterai</h2><p>'+Math.round(b.level*100)+'% '+(b.charging?'⚡ Mengisi daya':'')+'</p>')}else{o.textContent='Informasi baterai tidak didukung browser ini.'}return}
+ if(i===3){o.innerHTML='<h2>Catatan</h2><textarea rows="6" style="width:100%;background:#100b1c;color:white" placeholder="Tulis catatanmu..."></textarea>';return}
+ if(i===13){o.innerHTML='<h2>Lempar koin</h2><button onclick="document.getElementById(\\'coin\\').textContent=Math.random()<.5?\\'ANGKA\\':\\'GAMBAR\\'">Lempar</button><h2 id="coin">?</h2>';return}
+ if(i===12){o.innerHTML='<h2>Dadu virtual</h2><button onclick="document.getElementById(\\'dice\\').textContent=1+Math.floor(Math.random()*6)">Lempar dadu</button><h2 id="dice">🎲</h2>';return}
+ if(i===14){o.innerHTML='<h2>Timer</h2><input id="mins" type="number" min="1" placeholder="Menit"><button onclick="startTimer()">Mulai</button><p id="timerResult"></p>';return}
+ if(i===10){o.innerHTML='<h2>Pemilih warna</h2><input type="color" oninput="this.nextElementSibling.style.background=this.value"><div style="height:70px;border-radius:10px"></div>';return}
+ if(i===15){o.innerHTML='<h2>Stopwatch</h2><p id="sw">0 detik</p><button onclick="window.swStart=Date.now();window.swInt=setInterval(()=>document.getElementById(\\'sw\\').textContent=((Date.now()-window.swStart)/1000).toFixed(1)+\\' detik\\',100)">Mulai</button><button onclick="clearInterval(window.swInt)">Jeda</button>';return}
+ if(i===17){o.innerHTML='<h2>Cuaca manual</h2><p>Pilih keadaan cuaca berdasarkan kondisi di tempatmu.</p><select id="weather"><option>Cerah / panas</option><option>Mendung</option><option>Hujan</option></select><button onclick="document.getElementById(\\'weatherResult\\').textContent=document.getElementById(\\'weather\\').value">Simpan</button><p id="weatherResult"></p>';return}
+ if(i===33){o.innerHTML='<h2>Foto profil</h2><input type="file" accept="image/*" onchange="showProfile(this)"><img id="profilePreview" style="width:100px;border-radius:50%">';return}
+ if(i===34){o.innerHTML='<h2>Info browser</h2><p>'+navigator.userAgent+'</p>';return}
+ if(i===35){o.innerHTML='<h2>Mode fokus</h2><p>Tarik napas pelan, istirahat sejenak, dan fokus pada satu hal.</p>';return}
+ if(i===11){o.innerHTML='<h2>Generator angka</h2><input id="maxN" type="number" value="100"><button onclick="document.getElementById(\\'randomN\\').textContent=1+Math.floor(Math.random()*Math.max(1,Number(document.getElementById(\\'maxN\\').value)))">Buat angka</button><p id="randomN"></p>';return}
+ const links={25:'https://www.google.com/search?q=',26:'https://www.google.com/search?q=',27:'https://www.google.com/',28:'https://maps.google.com/',29:'https://id.wikipedia.org/',30:'https://www.youtube.com/results?search_query=anime',31:'https://www.youtube.com/results?search_query=film+trailer',32:'https://www.youtube.com/results?search_query=music'};
+ if(links[i]){window.open(links[i],'_blank');o.innerHTML='<h2>'+name+'</h2><p>Halaman dibuka di tab baru jika browser mengizinkan.</p>';return}
+ if(i===18||i===19){o.innerHTML='<h2>'+name+'</h2><input id="pw" placeholder="Masukkan teks" type="text"><button onclick="document.getElementById(\\'pwResult\\').textContent='+ (i===18?'(document.getElementById(\\'pw\\').value.length>=12?\\'Panjang\\':\\'Gunakan teks yang lebih panjang\\')':'Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)')+'">Proses</button><p id="pwResult"></p>';return}
+ o.innerHTML='<h2>'+name+'</h2><p>Tools siap digunakan sebagai menu dasar. Beberapa fungsi memerlukan koneksi internet atau dukungan browser.</p>';
+}
+function editText(i){
+ const el=document.getElementById('txt'),v=el.value;
+ let r=v;
+ if(i===6)r=v.toUpperCase();
+ if(i===7)r=v.toLowerCase();
+ if(i===8)r=[...v].reverse().join('');
+ if(i===4)r='Jumlah kata: '+v.trim().split(/\s+/).filter(Boolean).length;
+ if(i===20)r='Jumlah karakter: '+v.length;
+ if(i===36)r='✨ '+v.split('').join(' ');
+ document.getElementById('result').textContent=r;
+ if(i===9&&navigator.clipboard)navigator.clipboard.writeText(v).then(()=>alert('Teks disalin'));
+}
+function startTimer(){
+ const end=Date.now()+Math.max(1,Number(document.getElementById('mins').value)||1)*60000;
+ const out=document.getElementById('timerResult');
+ const id=setInterval(()=>{let n=Math.max(0,end-Date.now());out.textContent=Math.ceil(n/1000)+' detik';if(n<=0){clearInterval(id);out.textContent='Waktu selesai!';}},250);
+}
+function showProfile(input){
+ const f=input.files[0];if(f)document.getElementById('profilePreview').src=URL.createObjectURL(f);
+}
+</script>
+</body>
+</html>
