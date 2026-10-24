@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DILZ X CONFIG</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-bottom: 70px;
+  }
+
+  /* ===== HEADER NAV ===== */
+  .top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background: #0d0d0d;
+    border-bottom: 1px solid #1a1a1a;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .top-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .top-nav-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .top-nav-title {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .top-nav-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #1a1a1a;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #4ade80;
+  }
+
+  .hamburger {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    background: #1a1a1a;
+    border-radius: 8px;
+    border: none;
+  }
+
+  .hamburger span {
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+  }
+
+  /* ===== BOTTOM NAV ===== */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    background: #111;
+    border-top: 1px solid #222;
+    z-index: 100;
+    height: 60px;
+  }
+
+  .bottom-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    color: #666;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+    border: none;
+    background: none;
+  }
+
+  .bottom-nav-item.active {
+    color: #fff;
+  }
+
+  .bottom-nav-item svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .bottom-nav-item.active svg {
+    filter: drop-shadow(0 0 4px rgba(255,255,255,0.3));
+  }
+
+  /* ===== PAGES ===== */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ===== HOME PAGE ===== */
+  .hero-section {
+    text-align: center;
+    padding: 30px 20px 20px;
+    border: 1px solid #1a1a1a;
+    margin: 15px;
+    border-radius: 12px;
+    background: #0f0f0f;
+  }
+
+  .hero-logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 15px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: #2a2a2a;
+    color: #ccc;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+
+  .hero-desc {
+    color: #888;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    padding: 0 10px;
+  }
+
+  .btn-primary {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    background: #fff;
+    color: #000;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  /* Feature Cards */
+  .features {
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .feature-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #111;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    padding: 16px;
+    transition: border-color 0.3s;
+  }
+
+  .feature-card:hover {
+    border-color: #333;
+  }
+
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    background: #1a1a1a;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .feature-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #fff;
+  }
+
+  .feature-text h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .feature-text p {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.4;
+  }
+
+  /* ===== MODSKIN PAGE ===== */
+  .modskin-header {
+    padding: 20px 15px 10px;
+  }
+
+  .modskin-header h2 {
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .modskin-header h1 {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+
+  /* 3D Preview */
+  .preview-section {
+    margin: 10px 15px;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    background: #0d0d0d;
+    overflow: hidden;
+  }
+
+  .preview-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+  }
+
+  .preview-top h3 {
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .btn-preview3d {
+    background: transparent;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+
+  .preview-3d-area {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 70%);
+  }
+
+  .character-3d {
+    font-size: 100px;
+    opacity: 0.6;
+    animation: float3d 3s ease-in-out infinite;
+  }
+
+  @keyframes float3d {
+    0%, 100% { transform: translateY(0) rotateY(0deg); }
+    50% { transform: translateY(-10px) rotateY(5deg); }
+  }
+
+  .preview-watermark {
+    position: absolute;
+    font-size: 28px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    letter-spacing: 5px;
+    pointer-events: none;
+  }
+
+  .preview-controls {
+    display: flex;
+    gap: 10px;
+    padding: 12px 15px;
+  }
+
+  .btn-control {
+    padding: 10px 20px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+  }
+
+  .btn-control:hover {
+    background: #252525;
+  }
+
+  /* Clothing Selector */
+  .clothing-section {
+    margin: 10px 15px;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    background: #0f0f0f;
+    padding: 15px;
+  }
+
+  .clothing-section h2 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 15px;
+  }
+
+  .clothing-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .clothing-label {
+    width: 80px;
+    font-size: 13px;
+    color: #888;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .clothing-select {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    min-height: 48px;
+  }
+
+  .clothing-select:hover {
+    border-color: #444;
+  }
+
+  .clothing-select-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+
+  .clothing-select-text {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .clothing-select-arrow {
+    color: #666;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .clothing-divider {
+    height: 1px;
+    background: #1a1a1a;
+    margin: 15px 0;
+  }
+
+  /* Current Selection Summary */
+  .summary-section {
+    margin: 15px;
+    padding: 15px;
+    border-top: 1px solid #1a1a1a;
+  }
+
+  .summary-title {
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .summary-text {
+    font-size: 12px;
+    color: #999;
+    line-height: 1.6;
+  }
+
+  .summary-text strong {
+    color: #ccc;
+  }
+
+  /* Action Buttons */
+  .action-buttons {
+    padding: 10px 15px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-create {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 16px;
+    background: #fff;
+    color: #000;
+    font-size: 15px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    transition: transform 0.2s;
+  }
+
+  .btn-create:hover { transform: scale(1.01); }
+  .btn-create:active { transform: scale(0.98); }
+
+  .btn-create-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 16px;
+    background: #e8e8e8;
+    color: #000;
+    font-size: 15px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    transition: transform 0.2s;
+  }
+
+  .btn-create-all:hover { transform: scale(1.01); }
+
+  .footer-text {
+    text-align: center;
+    padding: 10px 15px 20px;
+    font-size: 11px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 200;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .modal-content {
+    width: 100%;
+    max-height: 85vh;
+    background: #111;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .modal-close {
+    width: 32px;
+    height: 32px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-search {
+    padding: 12px 20px;
+  }
+
+  .modal-search input {
+    width: 100%;
+    padding: 12px 16px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .modal-search input::placeholder {
+    color: #555;
+  }
+
+  .modal-search input:focus {
+    border-color: #444;
+  }
+
+  .modal-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 10px 20px;
+  }
+
+  .modal-list::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .modal-list::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+  }
+
+  .modal-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .modal-item:hover {
+    background: #1a1a1a;
+  }
+
+  .modal-item.selected {
+    background: #1a1a1a;
+    border-color: #444;
+  }
+
+  .modal-item-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .modal-item-name {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* ===== EXPORT MODAL ===== */
+  .export-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 300;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .export-modal.active {
+    display: flex;
+  }
+
+  .export-content {
+    width: 100%;
+    max-width: 400px;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 16px;
+    padding: 24px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .export-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .export-icon {
+    width: 48px;
+    height: 48px;
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .export-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #000;
+  }
+
+  .export-title-block h3 {
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+
+  .export-title-block h2 {
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .export-progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .export-progress-label {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .export-progress-percent {
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: #222;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: #fff;
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  .export-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #aaa;
+  }
+
+  .export-step-icon {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #444;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .export-step-icon.done {
+    background: #fff;
+    border-color: #fff;
+  }
+
+  .btn-cancel-export {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid #333;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+  }
+
+  .btn-cancel-export:hover {
+    background: #1a1a1a;
+  }
+
+  .export-note {
+    text-align: center;
+    font-size: 11px;
+    color: #555;
+    margin-top: 15px;
+    line-height: 1.5;
+  }
+
+  /* ===== CHAT BUTTON ===== */
+  .chat-btn {
+    position: fixed;
+    bottom: 75px;
+    right: 15px;
+    width: 48px;
+    height: 48px;
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 90;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: none;
+    transition: transform 0.2s;
+  }
+
+  .chat-btn:hover { transform: scale(1.05); }
+
+  .chat-btn svg {
+    width: 24px;
+    height: 24px;
+    color: #000;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (min-width: 768px) {
+    body {
+      max-width: 480px;
+      margin: 0 auto;
+      border-left: 1px solid #1a1a1a;
+      border-right: 1px solid #1a1a1a;
+    }
+    .bottom-nav {
+      max-width: 480px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .chat-btn {
+      right: calc(50% - 225px);
+    }
+  }
+
+  /* Loading shimmer */
+  .shimmer {
+    background: linear-gradient(90deg, #1a1a1a 25%, #222 50%, #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .hidden { display: none !important; }
+</<style>
+</head>
+<body>
+
+<!-- ===== TOP NAV (Modskin page only) ===== -->
+<div class="top-nav hidden" id="topNav">
+  <div class="top-nav-left">
+    <svg class="top-nav-logo" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" fill="none" stroke="#fff" stroke-width="2"/>
+      <text x="50" y="30" text-anchor="middle" fill="#fff" font-size="11" font-weight="900" letter-spacing="2">DILZ</text>
+      <path d="M50 35 L35 65 L42 55 L50 70 L58 55 L65 65 Z" fill="#fff"/>
+      <text x="50" y="82" text-anchor="middle" fill="#fff" font-size="9" font-weight="700" letter-spacing="3">CONFIG</text>
+    </svg>
+    <span class="top-nav-title">DILZ X CONFIG / tak terbatas</span>
+  </div>
+  <div class="top-nav-status">
+    <div class="status-dot"></div>
+    on line
+  </div>
+  <button class="hamburger" onclick="toggleHamburger()">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- ===== HOME PAGE ===== -->
+<div class="page active" id="pageHome">
+  <div class="hero-section">
+    <svg class="hero-logo" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="90" fill="none" stroke="#333" stroke-width="2"/>
+      <circle cx="100" cy="100" r="80" fill="none" stroke="#222" stroke-width="1"/>
+      <text x="100" y="55" text-anchor="middle" fill="#fff" font-size="22" font-weight="900" letter-spacing="4">DILZ</text>
+      <!-- Phoenix/Bird -->
+      <path d="M100 65 L75 110 L85 100 L100 125 L115 100 L125 110 Z" fill="#fff"/>
+      <path d="M70 95 Q85 80 100 90 Q115 80 130 95" fill="none" stroke="#fff" stroke-width="2"/>
+      <path d="M75 105 Q90 95 100 100 Q110 95 125 105" fill="none" stroke="#fff" stroke-width="1.5"/>
+      <path d="M80 115 Q90 108 100 112 Q110 108 120 115" fill="none" stroke="#fff" stroke-width="1"/>
+      <text x="100" y="155" text-anchor="middle" fill="#fff" font-size="18" font-weight="900" letter-spacing="5">CONFIG</text>
+      <!-- Decorative dots -->
+      <circle cx="55" cy="100" r="3" fill="#fff"/>
+      <circle cx="145" cy="100" r="3" fill="#fff"/>
+    </svg>
+    <div class="hero-badge">ALAT MODIFIKASI FREE FIRE</div>
+    <h1 class="hero-title">DILZ X CONFIG</h1>
+    <p class="hero-desc">Lihat pratinjau pakaian dalam 3D dan buat file mod Free Fire dengan cepat. Tidak memerlukan root atau aplikasi pendamping.</p>
+    <button class="btn-primary" onclick="switchPage('modskin')">MULAI MODIFIKASI →</button>
+  </div>
+
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 12l10 5 10-5"/><path d="M2 17l10 5 10-5"/></svg>
+      </div>
+      <div class="feature-text">
+        <h3>Pratinjau 3D langsung</h3>
+        <p>Padukan pakaian dan pratinjau karakter di browser Anda.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <div class="feature-text">
+        <h3>Ekspor file instan</h3>
+        <p>Ekspor file ZIP Android dan iOS untuk FF dan FF MAX.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="feature-text">
+        <h3>Ratusan barang</h3>
+        <p>Rambut, atasan, bawahan, sepatu, topeng, wajah, dan tindakan.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div class="feature-text">
+        <h3>Gratis untuk digunakan</h3>
+        <p>Tidak perlu masuk dan tidak ada layar pemblokiran unduhan.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODSKIN PAGE ===== -->
+<div class="page" id="pageModskin">
+  <div class="modskin-header">
+    <h2>PEMBANGUN PAKAIAN</h2>
+    <h1>MOD OTOMATIS</h1>
+  </div>
+
+  <div class="preview-section">
+    <div class="preview-top">
+      <h3>ALOK</h3>
+      <button class="btn-preview3d">PRATINJAU 3D</button>
+    </div>
+    <div class="preview-3d-area">
+      <div class="preview-watermark">DILZ X CONFIG</div>
+      <div class="character-3d">🧍</div>
+    </div>
+    <div class="preview-controls">
+      <button class="btn-control" onclick="rotateChar()">↻ Putar</button>
+      <button class="btn-control" onclick="resetChar()">Mengatur ulang</button>
+    </div>
+  </div>
+
+  <div class="clothing-section">
+    <h2>Pilih pakaian</h2>
+
+    <div class="clothing-row">
+      <span class="clothing-label">Versi</span>
+      <div class="clothing-select" onclick="openVersionModal()">
+        <span class="clothing-select-text" id="selVersion">Android · Standar FF</span>
+        <span class="clothing-select-arrow">▾</span>
+      </div>
+    </div>
+
+    <div class="clothing-divider"></div>
+
+    <div class="clothing-row">
+      <span class="clothing-label">🎭 Rambut</span>
+      <div class="clothing-select" onclick="openModal('rambut')">
+        <div class="clothing-select-icon">💀</div>
+        <span class="clothing-select-text" id="selRambut">Monster Kekosongan</span>
+        <span class="clothing-select-arrow"></span>
+      </div>
+    </div>
+
+    <div class="clothing-row">
+      <span class="clothing-label"> Atas</span>
+      <div class="clothing-select" onclick="openModal('atas')">
+        <div class="clothing-select-icon">🦾</div>
+        <span class="clothing-select-text" id="selAtas">Tinju Baja</span>
+        <span class="clothing-select-arrow">▾</span>
+      </div>
+    </div>
+
+    <div class="clothing-row">
+      <span class="clothing-label">👖 Dasar</span>
+      <div class="clothing-select" onclick="openModal('dasar')">
+        <div class="clothing-select-icon">👖</div>
+        <span class="clothing-select-text" id="selDasar">Tahun Babi</span>
+        <span class="clothing-select-arrow">▾</span>
+      </div>
+    </div>
+
+    <div class="clothing-row">
+      <span class="clothing-label">👟 Sepatu</span>
+      <div class="clothing-select" onclick="openModal('sepatu')">
+        <div class="clothing-select-icon">👟</div>
+        <span class="clothing-select-text" id="selSepatu">Lepaskan Sepatu</span>
+        <span class="clothing-select-arrow">▾</span>
+      </div>
+    </div>
+
+    <div class="clothing-row">
+      <span class="clothing-label"> Masker</span>
+      <div class="clothing-select" onclick="openModal('masker')">
+        <div class="clothing-select-icon"></div>
+        <span class="clothing-select-text" id="selMasker">Lepaskan Masker</span>
+        <span class="clothing-select-arrow">▾</span>
+      </div>
+    </div>
+
+    <div class="clothing-row">
+      <span class="clothing-label">🎭 Menghadapi</span>
+      <div class="clothing-select" onclick="openModal('menghadapi')">
+        <div class="clothing-select-icon"></div>
+        <span class="clothing-select-text" id="selMenghadapi">Lepaskan Wajah</span>
+        <span class="clothing-select-arrow">▾</span>
+      </div>
+    </div>
+
+    <div class="clothing-row">
+      <span class="clothing-label">⚔️ Tindakan</span>
+      <div class="clothing-select" onclick="openModal('tindakan')">
+        <div class="clothing-select-icon">🦅</div>
+        <span class="clothing-select-text" id="selTindakan">Bergabunglah dalam Penaklukan</span>
+        <span class="clothing-select-arrow">▾</span>
+      </div>
+    </div>
+
+    <div class="summary-section">
+      <div class="summary-title">PILIHAN SAAT INI</div>
+      <div class="summary-text" id="summaryText">
+        Rambut: <strong>Void Monster</strong> · Atasan: <strong>Steel Fist</strong> · Bawahan: <strong>Year of the Pig</strong> · Sepatu: <strong>Lepaskan Sepatu</strong> · Topeng: <strong>Lepaskan Topeng</strong> · Wajah: <strong>Lepaskan Wajah</strong> · Aksi: <strong>Bergabunglah dalam Penaklukan</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <button class="btn-create" onclick="startExport()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Buat mod · 1,81 MB
+    </button>
+    <button class="btn-create-all" onclick="startExportAll()">Buat keempat versinya</button>
+  </div>
+
+  <div class="footer-text">
+    Data Alok untuk Android dan iOS · Free Fire Standar / MAX.<br>
+    DILZ X CONFIG · tak terbatas.
+  </div>
+</div>
+
+<!-- ===== ITEM MODAL ===== -->
+<div class="modal-overlay" id="itemModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="modalTitle">Pilih Rambut</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-search">
+      <input type="text" placeholder="Cari pakaian..." id="modalSearch" oninput="filterItems()">
+    </div>
+    <div class="modal-list" id="modalList"></div>
+  </div>
+</div>
+
+<!-- ===== VERSION MODAL ===== -->
+<div class="modal-overlay" id="versionModal">
+  <div class="modal-content" style="max-height:50vh;">
+    <div class="modal-header">
+      <h2>Pilih Versi</h2>
+      <button class="modal-close" onclick="closeVersionModal()">✕</button>
+    </div>
+    <div class="modal-list" style="padding:10px 20px 20px;">
+      <div class="modal-item selected" onclick="selectVersion('Android · Standar FF', this)">
+        <div class="modal-item-icon">📱</div>
+        <span class="modal-item-name">Android · Standar FF</span>
+      </div>
+      <div class="modal-item" onclick="selectVersion('Android · FF MAX', this)">
+        <div class="modal-item-icon"></div>
+        <span class="modal-item-name">Android · FF MAX</span>
+      </div>
+      <div class="modal-item" onclick="selectVersion('iOS · FF Standar', this)">
+        <div class="modal-item-icon">🍎</div>
+        <span class="modal-item-name">iOS · FF Standar</span>
+      </div>
+      <div class="modal-item" onclick="selectVersion('iOS · FF MAX', this)">
+        <div class="modal-item-icon"></div>
+        <span class="modal-item-name">iOS · FF MAX</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EXPORT MODAL ===== -->
+<div class="export-modal" id="exportModal">
+  <div class="export-content">
+    <div class="export-header">
+      <div class="export-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </div>
+      <div class="export-title-block">
+        <h3>DILZ X CONFIG</h3>
+        <h2>Membuat file mod</h2>
+      </div>
+      <span class="export-progress-percent" id="exportPercent">0%</span>
+    </div>
+
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="exportProgressBar"></div>
+    </div>
+
+    <div class="export-step">
+      <div class="export-step-icon" id="exportStepIcon">◇</div>
+      <span id="exportStepText">Membuat MOD...</span>
+    </div>
+
+    <button class="btn-cancel-export" onclick="cancelExport()">BATALKAN EKSPOR</button>
+
+    <p class="export-note">Biarkan halaman ini tetap terbuka sementara file sedang dipersiapkan.</p>
+  </div>
+</div>
+
+<!-- ===== CHAT BUTTON ===== -->
+<button class="chat-btn" onclick="alert('Chat feature coming soon!')">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+
+<!-- ===== BOTTOM NAV ===== -->
+<div class="bottom-nav">
+  <button class="bottom-nav-item active" id="navHome" onclick="switchPage('home')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    RUMAH
+  </button>
+  <button class="bottom-nav-item" id="navModskin" onclick="switchPage('modskin')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    MODSKIN OTOMATIS
+  </button>
+</div>
+
+<script>
+// ===== DATA =====
+const itemsData = {
+  rambut: [
+    { icon: '', name: 'Alien X' },
+    { icon: '🇺🇸', name: 'Teks Amerika' },
+    { icon: '🐰', name: 'Kelinci Hitam' },
+    { icon: '', name: 'Pemburu Iblis Darah' },
+    { icon: '', name: 'Juara Gaya Biru' },
+    { icon: '👦', name: 'Anak Laki-Laki Pembohong yang Berani' },
+    { icon: '️', name: 'Bushido' },
+    { icon: '🌌', name: 'Galaksi Gelap' },
+    { icon: '⭐', name: 'Bintang Gelap' },
+    { icon: '🔄', name: 'Bawaan' },
+    { icon: '', name: 'Gelombang Dinamis' },
+    { icon: '👹', name: 'Utusan Iblis' },
+    { icon: '🐰', name: 'Kelinci Galaksi' },
+    { icon: '🏆', name: 'Juara Gaya Emas' },
+    { icon: '💎', name: 'Giok Emas' },
+    { icon: '💔', name: 'Benci Kebohongan' },
+    { icon: '🧚', name: 'Peri Kecil' },
+    { icon: '💀', name: 'Mordekai' },
+    { icon: '🐰', name: 'Kelinci Merah Muda' },
+    { icon: '🐰', name: 'Kelinci yang Suka Bermain' },
+    { icon: '⚔️', name: 'Bushido Premium' },
+    { icon: '🛣️', name: 'Jalan Premium' },
+    { icon: '🐰', name: 'Kelinci Ungu' },
+    { icon: '😈', name: 'Penjahat Ungu' },
+    { icon: '', name: 'Juara Gaya Ungu' },
+    { icon: '🐰', name: 'Prajurit Kelinci' },
+    { icon: '🐰', name: 'Kelinci Merah' },
+    { icon: '🏆', name: 'Juara Gaya Merah' },
+    { icon: '⚔️', name: 'Pendekar Pedang Merah' },
+    { icon: '❌', name: 'Menghilangkan Rambut' },
+    { icon: '🕷️', name: 'Manusia Laba-laba' },
+    { icon: '🕸️', name: 'Set Lengkap Spider-Man' },
+    { icon: '🚶', name: 'Gaya Jalanan' },
+    { icon: '🐺', name: 'Serigala Teknologi' },
+    { icon: '🛡️', name: 'Armor Titan' },
+    { icon: '', name: 'Serangan Titan' },
+    { icon: '💀', name: 'Monster Kekosongan' },
+    { icon: '', name: 'Kelinci Putih' },
+    { icon: '🕌', name: 'Pemburu Masjid' },
+    { icon: '🐰', name: 'Kelinci Kuning' },
+    { icon: '🎸', name: 'Bintang Rock Zombie' },
+  ],
+  atas: [
+    { icon: '❌', name: 'Lepaskan bagian atas' },
+    { icon: '', name: 'Satoru Gojo' },
+    { icon: '🕷️', name: 'Manusia Laba-laba' },
+    { icon: '🎖️', name: 'Komandan Pasukan' },
+    { icon: '🦑', name: 'Pemain Cumi-cumi' },
+    { icon: '⭐', name: 'Penjaga Bintang' },
+    { icon: '🦾', name: 'Tinju Baja' },
+    { icon: '🚶', name: 'Gaya Jalanan' },
+    { icon: '👕', name: 'Putih Tiga Lubang' },
+    { icon: '⚡', name: 'Guntur Tanpa Wajah' },
+    { icon: '🛡️', name: 'Armor Titan' },
+    { icon: '👊', name: 'Serangan Titan' },
+    { icon: '💀', name: 'Monster Kekosongan' },
+    { icon: '👻', name: 'Hantu Barat' },
+    { icon: '👔', name: 'Leher tinggi putih' },
+    { icon: '🤍', name: 'Monster Kekosongan Putih' },
+    { icon: '🐰', name: 'Kelinci Kuning' },
+  ],
+  dasar: [
+    { icon: '🚶', name: 'Gaya Jalanan' },
+    { icon: '⚡', name: 'Guntur Tanpa Wajah' },
+    { icon: '💀', name: 'Monster Kekosongan' },
+    { icon: '🤍', name: 'Monster Kekosongan Putih' },
+    { icon: '👖', name: 'Tahun Babi' },
+    { icon: '🐰', name: 'Kelinci Kuning' },
+    { icon: '🐃', name: 'Kerbau Muda' },
+    { icon: '🕷️', name: 'Manusia Laba-laba' },
+    { icon: '', name: 'Pemain Game Cumi-cumi' },
+    { icon: '⭐', name: 'Penjaga Bintang' },
+    { icon: '🍓', name: 'Stroberi' },
+    { icon: '🚶', name: 'Anak Jalanan' },
+    { icon: '🚶', name: 'Gaya Jalanan' },
+    { icon: '', name: 'Bawaan' },
+    { icon: '🔥', name: 'Tinju Api' },
+    { icon: '😴', name: 'Pakaian Tidur Lembut' },
+    { icon: '🐰', name: 'Kelinci Galaksi' },
+    { icon: '😇', name: 'Malaikat Emas' },
+    { icon: '', name: 'Halo Kitty' },
+    { icon: '🥊', name: 'Petarung Legendaris' },
+    { icon: '🌙', name: 'Bandit Malam' },
+    { icon: '', name: 'Piyama Panda' },
+    { icon: '🐰', name: 'Kelinci Merah Muda' },
+    { icon: '🌅', name: 'Penjelajah Langit Merah Muda' },
+    { icon: '⚔️', name: 'Bushido Premium' },
+    { icon: '️', name: 'Jalan Premium' },
+    { icon: '😇', name: 'Malaikat Murni' },
+    { icon: '🐰', name: 'Kelinci Ungu' },
+    { icon: '🌑', name: 'Bintang Gelap' },
+    { icon: '🔥', name: 'Tinju Api' },
+    { icon: '', name: 'Setan' },
+    { icon: '🐰', name: 'Kelinci Galaksi' },
+    { icon: '👑', name: 'Penjelajah Elit' },
+    { icon: '🇧', name: 'Seragam Inggris' },
+    { icon: '🖤', name: 'Monster Kekosongan Hitam' },
+    { icon: '🎀', name: 'Hello Kitty Biru' },
+    { icon: '💙', name: 'Monster Kekosongan Biru' },
+    { icon: '⚔️', name: 'Bushido' },
+    { icon: '✨', name: 'Malaikat Neon' },
+    { icon: '⚾', name: 'Baseball' },
+    { icon: '🩳', name: 'Celana Pendek Hitam' },
+  ],
+  sepatu: [
+    { icon: '❌', name: 'Lepaskan Sepatu' },
+    { icon: '🏀', name: 'Bola basket' },
+    { icon: '🩴', name: 'Sandal Jepit Pantai' },
+    { icon: '🐝', name: 'Sarang' },
+    { icon: '🐰', name: 'Kelinci Hitam' },
+    { icon: '⚔️', name: 'Bushido' },
+    { icon: '🐊', name: 'Buaya' },
+    { icon: '⭐', name: 'Bintang Gelap' },
+    { icon: '🔄', name: 'Bawaan' },
+    { icon: '🔥', name: 'Tinju Api' },
+    { icon: '🧸', name: 'Sepatu Berbulu' },
+    { icon: '👑', name: 'Kaisar Lucu' },
+    { icon: '🏖️', name: 'Pantai Emas' },
+    { icon: '☀️', name: 'Selamat menikmati musim panas!' },
+  ],
+  masker: [
+    { icon: '❌', name: 'Lepaskan Masker' },
+    { icon: '', name: 'Anak Laki-Laki Pembohong yang Berani' },
+    { icon: '🎀', name: 'Tali Pengikat Bra' },
+    { icon: '️', name: 'Bushido' },
+    { icon: '🌌', name: 'Galaksi Gelap' },
+    { icon: '⭐', name: 'Bintang Gelap' },
+    { icon: '🔄', name: 'Bawaan' },
+    { icon: '', name: 'Topeng Iblis' },
+    { icon: '', name: 'Alien X' },
+    { icon: '🏆', name: 'FFWC 2025' },
+    { icon: '🏆', name: 'FFWS 2025' },
+    { icon: '🎀', name: 'Halo Kitty' },
+    { icon: '🐛', name: 'Dokter Serangga' },
+    { icon: '🌋', name: 'Juara Lava' },
+    { icon: '🎎', name: 'Boneka Lava' },
+    { icon: '💀', name: 'Mordekai' },
+    { icon: '⚔️', name: 'Bushido Premium' },
+    { icon: '❌', name: 'Menggagalkan Masker' },
+    { icon: '', name: 'Sinterklas' },
+    { icon: '⚡', name: 'Guntur Tanpa Wajah' },
+    { icon: '🛡️', name: 'Armor Titan' },
+    { icon: '👊', name: 'Serangan Titan' },
+    { icon: '😴', name: 'Penutup Mata untuk Pakaian Dalam' },
+    { icon: '', name: 'Juara Pejuang' },
+  ],
+  menghadapi: [
+    { icon: '🔄', name: 'Bawaan' },
+    { icon: '💀', name: 'Pesta Gila' },
+    { icon: '🗿', name: 'Wajah' },
+  ],
+  tindakan: [
+    { icon: '🌙', name: 'Tebasan Bulan Darah' },
+    { icon: '', name: 'Terlahir dari Api' },
+    { icon: '', name: 'Ruang-Waktu Tanpa Batas' },
+    { icon: '☁️', name: 'Meluncur di Awan' },
+    { icon: '🌍', name: 'Gempa Bumi Berwarna' },
+    { icon: '📸', name: 'Foto Berwarna' },
+    { icon: '🌑', name: 'Bayangan Gelap' },
+    { icon: '🐉', name: 'Naga Batu Gelap' },
+    { icon: '🔄', name: 'Bawaan' },
+    { icon: '🐉', name: 'Kebangkitan Naga' },
+    { icon: '🐉', name: 'Pajangan Cakar Naga' },
+    { icon: '✨', name: 'Bulu Emas' },
+    { icon: '🏆', name: 'Momen Emas' },
+    { icon: '', name: 'Bergabunglah dalam Penaklukan' },
+    { icon: '⚔️', name: 'Pedang Cahaya' },
+    { icon: '🐉', name: 'Prajurit Cakar Naga' },
+    { icon: '💤', name: 'Mimpi yang Berguling' },
+    { icon: '🐉', name: 'Akselerasi Naga' },
+    { icon: '🐉', name: 'Naga Ungu Muncul' },
+    { icon: '🐯', name: 'Memanggil Harimau' },
+    { icon: '⚔️', name: 'Hujan Senjata' },
+    { icon: '🦂', name: 'Penjahat Kalajengking' },
+    { icon: '😎', name: 'Boyah yang Bergaya' },
+    { icon: '', name: 'Aku memanggil Naga' },
+    { icon: '🐉', name: 'Memanggil Naga Amarah' },
+    { icon: '🔫', name: 'Panggil Senjata' },
+    { icon: '😡', name: 'Kemarahan' },
+    { icon: '🦅', name: 'Bergabunglah dalam Penaklukan' },
+  ]
+};
+
+const englishNames = {
+  rambut: { 'Monster Kekosongan': 'Void Monster' },
+  atas: { 'Tinju Baja': 'Steel Fist' },
+  dasar: { 'Tahun Babi': 'Year of the Pig' },
+  sepatu: { 'Lepaskan Sepatu': 'Remove Shoes', 'Sarang lebah': 'Beehive' },
+  masker: { 'Lepaskan Masker': 'Remove Mask' },
+  menghadapi: { 'Lepaskan Wajah': 'Remove Face' },
+  tindakan: { 'Bergabunglah dalam Penaklukan': 'Join the Conquest' }
+};
+
+let currentCategory = '';
+let selections = {
+  version: 'Android · Standar FF',
+  rambut: 'Monster Kekosongan',
+  atas: 'Tinju Baja',
+  dasar: 'Tahun Babi',
+  sepatu: 'Lepaskan Sepatu',
+  masker: 'Lepaskan Masker',
+  menghadapi: 'Lepaskan Wajah',
+  tindakan: 'Bergabunglah dalam Penaklukan'
+};
+
+let exportInterval = null;
+
+// ===== PAGE SWITCHING =====
+function switchPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.bottom-nav-item').forEach(n => n.classList.remove('active'));
+
+  if (page === 'home') {
+    document.getElementById('pageHome').classList.add('active');
+    document.getElementById('navHome').classList.add('active');
+    document.getElementById('topNav').classList.add('hidden');
+  } else {
+    document.getElementById('pageModskin').classList.add('active');
+    document.getElementById('navModskin').classList.add('active');
+    document.getElementById('topNav').classList.remove('hidden');
+  }
+  window.scrollTo(0, 0);
+}
+
+// ===== MODAL =====
+function openModal(category) {
+  currentCategory = category;
+  const titles = {
+    rambut: 'Pilih Rambut',
+    atas: 'Pilih Atas',
+    dasar: 'Pilih Dasar',
+    sepatu: 'Pilih Sepatu',
+    masker: 'Pilih Masker',
+    menghadapi: 'Pilihlah',
+    tindakan: 'Pilih Tindakan'
+  };
+  document.getElementById('modalTitle').textContent = titles[category] || 'Pilih';
+  document.getElementById('modalSearch').value = '';
+  renderItems(itemsData[category] || []);
+  document.getElementById('itemModal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('itemModal').classList.remove('active');
+}
+
+function renderItems(items) {
+  const list = document.getElementById('modalList');
+  const current = selections[currentCategory];
+  list.innerHTML = items.map(item => `
+    <div class="modal-item ${item.name === current ? 'selected' : ''}" onclick="selectItem('${item.name.replace(/'/g, "\\'")}', '${item.icon}')">
+      <div class="modal-item-icon">${item.icon}</div>
+      <span class="modal-item-name">${item.name}</span>
+    </div>
+  `).join('');
+}
+
+function filterItems() {
+  const query = document.getElementById('modalSearch').value.toLowerCase();
+  const filtered = (itemsData[currentCategory] || []).filter(item =>
+    item.name.toLowerCase().includes(query)
+  );
+  renderItems(filtered);
+}
+
+function selectItem(name, icon) {
+  selections[currentCategory] = name;
+  updateSelectionDisplay();
+  closeModal();
+}
+
+function updateSelectionDisplay() {
+  document.getElementById('selRambut').textContent = selections.rambut;
+  document.getElementById('selAtas').textContent = selections.atas;
+  document.getElementById('selDasar').textContent = selections.dasar;
+  document.getElementById('selSepatu').textContent = selections.sepatu;
+  document.getElementById('selMasker').textContent = selections.masker;
+  document.getElementById('selMenghadapi').textContent = selections.menghadapi;
+  document.getElementById('selTindakan').textContent = selections.tindakan;
+  updateSummary();
+}
+
+function updateSummary() {
+  const getEn = (cat, id) => {
+    const map = englishNames[cat] || {};
+    return map[id] || id;
+  };
+  const s = selections;
+  document.getElementById('summaryText').innerHTML =
+    `Rambut: <strong>${getEn('rambut', s.rambut)}</strong> · Atasan: <strong>${getEn('atas', s.atas)}</strong> · Bawahan: <strong>${getEn('dasar', s.dasar)}</strong> · Sepatu: <strong>${getEn('sepatu', s.sepatu)}</strong> · Topeng: <strong>${getEn('masker', s.masker)}</strong> · Wajah: <strong>${getEn('menghadapi', s.menghadapi)}</strong> · Aksi: <strong>${getEn('tindakan', s.tindakan)}</strong>`;
+}
+
+// ===== VERSION MODAL =====
+function openVersionModal() {
+  document.getElementById('versionModal').classList.add('active');
+}
+
+function closeVersionModal() {
+  document.getElementById('versionModal').classList.remove('active');
+}
+
+function selectVersion(version, el) {
+  selections.version = version;
+  document.getElementById('selVersion').textContent = version;
+  document.querySelectorAll('#versionModal .modal-item').forEach(i => i.classList.remove('selected'));
+  el.classList.add('selected');
+  setTimeout(() => closeVersionModal(), 300);
+}
+
+// ===== 3D CONTROLS =====
+let rotation = 0;
+function rotateChar() {
+  rotation += 90;
+  document.querySelector('.character-3d').style.transform = `rotateY(${rotation}deg)`;
+}
+
+function resetChar() {
+  rotation = 0;
+  document.querySelector('.character-3d').style.transform = 'rotateY(0deg)';
+}
+
+// ===== EXPORT =====
+function startExport() {
+  const modal = document.getElementById('exportModal');
+  modal.classList.add('active');
+  let progress = 0;
+  const bar = document.getElementById('exportProgressBar');
+  const percent = document.getElementById('exportPercent');
+  const stepText = document.getElementById('exportStepText');
+  const stepIcon = document.getElementById('exportStepIcon');
+
+  stepText.textContent = 'Membuat MOD...';
+  stepIcon.textContent = '◇';
+  stepIcon.classList.remove('done');
+
+  if (exportInterval) clearInterval(exportInterval);
+
+  exportInterval = setInterval(() => {
+    progress += Math.random() * 8 + 2;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(exportInterval);
+      stepText.textContent = 'Membuat MOD data... 100%';
+      stepIcon.textContent = '✓';
+      stepIcon.classList.add('done');
+    }
+    bar.style.width = progress + '%';
+    percent.textContent = Math.floor(progress) + '%';
+  }, 400);
+}
+
+function startExportAll() {
+  alert('Membuat keempat versi (Android FF, Android MAX, iOS FF, iOS MAX)...');
+  startExport();
+}
+
+function cancelExport() {
+  if (exportInterval) clearInterval(exportInterval);
+  document.getElementById('exportModal').classList.remove('active');
+  document.getElementById('exportProgressBar').style.width = '0%';
+  document.getElementById('exportPercent').textContent = '0%';
+}
+
+// ===== HAMBURGER =====
+function toggleHamburger() {
+  alert('Menu: DILZ X CONFIG\n\n• Beranda\n• Modskin Otomatis\n• Tentang\n• Kontak');
+}
+
+// Close modals on overlay click
+document.getElementById('itemModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.getElementById('versionModal').addEventListener('click', function(e) {
+  if (e.target === this) closeVersionModal();
+});
+</script>
+</body>
+</html>
