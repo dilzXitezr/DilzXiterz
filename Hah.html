@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DILZ X GAME - Joki • Top Up • Crypto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0F111A',
+                        card: '#1A1D2E',
+                        primary: '#6366F1',
+                        secondary: '#8B5CF6',
+                        accent: '#EC4899',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444',
+                        crypto: '#F3BA2F',
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .gradient-text {
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                background-image: linear-gradient(90deg, #6366F1, #EC4899);
+            }
+            .crypto-gradient {
+                background: linear-gradient(135deg, #F3BA2F, #F7931A);
+            }
+            .card-gradient {
+                background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
+            }
+            .btn-gradient {
+                background: linear-gradient(90deg, #6366F1, #8B5CF6);
+            }
+            .btn-gradient:hover {
+                background: linear-gradient(90deg, #4F46E5, #7C3AED);
+            }
+            .scroll-smooth {
+                scroll-behavior: smooth;
+            }
+        }
+
+        /* ===== ANIMASI SIDIK JARI ===== */
+        .finger-scan {
+            background: linear-gradient(180deg, transparent 0%, #ef444444 50%, transparent 100%);
+            width: 100%;
+            height: 50px;
+            position: absolute;
+            left: 0;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .finger-ring {
+            transition: all 0.3s ease;
+        }
+        .finger-icon.scanning {
+            filter: drop-shadow(0 0 8px #ef4444);
+        }
+        .finger-icon.success {
+            color: #10B981;
+            filter: drop-shadow(0 0 12px #10B981);
+        }
+        .fade-out {
+            animation: fadeOut 0.6s ease forwards;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; transform: scale(1.05); }
+        }
+        .fade-in {
+            animation: fadeIn 0.7s ease forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-dark text-white min-h-screen scroll-smooth select-none">
+
+    <!-- ============= LAYAR SIDIK JARI ============= -->
+    <div id="fingerPrintScreen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center" style="background: linear-gradient(180deg, #FEF2F2 0%, #FEE2E2 100%);">
+        <div class="relative flex flex-col items-center px-6">
+            <!-- Lingkaran Luar -->
+            <div id="fingerRing" class="relative w-56 h-56 rounded-full border-4 border-red-500/50 flex items-center justify-center mb-8">
+                <!-- Lingkaran Dalam -->
+                <div class="absolute inset-5 rounded-full border-2 border-red-400/30"></div>
+                
+                <!-- Garis Scan -->
+                <div id="scanLine" class="finger-scan hidden" style="top: 0;"></div>
+                
+                <!-- Ikon Sidik Jari -->
+                <svg id="fingerIcon" class="w-28 h-28 text-red-500 transition-all duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11c0 3.518-1.387 6.744-3.727 9.182M12 11a5 5 0 015 5c0 1.654-.623 3.153-1.644 4.277M12 11c-1.657 0-3.153-.625-4.277-1.646M12 11c1.656 0 3.153-.623 4.276-1.644M9.172 6.172A4 4 0 0112 5c1.105 0 2.105.447 2.828 1.172M12 18v2M8 22h8" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 12a6 6 0 016-6M18 12a6 6 0 00-6-6" />
+                </svg>
+            </div>
+
+            <!-- Persentase -->
+            <p id="percentText" class="text-5xl font-bold text-red-600 mb-3">0%</p>
+            
+            <!-- Status -->
+            <p id="statusText" class="text-xl font-semibold text-red-700 mb-2">TEKAN & TAHAN</p>
+            <p class="text-red-600/60 mb-8 text-center">Tahan sidik jari untuk masuk ke DILZ X GAME</p>
+            
+            <!-- Tombol Tekan & Tahan -->
+            <button id="fingerBtn" class="relative px-10 py-4 rounded-full border-2 border-red-500 text-red-600 font-bold text-lg transition-all overflow-hidden active:scale-95" style="background: linear-gradient(90deg, #FEE2E2, #FECACA);">
+                <span class="relative z-10 flex items-center gap-2">
+                    <span>✦</span>
+                    <span id="btnText">TEKAN & TAHAN</span>
+                    <span>✦</span>
+                </span>
+                <div id="btnProgress" class="absolute left-0 top-0 h-full bg-red-500/25 transition-all duration-75" style="width: 0%"></div>
+            </button>
+            
+            <p class="text-xs text-red-500/40 mt-8">Simulasi animasi sidik jari • bukan pemindai biometrik sungguhan</p>
+        </div>
+    </div>
+
+    <!-- ============= HALAMAN UTAMA ============= -->
+    <div id="mainContent" class="opacity-0 transition-opacity duration-700">
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-dark/90 backdrop-blur-md border-b border-gray-800">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <!-- Foto Profil -->
+                    <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-indigo-500">
+                        <img src="https://i.imgur.com/8ZfXQ9Y.png" alt="Profil DILZ" class="w-full h-full object-cover">
+                    </div>
+                    <div class="hidden sm:block">
+                        <h1 class="text-lg font-bold">DILZ X GAME</h1>
+                        <p class="text-xs text-green-400 flex items-center gap-1">
+                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span> ONLINE
+                        </p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center gap-4 text-sm">
+                    <a href="#joki" class="hover:text-indigo-400 transition">Joki</a>
+                    <a href="#topup" class="hover:text-indigo-400 transition">Top Up</a>
+                    <a href="#crypto" class="hover:text-yellow-400 transition">Crypto</a>
+                    <a href="#bukti" class="hover:text-indigo-400 transition">Bukti</a>
+                    <a href="#bayar" class="hover:text-indigo-400 transition">Pembayaran</a>
+                </div>
+                <a href="https://wa.me/6285720945347" target="_blank" class="bg-success/20 text-success px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-success/30 transition">
+                    <i class="fa fa-whatsapp mr-1"></i> Hubungi Kami
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 pb-20">
+        <!-- Hero Section -->
+        <section class="mt-6 mb-10">
+            <div class="card-gradient rounded-2xl p-6 border border-indigo-500/20">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-20 h-20 rounded-full overflow-hidden border-3 border-indigo-500 shadow-lg shadow-indigo-500/20">
+                        <img src="https://i.imgur.com/8ZfXQ9Y.png" alt="DILZ X GAME" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <p class="text-indigo-300 text-sm font-medium">SELAMAT DATANG!</p>
+                        <h2 class="text-2xl font-bold">DILZ X GAME</h2>
+                        <p class="text-gray-400 text-sm">Joki • Top Up • Trading & Crypto</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 mt-2 max-w-lg">
+                    Layanan Terpercaya: Joki FF/ML, Top Up Game, & Jasa Trading/Crypto. Cepat, Aman, Terpercaya!
+                </p>
+                <div class="flex flex-wrap gap-3 mt-5">
+                    <a href="#crypto" class="crypto-gradient text-black px-5 py-2.5 rounded-lg font-medium flex items-center gap-2 transition-transform hover:scale-105">
+                        <i class="fa fa-bitcoin"></i> Lihat Layanan Crypto
+                    </a>
+                    <a href="#joki" class="btn-gradient px-5 py-2.5 rounded-lg font-medium flex items-center gap-2 transition-transform hover:scale-105">
+                        <i class="fa fa-gamepad"></i> Lihat Harga Game
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============= CRYPTO & TRADING ============= -->
+        <section id="crypto" class="mb-14 scroll-mt-20">
+            <h3 class="text-2xl font-bold flex items-center gap-2 mb-6">
+                <i class="fa fa-bitcoin text-crypto"></i> Layanan Trading & Crypto
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+                <!-- Sinyal Trading -->
+                <div class="bg-card rounded-xl p-5 border border-yellow-500/30">
+                    <div class="w-12 h-12 rounded-lg crypto-gradient flex items-center justify-center text-2xl mb-4">
+                        <i class="fa fa-line-chart text-black"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-yellow-400 mb-3">📈 Sinyal Trading VIP</h4>
+                    <p class="text-gray-400 text-sm mb-4">Dapatkan analisis & sinyal harian dari kami. Akurasi tinggi!</p>
+                    <div class="space-y-2 text-sm mb-4">
+                        <div class="flex justify-between p-2 bg-gray-800/50 rounded">
+                            <span>1 Minggu Akses</span>
+                            <span class="font-bold">Rp 50.000</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-800/50 rounded">
+                            <span>1 Bulan Akses</span>
+                            <span class="font-bold">Rp 150.000</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-yellow-500/10 rounded">
+                            <span>Selamanya</span>
+                            <span class="font-bold text-yellow-400">Rp 500.000</span>
+                        </div>
+                    </div>
+                    <button class="w-full crypto-gradient text-black py-2 rounded-lg text-sm font-medium hover:opacity-90 transition" onclick="kirimWA('Halo Kak, saya mau langganan Sinyal Trading VIP')">
+                        Pesan Sekarang
+                    </button>
+                </div>
+
+                <!-- Jual Beli Crypto -->
+                <div class="bg-card rounded-xl p-5 border border-yellow-500/30">
+                    <div class="w-12 h-12 rounded-lg crypto-gradient flex items-center justify-center text-2xl mb-4">
+                        <i class="fa fa-exchange text-black"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-yellow-400 mb-3">💱 Jual Beli Crypto</h4>
+                    <p class="text-gray-400 text-sm mb-4">Beli/Jual USDT, BTC, BNB dengan harga terbaik & proses cepat!</p>
+                    <div class="space-y-2 text-sm mb-4">
+                        <div class="p-2 bg-green-500/10 rounded">
+                            <p class="text-green-400 font-medium">✅ Beli: USDT / BTC / BNB</p>
+                            <p class="text-gray-400 text-xs">Min. Rp 100.000 — Proses ±5 menit</p>
+                        </div>
+                        <div class="p-2 bg-blue-500/10 rounded">
+                            <p class="text-blue-400 font-medium">✅ Jual: USDT / BTC / BNB</p>
+                            <p class="text-gray-400 text-xs">Min. 50 USDT — Transfer ke Rekening</p>
+                        </div>
+                    </div>
+                    <button class="w-full crypto-gradient text-black py-2 rounded-lg text-sm font-medium hover:opacity-90 transition" onclick="kirimWA('Halo Kak, saya mau tanya Jual Beli Crypto')">
+                        Hubungi Admin
+                    </button>
+                </div>
+            </div>
+
+            <!-- Info Pasar Crypto -->
+            <div class="bg-card rounded-xl p-5 border border-gray-800 mb-6">
+                <h4 class="text-lg font-bold mb-4 flex items-center gap-2">
+                    <i class="fa fa-area-chart text-crypto"></i> Harga Pasar Crypto
+                </h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="text-gray-400 border-b border-gray-700">
+                                <th class="text-left py-2">Koin</th>
+                                <th class="text-right py-2">Harga</th>
+                                <th class="text-right py-2">24 Jam</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-800">
+                                <td class="py-3 font-medium">₿ Bitcoin (BTC)</td>
+                                <td class="text-right">Rp 94.383.100</td>
+                                <td class="text-right text-success">+3.48%</td>
+                            </tr>
+                            <tr class="border-b border-gray-800">
+                                <td class="py-3 font-medium">Ξ Ethereum (ETH)</td>
+                                <td class="text-right">Rp 5.245.000</td>
+                                <td class="text-right text-danger">-1.25%</td>
+                            </tr>
+                            <tr class="border-b border-gray-800">
+                                <td class="py-3 font-medium">₮ Tether (USDT)</td>
+                                <td class="text-right">Rp 16.450</td>
+                                <td class="text-right text-success">+0.01%</td>
+                            </tr>
+                            <tr>
+                                <
