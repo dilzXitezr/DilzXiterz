@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dilz Business - Innovative Digital Solutions</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0d1117;
+      color: #e6edf3;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* --- ANIMASI LOADING SCREEN --- */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #090d16;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .skip-btn {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      padding: 8px 18px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #30363d;
+      color: #58a6ff;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .skip-btn:hover {
+      background: #58a6ff;
+      color: #0d1117;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(88, 166, 255, 0.2);
+      border-top: 5px solid #58a6ff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 18px;
+      letter-spacing: 1.5px;
+      color: #c9d1d9;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* --- KONTEN UTAMA --- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 8%;
+      background: rgba(22, 27, 34, 0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: #58a6ff;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #c9d1d9;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #58a6ff;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 80vh;
+      padding: 0 20px;
+      background: radial-gradient(circle at center, #1f293d 0%, #0d1117 70%);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #ffffff;
+    }
+
+    .hero h1 span {
+      color: #58a6ff;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #8b949e;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      padding: 12px 28px;
+      background-color: #238636;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #2ea043;
+    }
+
+    .services {
+      padding: 60px 8%;
+      text-align: center;
+    }
+
+    .services h2 {
+      font-size: 32px;
+      margin-bottom: 40px;
+      color: #ffffff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #161b22;
+      padding: 30px;
+      border-radius: 8px;
+      border: 1px solid #30363d;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #58a6ff;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #58a6ff;
+    }
+
+    .card p {
+      color: #8b949e;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #30363d;
+      color: #8b949e;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING SCREEN ANIMATION -->
+  <div id="loading-screen">
+    <button class="skip-btn" onclick="closeLoading()">Lewati</button>
+    <div class="spinner"></div>
+    <div class="loading-text">Harap tunggu dulu...</div>
+  </div>
+
+  <!-- MAIN WEBSITE CONTENT -->
+  <header>
+    <div class="logo">DILZ BUSINESS</div>
+    <nav>
+      <ul>
+        <li><a href="#home">Beranda</a></li>
+        <li><a href="#services">Layanan</a></li>
+        <li><a href="#contact">Kontak</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h1>Solusi Digital Bersama <span>Dilz Business</span></h1>
+    <p>Kami membantu mengembangkan potensi bisnis Anda melalui teknologi terdepan, efisien, dan profesional.</p>
+    <button class="btn" onclick="alert('Terima kasih telah menghubungi Dilz Business!')">Hubungi Kami</button>
+  </section>
+
+  <section class="services" id="services">
+    <h2>Layanan Kami</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Pengembangan Web</h3>
+        <p>Membuat website bisnis modern, responsif, dan siap membantu pemasaran produk Anda.</p>
+      </div>
+      <div class="card">
+        <h3>Konsultasi Digital</h3>
+        <p>Strategi transformasi digital untuk meningkatkan efisiensi dan jangkauan bisnis.</p>
+      </div>
+      <div class="card">
+        <h3>Desain UI/UX</h3>
+        <p>Perancangan antarmuka aplikasi dan web yang intuitif dan nyaman untuk pengguna.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Dilz Business. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Fungsi untuk menutup layar loading
+    function closeLoading() {
+      const loader = document.getElementById('loading-screen');
+      loader.style.opacity = '0';
+      loader.style.visibility = 'hidden';
+    }
+
+    // Secara otomatis menutup loading screen setelah 4 detik
+    window.addEventListener('load', () => {
+      setTimeout(closeLoading, 4000);
+    });
+  </script>
+
+</body>
+</html>
